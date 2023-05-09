@@ -22,34 +22,12 @@
 <body>
 
 <header class="section-header">
-
-    <nav class="navbar navbar-dark navbar-expand p-0 bg-primary">
-        <div class="container">
-            <ul class="navbar-nav d-none d-md-flex mr-auto">
-                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Delivery</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Payment</a></li>
-            </ul>
-            <ul class="navbar-nav">
-                <li  class="nav-item"><a href="#" class="nav-link"> Call: +0000000000 </a></li>
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"> English </a>
-                    <ul class="dropdown-menu dropdown-menu-right" style="max-width: 100px;">
-                        <li><a class="dropdown-item" href="#">Arabic</a></li>
-                        <li><a class="dropdown-item" href="#">Russian </a></li>
-                    </ul>
-                </li>
-            </ul> <!-- list-inline //  -->
-
-        </div> <!-- container //  -->
-    </nav> <!-- header-top-light.// -->
-
     <section class="header-main border-bottom">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-2 col-6">
                     <a href="#" class="brand-wrap">
-                        Company Name
+                        Imagine Shirt
                     </a> <!-- brand-wrap.// -->
                 </div>
                 <div class="col-lg-6 col-12 col-sm-12">
@@ -75,7 +53,7 @@
                             <div class="text">
                                 <span class="text-muted">Welcome!</span>
                                 <div>
-                                    <a href="#">Sign in</a> |
+                                    <a href="#">Login</a> |
                                     <a href="#"> Register</a>
                                 </div>
                             </div>
@@ -108,25 +86,16 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Fashion</a>
+                        <a class="nav-link" href="#">TShirts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Supermarket</a>
+                        <a class="nav-link" href="#">Sweatshirts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Electronics</a>
+                        <a class="nav-link" href="#">Trainers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Baby &amp Toys</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Fitness sport</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Clothing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Furnitures</a>
+                        <a class="nav-link" href="#">Acessories</a>
                     </li>
                 </ul>
             </div> <!-- collapse .// -->
@@ -142,7 +111,7 @@
     <div class="container">
 
         <div class="intro-banner-wrap">
-            <img src="assets/images/1.jpg" class="img-fluid rounded">
+            <img src="assets/images/banner.png" class="img-fluid rounded">
         </div>
 
     </div> <!-- container //  -->
@@ -150,49 +119,7 @@
 <!-- ========================= SECTION INTRO END// ========================= -->
 
 
-<!-- ========================= SECTION FEATURE ========================= -->
-<section class="section-content padding-y-sm">
-    <div class="container">
-        <article class="card card-body">
 
-
-            <div class="row">
-                <div class="col-md-4">
-                    <figure class="item-feature">
-                        <span class="text-primary"><i class="fa fa-2x fa-truck"></i></span>
-                        <figcaption class="pt-3">
-                            <h5 class="title">Fast delivery</h5>
-                            <p>Dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore </p>
-                        </figcaption>
-                    </figure> <!-- iconbox // -->
-                </div><!-- col // -->
-                <div class="col-md-4">
-                    <figure  class="item-feature">
-                        <span class="text-primary"><i class="fa fa-2x fa-landmark"></i></span>
-                        <figcaption class="pt-3">
-                            <h5 class="title">Creative Strategy</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            </p>
-                        </figcaption>
-                    </figure> <!-- iconbox // -->
-                </div><!-- col // -->
-                <div class="col-md-4">
-                    <figure  class="item-feature">
-                        <span class="text-primary"><i class="fa fa-2x fa-lock"></i></span>
-                        <figcaption class="pt-3">
-                            <h5 class="title">High secured </h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            </p>
-                        </figcaption>
-                    </figure> <!-- iconbox // -->
-                </div> <!-- col // -->
-            </div>
-        </article>
-
-    </div> <!-- container .//  -->
-</section>
-<!-- ========================= SECTION FEATURE END// ========================= -->
 
 
 <!-- ========================= SECTION CONTENT ========================= -->
@@ -450,71 +377,49 @@
 </section>
 <!-- ========================= SECTION CONTENT END// ========================= -->
 
-<!-- ========================= SECTION  ========================= -->
-<section class="section-name bg padding-y-sm">
+<!-- ========================= SECTION FEATURE ========================= -->
+<section class="section-content padding-y-sm">
     <div class="container">
-        <header class="section-heading">
-            <h3 class="section-title">Our Brands</h3>
-        </header><!-- sect-heading -->
+        <article class="card card-body">
 
-        <div class="row">
-            <div class="col-md-2 col-6">
-                <figure class="box item-logo">
-                    <a href="#"><img src="assets/images/logos/logo1.png"></a>
-                    <figcaption class="border-top pt-2">36 Products</figcaption>
-                </figure> <!-- item-logo.// -->
-            </div> <!-- col.// -->
-            <div class="col-md-2  col-6">
-                <figure class="box item-logo">
-                    <a href="#"><img src="assets/images/logos/logo2.png"></a>
-                    <figcaption class="border-top pt-2">980 Products</figcaption>
-                </figure> <!-- item-logo.// -->
-            </div> <!-- col.// -->
-            <div class="col-md-2  col-6">
-                <figure class="box item-logo">
-                    <a href="#"><img src="assets/images/logos/logo3.png"></a>
-                    <figcaption class="border-top pt-2">25 Products</figcaption>
-                </figure> <!-- item-logo.// -->
-            </div> <!-- col.// -->
-            <div class="col-md-2  col-6">
-                <figure class="box item-logo">
-                    <a href="#"><img src="assets/images/logos/logo4.png"></a>
-                    <figcaption class="border-top pt-2">72 Products</figcaption>
-                </figure> <!-- item-logo.// -->
-            </div> <!-- col.// -->
-            <div class="col-md-2  col-6">
-                <figure class="box item-logo">
-                    <a href="#"><img src="assets/images/logos/logo5.png"></a>
-                    <figcaption class="border-top pt-2">41 Products</figcaption>
-                </figure> <!-- item-logo.// -->
-            </div> <!-- col.// -->
-            <div class="col-md-2  col-6">
-                <figure class="box item-logo">
-                    <a href="#"><img src="assets/images/logos/logo2.png"></a>
-                    <figcaption class="border-top pt-2">12 Products</figcaption>
-                </figure> <!-- item-logo.// -->
-            </div> <!-- col.// -->
-        </div> <!-- row.// -->
-    </div><!-- container // -->
+
+            <div class="row">
+                <div class="col-md-4">
+                    <figure class="item-feature">
+                        <span class="text-primary"><i class="fa fa-2x fa-truck"></i></span>
+                        <figcaption class="pt-3">
+                            <h5 class="title">Fast delivery</h5>
+                            <p>Dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore </p>
+                        </figcaption>
+                    </figure> <!-- iconbox // -->
+                </div><!-- col // -->
+                <div class="col-md-4">
+                    <figure  class="item-feature">
+                        <span class="text-primary"><i class="fa fa-2x fa-landmark"></i></span>
+                        <figcaption class="pt-3">
+                            <h5 class="title">Creative Strategy</h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            </p>
+                        </figcaption>
+                    </figure> <!-- iconbox // -->
+                </div><!-- col // -->
+                <div class="col-md-4">
+                    <figure  class="item-feature">
+                        <span class="text-primary"><i class="fa fa-2x fa-lock"></i></span>
+                        <figcaption class="pt-3">
+                            <h5 class="title">High secured </h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            </p>
+                        </figcaption>
+                    </figure> <!-- iconbox // -->
+                </div> <!-- col // -->
+            </div>
+        </article>
+
+    </div> <!-- container .//  -->
 </section>
-<!-- ========================= SECTION  END// ========================= -->
-
-
-
-<!-- ========================= SECTION  ========================= -->
-<section class="section-name padding-y">
-    <div class="container">
-
-        <h3 class="mb-3">Download app demo text</h3>
-
-        <a href="#"><img src="assets/images/misc/appstore.png" height="40"></a>
-        <a href="#"><img src="assets/images/misc/appstore.png" height="40"></a>
-
-    </div><!-- container // -->
-</section>
-<!-- ========================= SECTION  END// ======================= -->
-
-
+<!-- ========================= SECTION FEATURE END// ========================= -->
 
 
 <!-- ========================= FOOTER ========================= -->
