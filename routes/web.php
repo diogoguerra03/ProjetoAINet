@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Mail\LaravelSMTPConfiguration;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
