@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Mail\LaravelSMTPConfiguration;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,5 +24,9 @@ use Illuminate\Support\Facades\Route;
 Auth::routes([
   'verify' => true,
 ]);
+
+Route::get('/testroute', function() {
+    Mail::to('noah@example.com')->send(new LaravelSMTPConfiguration());
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
