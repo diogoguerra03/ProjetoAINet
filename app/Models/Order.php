@@ -11,14 +11,14 @@ class Order extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'status', 
-        'customer_id', 
+        'status',
+        'customer_id',
         'date',
         'total_price',
         'notes',
         'nif',
         'address',
-        'payment_type'
+        'payment_type',
         'payment_ref',
         'receipt_url'
     ];
@@ -28,8 +28,8 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
-    public function customer(): BelongsTo 
+    public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);
-    } 
+    }
 }

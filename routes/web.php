@@ -15,15 +15,14 @@ use Illuminate\Support\Facades\Mail;
 |
 */
 
- Route::get('/', function () {
-     return view('welcome');
- });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 //Route::view('/', 'home')->name('root');
 
 Auth::routes([
-  'verify' => true,
+    'verify' => true,
 ]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
