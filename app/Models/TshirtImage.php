@@ -7,13 +7,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 class TshirtImage extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $dates = ['deleted_at'];
-    // timestamps por default é true
-
+    
     protected $fillable = [
         'customer_id',
         'category_id',
@@ -35,13 +34,17 @@ class TshirtImage extends Model
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class, 'category_id', 'id'); // FK, PK
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
+    public function getImageUrlAttribute($value)
+    {
+        return Storage::url('tshirt_images/' . $value);
+        
+    }
 
     public function getExtraInfoAttribute($value)
     {
         return json_decode($value);
     }
-
 }

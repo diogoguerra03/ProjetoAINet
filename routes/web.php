@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\TshirtImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +36,8 @@ Route::resource('orders', OrderController::class);
 Route::resource('customers', CustomerController::class);
 
 Route::resource('categories', CategorieController::class);
+
+Route::resource('catalog', TshirtImageController::class);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
