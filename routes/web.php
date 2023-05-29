@@ -5,7 +5,6 @@ use App\Mail\LaravelSMTPConfiguration;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\TshirtImageController;
 
 /*
@@ -35,9 +34,11 @@ Route::resource('orders', OrderController::class);
 
 Route::resource('customers', CustomerController::class);
 
-Route::resource('categories', CategorieController::class);
+Route::get('/catalog', [TshirtImageController::class, 'index'])->name('catalog');
 
-Route::resource('catalog', TshirtImageController::class);
+Route::get('/catalog/filter', [TshirtImageController::class, 'index'])->name('filter');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
