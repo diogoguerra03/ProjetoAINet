@@ -34,9 +34,7 @@ Route::resource('orders', OrderController::class);
 
 Route::resource('customers', CustomerController::class);
 
-Route::get('/catalog', [TshirtImageController::class, 'index'])->name('catalog');
-
-Route::get('/catalog/filter', [TshirtImageController::class, 'index'])->name('filter');
+Route::resource('catalog', TshirtImageController::class);
 
 Auth::routes();
 
