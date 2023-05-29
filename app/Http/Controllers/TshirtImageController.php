@@ -16,13 +16,18 @@ class TshirtImageController extends Controller
     {
         $categories = Category::all();
         $filterByCategory = $request->category ?? '';
+        $filterByNome = $request->nome ?? '';
         $tshirtQuery = TshirtImage::query();
 
         if ($filterByCategory !== '') {
             $tshirtQuery = $tshirtQuery->where('category_id', $filterByCategory);
         }
+        if ($filterByNome !== '') {
+            $imagesId = TshirtImage::where('name', 'like', "%$filterByNome%")->pluck('id'); // pluck retorna um array com os ids
+            $tshirtQuery->whereIntegerInRaw('id', $imagesId);
+        }
 
         $tshirtImages = $tshirtQuery->with('category')->paginate(20);
-        return view('catalog.index', compact('tshirtImages', 'categories', 'filterByCategory'));
+        return view('catalog.index', compact('tshirtImages', 'categories', 'filterByCategory', 'filterByNome'));
     }
 }
