@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TshirtImageController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,3 +41,21 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
+
+/*
+ *   CARRINHO
+*/
+
+// Add a "tshirt" to the cart:
+Route::post('cart/{orderItem}', [CartController::class, 'addToCart'])
+    ->name('cart.add');
+// Remove a "tshirt" from the cart:
+Route::delete('cart/{orderItem}', [CartController::class, 'removeFromCart'])
+    ->name('cart.remove');
+// Show the cart:
+Route::get('cart', [CartController::class, 'show'])->name('cart.show');
+// Confirm (store) the cart and save tshirts registration on the database:
+Route::post('cart', [CartController::class, 'store'])->name('cart.store');
+// Clear the cart:
+Route::delete('cart', [CartController::class, 'destroy'])->name('cart.destroy');
