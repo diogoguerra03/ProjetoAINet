@@ -18,7 +18,7 @@ class TshirtImageController extends Controller
         $filterByCategory = $request->category ?? '';
         $filterByName = $request->name ?? '';
         $filterByDescription = $request->description ?? '';
-        $tshirtQuery = TshirtImage::query();
+        $tshirtQuery = TshirtImage::whereNull('customer_id')->whereNull('deleted_at');
         $orderBy = $request->orderBy ?? 'created_at'; // Ordenação padrão
 
         if ($filterByCategory !== '') {
