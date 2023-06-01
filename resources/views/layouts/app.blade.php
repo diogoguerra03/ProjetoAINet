@@ -124,13 +124,13 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link"
-                                href="\">Página Inicial</a>
+                                href="\">Main Menu</a>
                     </li>
                     <li class="nav-item">
-                                <a class="nav-link" href="\catalog">Catálogo</a>
+                                <a class="nav-link" href="\catalog">Catalog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Sobre Nós</a>
+                            <a class="nav-link" href="#">About Us</a>
                         </li>
                     </ul>
                 </div> <!-- collapse .// -->
@@ -200,12 +200,12 @@
 
             <section class="footer-bottom row">
                 <div class="col-md-2">
-                    <p class="text-muted"> 2021 Company name </p>
+                    <p class="text-muted"> 2023 Imagine Shirt </p>
                 </div>
                 <div class="col-md-8 text-md-center">
-                    <span class="px-2">info@com</span>
-                    <span class="px-2">+000-000-0000</span>
-                    <span class="px-2">Street name 123, ABC</span>
+                    <span class="px-2">imagineshirt@vski.com</span>
+                    <span class="px-2">+351 932 183 921</span>
+                    <span class="px-2">Rua do Tiagovski 32, RCºE</span>
                 </div>
                 <div class="col-md-2 text-md-right text-muted">
                     <i class="fab fa-lg fa-cc-visa"></i>

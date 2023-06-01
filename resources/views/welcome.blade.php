@@ -30,10 +30,10 @@
             @foreach($popularProducts as $product)
             <div class="col-md-3 mb-4">
                 <div class="card h-100">
-                    <img src="{{ $product->image_url }}" alt="Product Image">
+                    <img class="card-img-top tshirt-image img-fluid mx-auto d-block image-container" src="{{ $product->image_url }}" alt="Product Image">
                     <div class="card-body d-flex flex-column">
-                        <p>{{ $product->name }}</p>
-                        <p>{{ $product->description }}</p>
+                        <h5 class="card-title">{{ $product->name }}</h5>
+                        <p class="card-text">{{ $product->description }}</p>
                         <a href="#" class="btn btn-primary mt-auto">Add to Cart</a>
                     </div>
                 </div>
@@ -57,10 +57,10 @@
             @foreach($newArrivals as $product)
             <div class="col-md-3 mb-4">
                 <div class="card h-100">
-                    <img src="{{ $product->image_url }}" alt="Product Image">
+                    <img class="card-img-top tshirt-image img-fluid mx-auto d-block image-container" src="{{ $product->image_url }}" alt="Product Image">
                     <div class="card-body d-flex flex-column">
-                        <p>{{ $product->name }}</p>
-                        <p>{{ $product->description }}</p>
+                        <h5 class="card-title">{{ $product->name }}</h5>
+                        <p class="card-text">{{ $product->description }}</p>
                         <a href="#" class="btn btn-primary mt-auto">Add to Cart</a>
                     </div>
                 </div>
