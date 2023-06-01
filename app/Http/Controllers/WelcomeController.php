@@ -9,15 +9,9 @@ class WelcomeController extends Controller
 {
     public function index()
     {
-        $tshirtImage1 = TshirtImage::inRandomOrder()->limit(1)->get();
-        $tshirtImage2 = TshirtImage::inRandomOrder()->limit(1)->get();
-        $tshirtImage3 = TshirtImage::inRandomOrder()->limit(1)->get();
-        $tshirtImage4 = TshirtImage::inRandomOrder()->limit(1)->get();
-        $tshirtImage5 = TshirtImage::inRandomOrder()->limit(1)->get();
-        $tshirtImage6 = TshirtImage::inRandomOrder()->limit(1)->get();
-        $tshirtImage7 = TshirtImage::inRandomOrder()->limit(1)->get();
-        $tshirtImage8 = TshirtImage::inRandomOrder()->limit(1)->get();
+        $popularProducts = TshirtImage::inRandomOrder()->whereNull('customer_id')->whereNull('deleted_at')->take(4)->get();
+        $newArrivals = TshirtImage::orderBy('created_at', 'desc')->whereNull('customer_id')->whereNull('deleted_at')->take(4)->get();
 
-        return view('welcome', compact('tshirtImage1', 'tshirtImage2', 'tshirtImage3', 'tshirtImage4', 'tshirtImage5', 'tshirtImage6', 'tshirtImage7', 'tshirtImage8'));
+        return view('welcome', compact('popularProducts', 'newArrivals'));
     }
 }
