@@ -55,7 +55,7 @@
                                 <a href="{{ route('cart.show') }}"
                                     class="icon icon-sm rounded-circle border nav-link {{ Route::currentRouteName() == 'cart.show' ? 'active' : '' }}"><i
                                         class="fa fa-shopping-cart"></i></a>
-                                <span class="badge badge-pill badge-danger notify">0</span>
+                                <span class="badge badge-pill badge-danger notify">{{ count(session('cart', [])) }}</span>
                             </div>
 
                             <div class="widget-header icontext">
@@ -127,10 +127,10 @@
                                 href="\">Página Inicial</a>
                     </li>
                     <li class="nav-item">
-                                <a class="nav-link" href="\catalog">TShirts</a>
+                                <a class="nav-link" href="\catalog">Catálogo</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">About us</a>
+                            <a class="nav-link" href="#">Sobre Nós</a>
                         </li>
                     </ul>
                 </div> <!-- collapse .// -->
