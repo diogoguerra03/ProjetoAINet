@@ -202,29 +202,31 @@
                         <span class="text-primary"><i class="fa fa-2x fa-truck"></i></span>
                         <figcaption class="pt-3">
                             <h5 class="title">Fast delivery</h5>
-                            <p>Dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore </p>
+                            <p>Get your products delivered quickly with our fast and efficient shipping service.</p>
                         </figcaption>
                     </figure> <!-- iconbox // -->
                 </div><!-- col // -->
                 <div class="col-md-4">
-                    <figure  class="item-feature">
+                    <figure class="item-feature">
                         <span class="text-primary"><i class="fa fa-2x fa-landmark"></i></span>
                         <figcaption class="pt-3">
                             <h5 class="title">Creative Strategy</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            </p>
+                            <p>Experience innovative and creative strategies to meet your unique needs.</p>
                         </figcaption>
                     </figure> <!-- iconbox // -->
                 </div><!-- col // -->
                 <div class="col-md-4">
-                    <figure  class="item-feature">
+                    <figure class="item-feature">
                         <span class="text-primary"><i class="fa fa-2x fa-lock"></i></span>
                         <figcaption class="pt-3">
-                            <h5 class="title">High secured </h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            </p>
+                            <h5 class="title">High security</h5>
+                            <p>Rest assured knowing that your information and transactions are highly secured.</p>
                         </figcaption>
+                    </figure> <!-- iconbox // -->
+                </div><!-- col // -->
+            </div>
+
+            </figcaption>
                     </figure> <!-- iconbox // -->
                 </div> <!-- col // -->
             </div>
