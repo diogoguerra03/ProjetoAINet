@@ -28,90 +28,74 @@
 
 
         <div class="row">
-            <div class="col-md-3">
-                <div href="#" class="card card-product-grid">
-                    <a href="#" class="img-wrap"> <img src="assets/images/items/1.jpg"> </a>
-                    <figcaption class="info-wrap">
-                        <a href="#" class="title">Just another product name</a>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    @foreach($tshirtImage1 as $tshirtImage)
+                        <img src="{{ $tshirtImage->image_url }}" alt="T-Shirt Image">
+                    @endforeach
+                    <div class="card-body d-flex flex-column">
+                        @foreach($tshirtImage1 as $tshirtImage)
+                            <p>{{ $tshirtImage->name }}</p>
+                        @endforeach
+                        @foreach($tshirtImage1 as $tshirtImage)
+                            <p>{{ $tshirtImage->description }}</p>
+                        @endforeach
+                            <a href="#" class="btn btn-primary mt-auto">Adicionar ao Carrinho</a>
+                    </div>
 
-                        <div class="rating-wrap">
-                            <ul class="rating-stars">
-                                <li style="width:80%" class="stars-active">
-                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                </li>
-                                <li>
-                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                </li>
-                            </ul>
-                            <span class="label-rating text-muted"> 34 reviws</span>
-                        </div>
-                        <div class="price mt-1">$179.00</div> <!-- price-wrap.// -->
-                    </figcaption>
                 </div>
-            </div> <!-- col.// -->
-            <div class="col-md-3">
-                <div href="#" class="card card-product-grid">
-                    <a href="#" class="img-wrap"> <img src="assets/images/items/2.jpg"> </a>
-                    <figcaption class="info-wrap">
-                        <a href="#" class="title">Some item name here</a>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    @foreach($tshirtImage2 as $tshirtImage)
+                        <img src="{{ $tshirtImage->image_url }}" alt="T-Shirt Image">
+                    @endforeach
+                    <div class="card-body d-flex flex-column">
+                        @foreach($tshirtImage2 as $tshirtImage)
+                            <p>{{ $tshirtImage->name }}</p>
+                        @endforeach
+                        @foreach($tshirtImage2 as $tshirtImage)
+                            <p>{{ $tshirtImage->description }}</p>
+                        @endforeach
+                        <a href="#" class="btn btn-primary mt-auto">Adicionar ao Carrinho</a>
+                    </div>
 
-                        <div class="rating-wrap">
-                            <ul class="rating-stars">
-                                <li style="width:80%" class="stars-active">
-                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                </li>
-                                <li>
-                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                </li>
-                            </ul>
-                            <span class="label-rating text-muted"> 34 reviws</span>
-                        </div>
-                        <div class="price mt-1">$280.00</div> <!-- price-wrap.// -->
-                    </figcaption>
                 </div>
-            </div> <!-- col.// -->
-            <div class="col-md-3">
-                <div href="#" class="card card-product-grid">
-                    <a href="#" class="img-wrap"> <img src="assets/images/items/3.jpg"> </a>
-                    <figcaption class="info-wrap">
-                        <a href="#" class="title">Great product name here</a>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    @foreach($tshirtImage3 as $tshirtImage)
+                        <img src="{{ $tshirtImage->image_url }}" alt="T-Shirt Image">
+                    @endforeach
+                    <div class="card-body d-flex flex-column">
+                        @foreach($tshirtImage3 as $tshirtImage)
+                            <p>{{ $tshirtImage->name }}</p>
+                        @endforeach
+                        @foreach($tshirtImage3 as $tshirtImage)
+                            <p>{{ $tshirtImage->description }}</p>
+                        @endforeach
+                        <a href="#" class="btn btn-primary mt-auto">Adicionar ao Carrinho</a>
+                    </div>
 
-                        <div class="rating-wrap">
-                            <ul class="rating-stars">
-                                <li style="width:80%" class="stars-active">
-                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                </li>
-                                <li>
-                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                </li>
-                            </ul>
-                            <span class="label-rating text-muted"> 34 reviws</span>
-                        </div>
-                        <div class="price mt-1">$56.00</div> <!-- price-wrap.// -->
-                    </figcaption>
                 </div>
-            </div> <!-- col.// -->
-            <div class="col-md-3">
-                <div href="#" class="card card-product-grid">
-                    <a href="#" class="img-wrap"> <img src="assets/images/items/4.jpg"> </a>
-                    <figcaption class="info-wrap">
-                        <a href="#" class="title">Just another product name</a>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    @foreach($tshirtImage4 as $tshirtImage)
+                        <img src="{{ $tshirtImage->image_url }}" alt="T-Shirt Image">
+                    @endforeach
+                    <div class="card-body d-flex flex-column">
+                        @foreach($tshirtImage4 as $tshirtImage)
+                            <p>{{ $tshirtImage->name }}</p>
+                        @endforeach
+                        @foreach($tshirtImage4 as $tshirtImage)
+                            <p>{{ $tshirtImage->description }}</p>
+                        @endforeach
+                        <a href="#" class="btn btn-primary mt-auto">Adicionar ao Carrinho</a>
+                    </div>
 
-                        <div class="rating-wrap">
-                            <ul class="rating-stars">
-                                <li style="width:80%" class="stars-active">
-                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                </li>
-                                <li>
-                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                </li>
-                            </ul>
-                            <span class="label-rating text-muted"> 34 reviws</span>
-                        </div>
-                        <div class="price mt-1">$179.00</div> <!-- price-wrap.// -->
-                    </figcaption>
                 </div>
-            </div> <!-- col.// -->
+            </div>
         </div> <!-- row.// -->
 
     </div> <!-- container .//  -->
@@ -129,90 +113,74 @@
         </header><!-- sect-heading -->
 
         <div class="row">
-            <div class="col-md-3">
-                <div href="#" class="card card-product-grid">
-                    <a href="#" class="img-wrap"> <img src="assets/images/items/5.jpg"> </a>
-                    <figcaption class="info-wrap">
-                        <a href="#" class="title">Just another product name</a>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    @foreach($tshirtImage5 as $tshirtImage)
+                        <img src="{{ $tshirtImage->image_url }}" alt="T-Shirt Image">
+                    @endforeach
+                    <div class="card-body d-flex flex-column">
+                        @foreach($tshirtImage5 as $tshirtImage)
+                            <p>{{ $tshirtImage->name }}</p>
+                        @endforeach
+                        @foreach($tshirtImage5 as $tshirtImage)
+                            <p>{{ $tshirtImage->description }}</p>
+                        @endforeach
+                        <a href="#" class="btn btn-primary mt-auto">Adicionar ao Carrinho</a>
+                    </div>
 
-                        <div class="rating-wrap">
-                            <ul class="rating-stars">
-                                <li style="width:80%" class="stars-active">
-                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                </li>
-                                <li>
-                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                </li>
-                            </ul>
-                            <span class="label-rating text-muted"> 34 reviws</span>
-                        </div>
-                        <div class="price mt-1">$179.00</div> <!-- price-wrap.// -->
-                    </figcaption>
                 </div>
-            </div> <!-- col.// -->
-            <div class="col-md-3">
-                <div href="#" class="card card-product-grid">
-                    <a href="#" class="img-wrap"> <img src="assets/images/items/6.jpg"> </a>
-                    <figcaption class="info-wrap">
-                        <a href="#" class="title">Some item name here</a>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    @foreach($tshirtImage6 as $tshirtImage)
+                        <img src="{{ $tshirtImage->image_url }}" alt="T-Shirt Image">
+                    @endforeach
+                    <div class="card-body d-flex flex-column">
+                        @foreach($tshirtImage6 as $tshirtImage)
+                            <p>{{ $tshirtImage->name }}</p>
+                        @endforeach
+                        @foreach($tshirtImage6 as $tshirtImage)
+                            <p>{{ $tshirtImage->description }}</p>
+                        @endforeach
+                        <a href="#" class="btn btn-primary mt-auto">Adicionar ao Carrinho</a>
+                    </div>
 
-                        <div class="rating-wrap">
-                            <ul class="rating-stars">
-                                <li style="width:80%" class="stars-active">
-                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                </li>
-                                <li>
-                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                </li>
-                            </ul>
-                            <span class="label-rating text-muted"> 34 reviws</span>
-                        </div>
-                        <div class="price mt-1">$280.00</div> <!-- price-wrap.// -->
-                    </figcaption>
                 </div>
-            </div> <!-- col.// -->
-            <div class="col-md-3">
-                <div href="#" class="card card-product-grid">
-                    <a href="#" class="img-wrap"> <img src="assets/images/items/7.jpg"> </a>
-                    <figcaption class="info-wrap">
-                        <a href="#" class="title">Great product name here</a>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    @foreach($tshirtImage7 as $tshirtImage)
+                        <img src="{{ $tshirtImage->image_url }}" alt="T-Shirt Image">
+                    @endforeach
+                    <div class="card-body d-flex flex-column">
+                        @foreach($tshirtImage7 as $tshirtImage)
+                            <p>{{ $tshirtImage->name }}</p>
+                        @endforeach
+                        @foreach($tshirtImage7 as $tshirtImage)
+                            <p>{{ $tshirtImage->description }}</p>
+                        @endforeach
+                        <a href="#" class="btn btn-primary mt-auto">Adicionar ao Carrinho</a>
+                    </div>
 
-                        <div class="rating-wrap">
-                            <ul class="rating-stars">
-                                <li style="width:80%" class="stars-active">
-                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                </li>
-                                <li>
-                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                </li>
-                            </ul>
-                            <span class="label-rating text-muted"> 34 reviws</span>
-                        </div>
-                        <div class="price mt-1">$56.00</div> <!-- price-wrap.// -->
-                    </figcaption>
                 </div>
-            </div> <!-- col.// -->
-            <div class="col-md-3">
-                <div href="#" class="card card-product-grid">
-                    <a href="#" class="img-wrap"> <img src="assets/images/items/9.jpg"> </a>
-                    <figcaption class="info-wrap">
-                        <a href="#" class="title">Just another product name</a>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    @foreach($tshirtImage8 as $tshirtImage)
+                        <img src="{{ $tshirtImage->image_url }}" alt="T-Shirt Image">
+                    @endforeach
+                    <div class="card-body d-flex flex-column">
+                        @foreach($tshirtImage8 as $tshirtImage)
+                            <p>{{ $tshirtImage->name }}</p>
+                        @endforeach
+                        @foreach($tshirtImage8 as $tshirtImage)
+                            <p>{{ $tshirtImage->description }}</p>
+                        @endforeach
+                        <a href="#" class="btn btn-primary mt-auto">Adicionar ao Carrinho</a>
+                    </div>
 
-                        <div class="rating-wrap">
-                            <ul class="rating-stars">
-                                <li style="width:80%" class="stars-active">
-                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                </li>
-                                <li>
-                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                </li>
-                            </ul>
-                            <span class="label-rating text-muted"> 34 reviws</span>
-                        </div>
-                        <div class="price mt-1">$179.00</div> <!-- price-wrap.// -->
-                    </figcaption>
                 </div>
-            </div> <!-- col.// -->
+            </div>
         </div> <!-- row.// -->
 
     </div> <!-- container .//  -->
@@ -221,57 +189,6 @@
 
 
 
-<!-- ========================= SECTION CONTENT ========================= -->
-<section class="section-content padding-bottom-sm">
-    <div class="container">
-
-        <header class="section-heading">
-            <a href="#" class="btn btn-outline-primary float-right">See all</a>
-            <h3 class="section-title">Recommended</h3>
-        </header><!-- sect-heading -->
-
-        <div class="row">
-            <div class="col-md-3">
-                <div href="#" class="card card-product-grid">
-                    <a href="#" class="img-wrap"> <img src="assets/images/items/1.jpg"> </a>
-                    <figcaption class="info-wrap">
-                        <a href="#" class="title">Just another product name</a>
-                        <div class="price mt-1">$179.00</div> <!-- price-wrap.// -->
-                    </figcaption>
-                </div>
-            </div> <!-- col.// -->
-            <div class="col-md-3">
-                <div href="#" class="card card-product-grid">
-                    <a href="#" class="img-wrap"> <img src="assets/images/items/2.jpg"> </a>
-                    <figcaption class="info-wrap">
-                        <a href="#" class="title">Some item name here</a>
-                        <div class="price mt-1">$280.00</div> <!-- price-wrap.// -->
-                    </figcaption>
-                </div>
-            </div> <!-- col.// -->
-            <div class="col-md-3">
-                <div href="#" class="card card-product-grid">
-                    <a href="#" class="img-wrap"> <img src="assets/images/items/3.jpg"> </a>
-                    <figcaption class="info-wrap">
-                        <a href="#" class="title">Great product name here</a>
-                        <div class="price mt-1">$56.00</div> <!-- price-wrap.// -->
-                    </figcaption>
-                </div>
-            </div> <!-- col.// -->
-            <div class="col-md-3">
-                <div href="#" class="card card-product-grid">
-                    <a href="#" class="img-wrap"> <img src="assets/images/items/4.jpg"> </a>
-                    <figcaption class="info-wrap">
-                        <a href="#" class="title">Just another product name</a>
-                        <div class="price mt-1">$179.00</div> <!-- price-wrap.// -->
-                    </figcaption>
-                </div>
-            </div> <!-- col.// -->
-        </div> <!-- row.// -->
-
-    </div> <!-- container .//  -->
-</section>
-<!-- ========================= SECTION CONTENT END// ========================= -->
 
 <!-- ========================= SECTION FEATURE ========================= -->
 <section class="section-content padding-y-sm">
