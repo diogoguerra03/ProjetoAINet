@@ -78,7 +78,7 @@
                 </div>
             @empty
                 <div class="col-md-12">
-                    <p>Nenhuma imagem de tshirt encontrada.</p>
+                    <p>No tshirt image found.</p>
                 </div>
             @endforelse
         </div>

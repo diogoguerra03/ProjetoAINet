@@ -38,13 +38,15 @@ class TshirtImageController extends Controller
         $orderByDirection = 'desc'; // Direção padrão para ordenação
 
         if ($orderBy === 'name_asc') {
-            $tshirtQuery->orderBy('name', 'asc');
+            $orderByColumn = 'name';
+            $orderByDirection = 'asc';
         } elseif ($orderBy === 'name_desc') {
-            $tshirtQuery->orderBy('name', 'desc');
+            $orderByColumn = 'name';
         } elseif ($orderBy === 'older_arrivals') {
-            $tshirtQuery->orderBy('created_at', 'asc');
+            $orderByColumn = 'created_at';
+            $orderByDirection = 'asc';
         } elseif ($orderBy === 'new_arrivals') {
-            $tshirtQuery->orderBy('created_at', 'desc');
+            $orderByColumn = 'created_at';
         }
 
         $tshirtImages = $tshirtQuery->with('category')
