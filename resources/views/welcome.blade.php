@@ -2,21 +2,6 @@
 
 @section('content')
 
-<!-- ========================= SECTION INTRO ========================= -->
-<section class="section-intro padding-y-sm">
-    <div class="container">
-
-        <div class="intro-banner-wrap">
-            <img src="assets/images/banner.png" class="img-fluid rounded">
-        </div>
-
-    </div> <!-- container //  -->
-</section>
-<!-- ========================= SECTION INTRO END// ========================= -->
-
-
-
-
 
 <!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-content">
