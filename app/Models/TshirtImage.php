@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 class TshirtImage extends Model
 {
     use HasFactory, SoftDeletes;
-    
+
     protected $fillable = [
         'customer_id',
         'category_id',
@@ -40,7 +40,7 @@ class TshirtImage extends Model
     public function getImageUrlAttribute($value)
     {
         return Storage::url('tshirt_images/' . $value);
-        
+
     }
 
     public function getExtraInfoAttribute($value)

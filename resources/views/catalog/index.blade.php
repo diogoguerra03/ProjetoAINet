@@ -7,10 +7,10 @@
                 <div class="col-md-8">
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="inputCategory" class="form-label">Categoria</label>
+                            <label for="inputCategory" class="form-label">Category</label>
                             <select class="form-select" name="category" id="inputCategory">
                                 <option {{ old('category', $filterByCategory) === '' ? 'selected' : '' }} value="">
-                                    Todas as categorias</option>
+                                    All categories</option>
                                 @foreach ($categories as $category)
                                     <option {{ old('category', $filterByCategory) == $category->id ? 'selected' : '' }}
                                         value="{{ $category->id }}">{{ $category->name }}</option>
@@ -18,35 +18,39 @@
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="inputNome" class="form-label">Nome do Produto</label>
+                            <label for="inputNome" class="form-label">Product Name</label>
                             <input type="text" class="form-control" name="name" id="inputNome"
-                                value="{{ old('name', $filterByName) }}" placeholder="Digite o nome do produto">
+                                value="{{ old('name', $filterByName) }}" placeholder="Enter the product name">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="inputDescricao" class="form-label">Descrição do Produto</label>
+                            <label for="inputDescricao" class="form-label">Product Description</label>
                             <input type="text" class="form-control" name="description" id="inputDescricao"
                                 value="{{ old('description', $filterByDescription) }}"
-                                placeholder="Digite a descrição do produto">
+                                placeholder="Enter the product description">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="mb-3">
-                        <label for="inputOrderBy" class="form-label">Ordenar por</label>
+                        <label for="inputOrderBy" class="form-label">Order By</label>
                         <select class="form-select" name="orderBy" id="inputOrderBy">
-                            <option {{ old('orderBy', $orderBy) === '' ? 'selected' : '' }} value="">Novidades
+                            <option {{ old('orderBy', $orderBy) === '' ? 'selected' : '' }} value="">New arrivals
                             </option>
-                            <option {{ old('orderBy', $orderBy) === 'name_asc' ? 'selected' : '' }} value="name_asc">Nome
-                                (Ascendente)</option>
-                            <option {{ old('orderBy', $orderBy) === 'name_desc' ? 'selected' : '' }} value="name_desc">Nome
-                                (Descendente)</option>
+                            <option {{ old('orderBy', $orderBy) === 'name_asc' ? 'selected' : '' }} value="name_asc">Name
+                                (Ascending)</option>
+                            <option {{ old('orderBy', $orderBy) === 'name_desc' ? 'selected' : '' }} value="name_desc">Name
+                                (Descending)</option>
+                            <option {{ old('orderBy', $orderBy) === 'price_asc' ? 'selected' : '' }} value="price_asc">Price ASC
+                            (Lower to highest)</option>
+                            <option {{ old('orderBy', $orderBy) === 'price_desc' ? 'selected' : '' }} value="price_desc">Price DESC
+                            (Highest to lower)</option>
                         </select>
                     </div>
                 </div>
             </div>
             <div class="d-flex justify-content-start">
-                <button type="submit" class="btn btn-primary me-3">Filtrar</button>
-                <a href="{{ route('catalog.index') }}" class="btn btn-secondary">Limpar</a>
+                <button type="submit" class="btn btn-primary me-3">Filter</button>
+                <a href="{{ route('catalog.index') }}" class="btn btn-secondary">Clean</a>
             </div>
         </form>
 
@@ -58,7 +62,7 @@
                         <img class="card-img-top img-fluid mx-auto d-block image-container"
                             src="{{ $tshirtImage->image_url }}" alt="T-Shirt Image">
                         <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">{{ $tshirtImage->name }}</h5>
+                            <h5 class="card-title">{{ $tshirtImage->name }} - {{ $prices->first()->unit_price_catalog }} €</h5>
                             <p class="card-text">{{ $tshirtImage->description }}</p>
                             <div class="quantity-input d-flex align-items-center mt-3">
                                 <button type="button" class="btn btn-sm btn-secondary quantity-btn"
@@ -67,7 +71,7 @@
                                     max="99" value="1">
                                 <button type="button" class="btn btn-sm btn-secondary quantity-btn"
                                     data-action="increment">+</button>
-                                <button type="button" class="btn btn-primary ml-2">Adicionar ao Carrinho</button>
+                                <button type="button" class="btn btn-primary ml-2">Add to Cart</button>
 
                             </div>
 

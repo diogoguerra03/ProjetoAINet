@@ -21,17 +21,16 @@
 
 .quantity-input {
     width: 80%;
-    // center
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
 .quantity-input .quantity {
     width: 60px;
     text-align: left;
+    margin: 5px;
 }
 
 .quantity-input .quantity-btn {
@@ -40,5 +39,4 @@
 
 .quantity-input .btn-primary {
     flex-grow: 1;
-    margin-left: 10px;
 }
