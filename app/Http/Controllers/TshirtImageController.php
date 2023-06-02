@@ -15,7 +15,7 @@ class TshirtImageController extends Controller
 {
     public function index(Request $request): View
     {
-        $categories = Category::all();
+        $categories = Category::all()->whereNull('deleted_at')->sortBy('name');
         $filterByCategory = $request->category ?? '';
         $filterByName = $request->name ?? '';
         $filterByDescription = $request->description ?? '';
