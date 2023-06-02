@@ -34,16 +34,14 @@
                     <div class="mb-3">
                         <label for="inputOrderBy" class="form-label">Order By</label>
                         <select class="form-select" name="orderBy" id="inputOrderBy">
-                            <option {{ old('orderBy', $orderBy) === '' ? 'selected' : '' }} value="">New arrivals
+                            <option {{ old('orderBy', $orderBy) === 'new_arrivals' ? 'selected' : '' }} value="new_arrivals">Newer arrivals
+                            </option>
+                            <option {{ old('orderBy', $orderBy) === 'older_arrivals' ? 'selected' : '' }} value="older_arrivals">Older arrivals
                             </option>
                             <option {{ old('orderBy', $orderBy) === 'name_asc' ? 'selected' : '' }} value="name_asc">Name
                                 (Ascending)</option>
                             <option {{ old('orderBy', $orderBy) === 'name_desc' ? 'selected' : '' }} value="name_desc">Name
                                 (Descending)</option>
-                            <option {{ old('orderBy', $orderBy) === 'price_asc' ? 'selected' : '' }} value="price_asc">Price ASC
-                            (Lower to highest)</option>
-                            <option {{ old('orderBy', $orderBy) === 'price_desc' ? 'selected' : '' }} value="price_desc">Price DESC
-                            (Highest to lower)</option>
                         </select>
                     </div>
                 </div>

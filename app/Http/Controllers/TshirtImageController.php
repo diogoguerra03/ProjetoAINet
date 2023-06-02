@@ -20,40 +20,38 @@ class TshirtImageController extends Controller
         $filterByName = $request->name ?? '';
         $filterByDescription = $request->description ?? '';
         $tshirtQuery = TshirtImage::whereNull('customer_id')->whereNull('deleted_at');
-        $orderBy = $request->orderBy ?? 'created_at'; // Ordenação padrão
 
         if ($filterByCategory !== '') {
             $tshirtQuery = $tshirtQuery->where('category_id', $filterByCategory);
         }
         if ($filterByName !== '') {
-            $imagesId = TshirtImage::where('name', 'like', "%$filterByName%")->pluck('id');
+            $imagesId = TshirtImage::where('name', 'like', "%$filterByName%")->pluck('id'); // pluck retorna um array com os ids
             $tshirtQuery->whereIn('id', $imagesId);
         }
         if ($filterByDescription !== '') {
-            $imagesId = TshirtImage::where('description', 'like', "%$filterByDescription%")->pluck('id');
+            $imagesId = TshirtImage::where('description', 'like', "%$filterByDescription%")->pluck('id'); // pluck retorna um array com os ids
             $tshirtQuery->whereIn('id', $imagesId);
         }
 
+        $orderBy = $request->orderBy ?? 'created_at'; // Ordenação padrão
         $orderByColumn = 'created_at'; // Coluna padrão para ordenação
-        $orderByDirection = 'asc'; // Direção padrão para ordenação
+        $orderByDirection = 'desc'; // Direção padrão para ordenação
 
         if ($orderBy === 'name_asc') {
-            $orderByColumn = 'name';
+            $tshirtQuery->orderBy('name', 'asc');
         } elseif ($orderBy === 'name_desc') {
-            $orderByColumn = 'name';
-            $orderByDirection = 'desc';
-        } elseif ($orderBy === 'price_asc') {
-            $orderByColumn = DB::raw('(SELECT unit_price_catalog FROM prices LIMIT 1)');
-        } elseif ($orderBy === 'price_desc') {
-            $orderByColumn = DB::raw('(SELECT unit_price_catalog FROM prices LIMIT 1)');
-            $orderByDirection = 'desc';
+            $tshirtQuery->orderBy('name', 'desc');
+        } elseif ($orderBy === 'older_arrivals') {
+            $tshirtQuery->orderBy('created_at', 'asc');
+        } elseif ($orderBy === 'new_arrivals') {
+            $tshirtQuery->orderBy('created_at', 'desc');
         }
 
         $tshirtImages = $tshirtQuery->with('category')
             ->orderBy($orderByColumn, $orderByDirection)
             ->paginate(18);
 
-        $prices = Price::all();
+        $prices = Price::all(); // Busca todos os preços
 
         return view(
             'catalog.index',
@@ -67,7 +65,6 @@ class TshirtImageController extends Controller
                 'prices'
             )
         );
+
     }
-
-
 }
