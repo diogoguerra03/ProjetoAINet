@@ -34,7 +34,8 @@
                 <div class="row align-items-center">
                     <div class="col-lg-2 col-6">
                         <a href="\" class="brand-wrap" style="sans-serif;">
-                            <span>Imagine Shirt</span>
+                            <img src="{{ asset('assets/images/logos/imagineshirt.png') }}" alt="Shirt Image"
+                            style="max-width: 100%; height: auto;">
                         </a> <!-- brand-wrap.// -->
                     </div>
                     <div class="col-lg-6 col-12 col-sm-12">
@@ -55,7 +56,8 @@
                                 <a href="{{ route('cart.show') }}"
                                     class="icon icon-sm rounded-circle border nav-link {{ Route::currentRouteName() == 'cart.show' ? 'active' : '' }}"><i
                                         class="fa fa-shopping-cart"></i></a>
-                                <span class="badge badge-pill badge-danger notify">{{ count(session('cart', [])) }}</span>
+                                <span
+                                    class="badge badge-pill badge-danger notify">{{ count(session('cart', [])) }}</span>
                             </div>
 
                             <div class="widget-header icontext">
