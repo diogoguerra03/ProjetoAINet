@@ -40,8 +40,8 @@
                 <aside class="col-md col-6">
                     <h6 class="title">Account</h6>
                     <ul class="list-unstyled">
-                        <li> <a href="#"> User Login </a></li>
-                        <li> <a href="#"> User register </a></li>
+                        <li> <a href="{{ route('login') }}"> User Login </a></li>
+                        <li> <a href="{{ route('register') }}"> User register </a></li>
                         <li> <a href="#"> Account Setting </a></li>
                         <li> <a href="#"> My Orders </a></li>
                     </ul>

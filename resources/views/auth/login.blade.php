@@ -1,8 +1,6 @@
 @extends('layouts.footer')
 @extends('layouts.app')
 
-
-
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -50,7 +48,13 @@
                                     <label class="form-check-label" for="remember">
                                         {{ __('Remember Me') }}
                                     </label>
+                                    @if (Route::has('password.request'))
+                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        {{ __('Forgot Your Password?') }}
+                                    </a>
+                                @endif
                                 </div>
+                                
                             </div>
                         </div>
 
@@ -60,13 +64,11 @@
                                     {{ __('Login') }}
                                 </button>
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
+                                <span class ="ml-3"> Don't have an account? <a  href="{{ route('register') }}">{{ __('Sign up') }}</a> </span>  
+                                    
                             </div>
                         </div>
+                        
                     </form>
                 </div>
             </div>
