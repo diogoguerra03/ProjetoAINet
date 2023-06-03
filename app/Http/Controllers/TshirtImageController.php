@@ -10,6 +10,7 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class TshirtImageController extends Controller
 {
@@ -73,7 +74,7 @@ class TshirtImageController extends Controller
 
     }
 
-    public function show($tshirtImageId)
+    public function show($tshirtImageId, $tshirtName)
     {
         $tshirtImage = TshirtImage::findOrFail($tshirtImageId);
 

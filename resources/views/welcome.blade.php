@@ -36,7 +36,8 @@
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">{{ $product->name }} - {{ $prices->first()->unit_price_catalog }} €</h5>
                                 <p class="card-text">{{ $product->description }}</p>
-                                <a href="{{ route('catalog.show', ['catalog' => $product->id]) }}" class="btn btn-primary mt-auto">View product</a>
+                                <a href="{{ route('catalog.show', ['product' => $product->id, 'name' => Str::slug($product->name)]) }}" class="btn btn-primary mt-auto">View product</a>
+
                             </div>
                         </div>
                     </div>
@@ -64,7 +65,8 @@
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">{{ $product->name }} - {{ $prices->first()->unit_price_catalog }} € </h5>
                                 <p class="card-text">{{ $product->description }}</p>
-                                <a href="{{ route('catalog.show', ['catalog' => $product->id]) }}" class="btn btn-primary mt-auto">View product</a>
+                                <a href="{{ route('catalog.show', ['product' => $product->id, 'name' => Str::slug($product->name)]) }}" class="btn btn-primary mt-auto">View product</a>
+
                             </div>
                         </div>
                     </div>

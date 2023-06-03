@@ -32,6 +32,7 @@ Route::resource('customers', CustomerController::class);
 
 Route::resource('catalog', TshirtImageController::class);
 
+Route::get('catalog/{product}/{name}', [TshirtImageController::class, 'show'])->name('catalog.show');
 
 
 /*
