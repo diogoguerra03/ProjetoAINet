@@ -21,6 +21,10 @@ use App\Http\Controllers\CartController;
 
 Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index']);
 
+Route::get('/about', function () {
+    return view('about');
+});
+
 Auth::routes([
     'verify' => true,
 ]);
@@ -33,6 +37,7 @@ Route::resource('customers', CustomerController::class);
 Route::resource('catalog', TshirtImageController::class);
 
 Route::get('catalog/{product}/{name}', [TshirtImageController::class, 'show'])->name('catalog.show');
+
 
 
 /*
