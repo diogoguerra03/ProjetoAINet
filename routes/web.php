@@ -21,13 +21,10 @@ use App\Http\Controllers\CartController;
 
 Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index']);
 
-//Route::view('/', 'home')->name('root');
-
 Auth::routes([
     'verify' => true,
 ]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('orders', OrderController::class);
 
