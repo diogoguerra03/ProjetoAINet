@@ -60,8 +60,10 @@
             @forelse($tshirtImages as $tshirtImage)
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
-                        <img class="card-img-top img-fluid mx-auto d-block image-container"
-                            src="{{ $tshirtImage->image_url }}" alt="T-Shirt Image">
+                        <a href="{{ route('catalog.show', ['product' => $tshirtImage->id, 'name' => Str::slug($tshirtImage->name)]) }}">
+                            <img class="card-img-top img-fluid mx-auto d-block image-container"
+                                src="{{ $tshirtImage->image_url }}" alt="T-Shirt Image">
+                        </a>
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title">{{ $tshirtImage->name }} - {{ $prices->first()->unit_price_catalog }} €</h5>
                             <p class="card-text">{{ $tshirtImage->description }}</p>
