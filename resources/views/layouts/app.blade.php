@@ -32,9 +32,9 @@
         <section class="header-main border-bottom">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-2 col-6">
-                        <a href="\" class="brand-wrap" style="sans-serif;">
-                            <img src="{{ asset('assets/images/logos/imagineshirt.png') }}" alt="Shirt Image"
+                    <div class="col-lg-1 col-6 mr-lg-5">
+                        <a href="\" class="brand-wrap" >
+                            <img class="rounded-5" style="height: 100px" src="{{ asset('assets/images/logos/imagineshirt.png') }}" alt="Shirt Image"
                             style="max-width: 100%; height: auto;">
                         </a> <!-- brand-wrap.// -->
                     </div>
