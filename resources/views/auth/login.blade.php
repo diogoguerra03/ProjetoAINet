@@ -54,7 +54,7 @@
                                     </a>
                                 @endif
                                 </div>
-                                
+
                             </div>
                         </div>
 
@@ -64,11 +64,11 @@
                                     {{ __('Login') }}
                                 </button>
 
-                                <span class ="ml-3"> Don't have an account? <a  href="{{ route('register') }}">{{ __('Sign up') }}</a> </span>  
-                                    
+                                <span class ="ml-3"> Don't have an account? <a  href="{{ route('register') }}">{{ __('Register') }}</a> </span>
+
                             </div>
                         </div>
-                        
+
                     </form>
                 </div>
             </div>
