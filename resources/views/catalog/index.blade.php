@@ -1,5 +1,6 @@
+@extends('layouts.footer')
+@extends('layouts.header')
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
         <form method="GET" action="{{ route('catalog.index') }}">
