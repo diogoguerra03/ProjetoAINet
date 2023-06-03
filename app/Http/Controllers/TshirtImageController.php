@@ -72,4 +72,12 @@ class TshirtImageController extends Controller
         );
 
     }
+
+    public function show($tshirtImageId)
+    {
+        $tshirtImage = TshirtImage::findOrFail($tshirtImageId);
+
+        return view('catalog.show', compact('tshirtImage'));
+    }
+
 }
