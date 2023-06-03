@@ -33,7 +33,7 @@ class TshirtImageController extends Controller
             $tshirtQuery->whereIn('id', $imagesId);
         }
 
-        $orderBy = $request->orderBy ?? 'created_at'; // Ordenação padrão
+        $orderBy = $request->orderBy ?? 'popular_products'; // Ordenação padrão
         $orderByColumn = 'created_at'; // Coluna padrão para ordenação
         $orderByDirection = 'desc'; // Direção padrão para ordenação
 
@@ -47,11 +47,14 @@ class TshirtImageController extends Controller
             $orderByDirection = 'asc';
         } elseif ($orderBy === 'new_arrivals') {
             $orderByColumn = 'created_at';
+        } elseif ($orderBy === 'popular_products') {
+            $tshirtQuery->leftJoin('order_items', 'tshirt_images.id', '=', 'order_items.tshirt_image_id')
+                ->select('tshirt_images.*', DB::raw('SUM(order_items.qty) as total_quantity'))
+                ->groupBy('tshirt_images.id')
+                ->orderBy('total_quantity', 'desc');
         }
 
-        $tshirtImages = $tshirtQuery->with('category')
-            ->orderBy($orderByColumn, $orderByDirection)
-            ->paginate(18);
+        $tshirtImages = $tshirtQuery->orderBy($orderByColumn, $orderByDirection)->paginate(18); // Paginação
 
         $prices = Price::all(); // Busca todos os preços
 

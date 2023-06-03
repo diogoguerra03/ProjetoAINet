@@ -32,9 +32,9 @@
                             <img class="card-img-top img-fluid mx-auto d-block image-container"
                                 src="{{ $product->image_url }}" alt="Product Image">
                             <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">{{ $product->name }}</h5>
+                                <h5 class="card-title">{{ $product->name }} - {{ $prices->first()->unit_price_catalog }} €</h5>
                                 <p class="card-text">{{ $product->description }}</p>
-                                <a href="#" class="btn btn-primary mt-auto">Add to Cart</a>
+                                <a href="#" class="btn btn-primary mt-auto">View product</a>
                             </div>
                         </div>
                     </div>
@@ -60,9 +60,9 @@
                             <img class="card-img-top img-fluid mx-auto d-block image-container"
                                 src="{{ $product->image_url }}" alt="Product Image">
                             <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">{{ $product->name }}</h5>
+                                <h5 class="card-title">{{ $product->name }} - {{ $prices->first()->unit_price_catalog }} € </h5>
                                 <p class="card-text">{{ $product->description }}</p>
-                                <a href="#" class="btn btn-primary mt-auto">Add to Cart</a>
+                                <a href="#" class="btn btn-primary mt-auto">View product</a>
                             </div>
                         </div>
                     </div>

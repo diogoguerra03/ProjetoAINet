@@ -35,14 +35,11 @@ Route::resource('customers', CustomerController::class);
 
 Route::resource('catalog', TshirtImageController::class);
 
-Auth::routes();
-
-
 
 
 /*
  *   CARRINHO
-*/
+ */
 
 // Add a "tshirt" to the cart:
 Route::post('cart/{orderItem}', [CartController::class, 'addToCart'])
