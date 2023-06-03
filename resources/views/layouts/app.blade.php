@@ -18,6 +18,7 @@
     <link href="{{ asset('assets/css/ui.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/responsive.css') }}" rel="stylesheet">
 
+
     <link href="{{ asset('assets/css/all.min.css') }}" rel="stylesheet">
     <script src="{{ asset('assets/js/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" type="text/javascript"></script>

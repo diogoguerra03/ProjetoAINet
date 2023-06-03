@@ -7,7 +7,7 @@
                 <div class="col-lg-1 col-6 mr-lg-5">
                     <a href="\" class="brand-wrap" >
                         <img class="rounded-5" style="height: 100px" src="{{ asset('assets/images/logos/imagineshirt.png') }}" alt="Shirt Image"
-                             style="max-width: 100%; height: auto;">
+                             style="max-width: 100%;">
                     </a> <!-- brand-wrap.// -->
                 </div>
                 <div class="col-lg-6 col-12 col-sm-12">
