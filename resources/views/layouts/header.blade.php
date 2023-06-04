@@ -24,7 +24,7 @@
                 </div> <!-- col.// -->
                 <div class="col-lg-4 col-sm-6 col-12">
                     <div class="widgets-wrap float-md-right">
-                        <div class="widget-header  mr-3">
+                        <div class="widget-header mr-3">
                             <a href="{{ route('cart.show') }}"
                                class="icon icon-sm rounded-circle border nav-link {{ Route::currentRouteName() == 'cart.show' ? 'active' : '' }}"><i
                                     class="fa fa-shopping-cart"></i></a>
@@ -33,8 +33,15 @@
                         </div>
 
                         <div class="widget-header icontext">
-                            <a href="#" class="icon icon-sm rounded-circle border"><i
-                                    class="fa fa-user"></i></a>
+                        @guest
+                            <a href="{{ route('login') }}" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
+                        @else
+                            @if (Auth::user()->photo_url)
+                                <img src="{{ asset('storage/photos/' . Auth::user()->photo_url) }}" alt="User Photo" class="rounded-circle" width="40">
+                            @else
+                                <a href="#" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
+                            @endif
+                        @endguest
                             <div class="text">
                                 <span class="text-muted">Welcome!</span>
                                 <!-- Right Side Of Navbar -->
@@ -63,6 +70,12 @@
 
                                             <div class="dropdown-menu dropdown-menu-end"
                                                  aria-labelledby="navbarDropdown">
+                                                @if(Auth::user()->user_type === 'C')
+                                                    <a class="dropdown-item" href="{{ route('profile') }}">My Profile</a>
+                                                @endif
+                                                @if(Auth::user()->user_type === 'A')
+                                                    <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
+                                                @endif
                                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

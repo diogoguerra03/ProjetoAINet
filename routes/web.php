@@ -7,6 +7,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TshirtImageController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,8 @@ Route::resource('catalog', TshirtImageController::class);
 
 Route::get('catalog/{product}/{name}', [TshirtImageController::class, 'show'])->name('catalog.show');
 
+Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
 
 
 /*
