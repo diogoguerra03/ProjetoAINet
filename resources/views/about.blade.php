@@ -29,22 +29,40 @@
             We are committed to delivering high-quality products that are ethically made and environmentally friendly. Sustainability is a core value of our brand, and we continuously strive to minimize our impact on the planet throughout our production process.
         </p>
 
-        <h2>Meet the Team</h2>
-        <div class="row">
+        <h2 class="mt-5 mb-0">Meet the Team</h2>
+        <div class="row d-flex justify-content-around mb-5">
             <div class="col-md-4">
-                <img src="{{ asset('images/rafael.jpg') }}" alt="Rafael">
-                <h3>Rafael</h3>
-                <p>Co-founder and Creative Director</p>
+                <div class="d-flex justify-content-center">
+                    <img class="rounded-circle m-5 mx-auto" style="height: 250px" src="assets/images/rafael.jpeg"  alt="Rafael">
+                </div>
+                <div class="d-flex justify-content-center">
+                    <h3>Rafael</h3>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <p>Co-founder and Creative Director</p>
+                </div>
             </div>
             <div class="col-md-4">
-                <img src="{{ asset('images/diogo.jpg') }}" alt="Diogo">
-                <h3>Diogo</h3>
-                <p>Co-founder and Head of Design</p>
+                <div class="d-flex justify-content-center">
+                    <img class="rounded-circle m-5 mx-auto" style="height: 250px" src="assets/images/diogo.jpeg" class="img-fluid image-container" alt="Diogo">
+                </div>
+                <div class="d-flex justify-content-center">
+                    <h3>Diogo</h3>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <p>Co-founder and Head of Design</p>
+                </div>
             </div>
             <div class="col-md-4">
-                <img src="{{ asset('images/lucas.jpg') }}" alt="Lucas">
-                <h3>Lucas</h3>
-                <p>Co-founder and Marketing Strategist</p>
+                <div class="d-flex justify-content-center">
+                    <img class="rounded-circle m-5 mx-auto" style="height: 250px" src="assets/images/lucas.jpeg" class="img-fluid image-container" alt="Lucas">
+                </div>
+                <div class="d-flex justify-content-center">
+                    <h3 class="mx-auto">Lucas</h3>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <p>Co-founder and Marketing Strategist</p>
+                </div>
             </div>
         </div>
     </div>
