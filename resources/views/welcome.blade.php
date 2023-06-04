@@ -26,7 +26,6 @@
                 <h3 class="section-title">Popular products</h3>
             </header><!-- sect-heading -->
 
-
             <div class="row">
                 @foreach ($popularProducts as $product)
                     <div class="col-md-3 mb-4">
@@ -37,7 +36,6 @@
                                 <h5 class="card-title">{{ $product->name }} - {{ $prices->first()->unit_price_catalog }} €</h5>
                                 <p class="card-text">{{ $product->description }}</p>
                                 <a href="{{ route('catalog.show', ['product' => $product->id, 'name' => Str::slug($product->name)]) }}" class="btn btn-primary mt-auto">View product</a>
-
                             </div>
                         </div>
                     </div>

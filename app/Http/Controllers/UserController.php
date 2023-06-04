@@ -13,7 +13,9 @@ class UserController extends Controller
 {
     public function profile(Request $request): View
     {
-        return view('profile.index');
+        $user = User::find($request->user()->id);
+
+        return view('profile.index', ['user' => $user]);
     }
 
     public function dashboard(Request $request): View
