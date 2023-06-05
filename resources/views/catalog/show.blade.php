@@ -28,7 +28,11 @@
                             <option value="Green">Green</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    <form method="POST" action="{{ route('cart.add', ['orderItem' => $tshirtImage]) }}">
+                        @csrf
+                        <button type="submit" name="addToCart" class="btn btn-primary ml-2">
+                            Add to cart</button>
+                    </form>
                 </form>
             </div>
         </div>

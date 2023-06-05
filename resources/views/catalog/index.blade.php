@@ -35,11 +35,14 @@
                     <div class="mb-3">
                         <label for="inputOrderBy" class="form-label">Order By</label>
                         <select class="form-select" name="orderBy" id="inputOrderBy">
-                            <option {{ old('orderBy', $orderBy) === 'popular_products' ? 'selected' : '' }} value="popular_products">Popular products
+                            <option {{ old('orderBy', $orderBy) === 'popular_products' ? 'selected' : '' }}
+                                value="popular_products">Popular products
                             </option>
-                            <option {{ old('orderBy', $orderBy) === 'new_arrivals' ? 'selected' : '' }} value="new_arrivals">New arrivals
+                            <option {{ old('orderBy', $orderBy) === 'new_arrivals' ? 'selected' : '' }}
+                                value="new_arrivals">New arrivals
                             </option>
-                            <option {{ old('orderBy', $orderBy) === 'older_arrivals' ? 'selected' : '' }} value="older_arrivals">Older products
+                            <option {{ old('orderBy', $orderBy) === 'older_arrivals' ? 'selected' : '' }}
+                                value="older_arrivals">Older products
                             </option>
                             <option {{ old('orderBy', $orderBy) === 'name_asc' ? 'selected' : '' }} value="name_asc">Name
                                 (Ascending)</option>
@@ -60,12 +63,14 @@
             @forelse($tshirtImages as $tshirtImage)
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
-                        <a href="{{ route('catalog.show', ['product' => $tshirtImage->id, 'name' => Str::slug($tshirtImage->name)]) }}">
+                        <a
+                            href="{{ route('catalog.show', ['product' => $tshirtImage->id, 'name' => Str::slug($tshirtImage->name)]) }}">
                             <img class="card-img-top img-fluid mx-auto d-block image-container"
                                 src="{{ $tshirtImage->image_url }}" alt="T-Shirt Image">
                         </a>
                         <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">{{ $tshirtImage->name }} - {{ $prices->first()->unit_price_catalog }} €</h5>
+                            <h5 class="card-title">{{ $tshirtImage->name }} - {{ $prices->first()->unit_price_catalog }} €
+                            </h5>
                             <p class="card-text">{{ $tshirtImage->description }}</p>
                             <div class="quantity-input d-flex align-items-center mt-3">
                                 <button type="button" class="btn btn-sm btn-secondary quantity-btn"
@@ -74,7 +79,11 @@
                                     max="99" value="1">
                                 <button type="button" class="btn btn-sm btn-secondary quantity-btn"
                                     data-action="increment">+</button>
-                                <button type="button" class="btn btn-primary ml-2">Add to Cart</button>
+                                <form method="POST" action="{{ route('cart.add', ['orderItem' => $tshirtImage]) }}">
+                                    @csrf
+                                    <button type="submit" name="addToCart" class="btn btn-primary ml-2">
+                                        Add to cart</button>
+                                </form>
 
                             </div>
 
