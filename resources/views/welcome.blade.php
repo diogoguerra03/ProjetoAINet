@@ -16,9 +16,6 @@
     <!-- ========================= SECTION INTRO END// ========================= -->
 
 
-
-
-
     <!-- ========================= SECTION CONTENT ========================= -->
     <section class="section-content">
         <div class="container">
@@ -33,9 +30,11 @@
                             <img class="card-img-top img-fluid mx-auto d-block image-container"
                                 src="{{ $product->image_url }}" alt="Product Image">
                             <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">{{ $product->name }} - {{ $prices->first()->unit_price_catalog }} €</h5>
+                                <h5 class="card-title">{{ $product->name }} - {{ $prices->first()->unit_price_catalog }} €
+                                </h5>
                                 <p class="card-text">{{ $product->description }}</p>
-                                <a href="{{ route('catalog.show', ['product' => $product->id, 'name' => Str::slug($product->name)]) }}" class="btn btn-primary mt-auto">View product</a>
+                                <a href="{{ route('catalog.show', $product->slug) }}" class="btn btn-primary mt-auto">View
+                                    product</a>
                             </div>
                         </div>
                     </div>
@@ -44,7 +43,6 @@
         </div><!-- container .// -->
     </section>
     <!-- ========================= SECTION CONTENT END// ========================= -->
-
 
 
     <!-- ========================= SECTION CONTENT ========================= -->
@@ -61,9 +59,11 @@
                             <img class="card-img-top img-fluid mx-auto d-block image-container"
                                 src="{{ $product->image_url }}" alt="Product Image">
                             <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">{{ $product->name }} - {{ $prices->first()->unit_price_catalog }} € </h5>
+                                <h5 class="card-title">{{ $product->name }} - {{ $prices->first()->unit_price_catalog }} €
+                                </h5>
                                 <p class="card-text">{{ $product->description }}</p>
-                                <a href="{{ route('catalog.show', ['product' => $product->id, 'name' => Str::slug($product->name)]) }}" class="btn btn-primary mt-auto">View product</a>
+                                <a href="{{ route('catalog.show', $product->slug) }}" class="btn btn-primary mt-auto">View
+                                    product</a>
 
                             </div>
                         </div>
@@ -73,8 +73,6 @@
         </div><!-- container .// -->
     </section>
     <!-- ========================= SECTION CONTENT END// ========================= -->
-
-
 
 
     <!-- ========================= SECTION FEATURE ========================= -->

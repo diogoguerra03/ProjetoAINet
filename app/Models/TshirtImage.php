@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TshirtImage extends Model
 {
@@ -46,5 +47,10 @@ class TshirtImage extends Model
     public function getExtraInfoAttribute($value)
     {
         return json_decode($value);
+    }
+
+    public function getSlugAttribute($value)
+    {
+        return $this->id . '-' . Str::slug($this->name);
     }
 }

@@ -21,20 +21,48 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="color">Color:</label>
-                        <select name="color" id="color" class="form-control">
-                            <option value="Red">Red</option>
-                            <option value="Blue">Blue</option>
-                            <option value="Green">Green</option>
-                        </select>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="colorDropdown"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span id="selectedColor">Select Color</span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="colorDropdown"
+                                style="max-height: 200px; overflow-y: auto;">
+                                @foreach ($colors as $colorCode => $colorName)
+                                    <span class="dropdown-item color-option" data-color="{{ $colorCode }}">
+                                        <i class="bi bi-circle-fill mr-2" style="color: #{{ $colorCode }}"></i>
+                                        {{ $colorName }}
+                                    </span>
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
                     <form method="POST" action="{{ route('cart.add') }}">
                         @csrf
                         <button type="submit" name="addToCart" class="btn btn-primary ml-2">
                             Add to cart</button>
                     </form>
+                    <div class="form-group">
+                        <div class="quantity-input d-flex align-items-center">
+                            <form method="POST" action="{{ route('cart.add', ['orderItem' => $tshirtImage]) }}">
+                                @csrf
+                                <button type="submit" name="addToCart" class="btn btn-primary ml-2">
+                                    Add to cart</button>
+                                <button type="button" class="btn btn-sm btn-secondary quantity-btn"
+                                    data-action="decrement">-</button>
+                                <input type="number" class="form-control quantity" name="quantity" min="1"
+                                    max="99" value="1">
+                                <button type="button" class="btn btn-sm btn-secondary quantity-btn"
+                                    data-action="increment">+</button>
+                        </div>
+                    </div>
+                </form>
                 </form>
             </div>
         </div>
     </div>
+@section('scripts')
+    <script src="{{ asset('js/app.js') }}"></script>
+@endsection
+
 @endsection
