@@ -39,15 +39,19 @@
                     </div>
                     <div class="form-group">
                         <div class="quantity-input d-flex align-items-center">
-                            <button type="submit" class="btn btn-primary">Add to Cart</button>
-                            <button type="button" class="btn btn-sm btn-secondary quantity-btn"
-                                data-action="decrement">-</button>
-                            <input type="number" class="form-control quantity" name="quantity" min="1"
-                                max="99" value="1">
-                            <button type="button" class="btn btn-sm btn-secondary quantity-btn"
-                                data-action="increment">+</button>
+                            <form method="POST" action="{{ route('cart.add', ['orderItem' => $tshirtImage]) }}">
+                                @csrf
+                                <button type="submit" name="addToCart" class="btn btn-primary ml-2">
+                                    Add to cart</button>
+                                <button type="button" class="btn btn-sm btn-secondary quantity-btn"
+                                    data-action="decrement">-</button>
+                                <input type="number" class="form-control quantity" name="quantity" min="1"
+                                    max="99" value="1">
+                                <button type="button" class="btn btn-sm btn-secondary quantity-btn"
+                                    data-action="increment">+</button>
                         </div>
                     </div>
+                </form>
                 </form>
             </div>
         </div>

@@ -37,10 +37,16 @@
                         <select class="form-select" name="orderBy" id="inputOrderBy">
                             <option {{ old('orderBy', $orderBy) === 'popular_products' ? 'selected' : '' }}
                                 value="popular_products">Popular products
+                            <option {{ old('orderBy', $orderBy) === 'popular_products' ? 'selected' : '' }}
+                                value="popular_products">Popular products
                             </option>
                             <option {{ old('orderBy', $orderBy) === 'new_arrivals' ? 'selected' : '' }}
                                 value="new_arrivals">New arrivals
+                            <option {{ old('orderBy', $orderBy) === 'new_arrivals' ? 'selected' : '' }}
+                                value="new_arrivals">New arrivals
                             </option>
+                            <option {{ old('orderBy', $orderBy) === 'older_arrivals' ? 'selected' : '' }}
+                                value="older_arrivals">Older products
                             <option {{ old('orderBy', $orderBy) === 'older_arrivals' ? 'selected' : '' }}
                                 value="older_arrivals">Older products
                             </option>
@@ -68,6 +74,8 @@
                                 src="{{ $tshirtImage->image_url }}" alt="T-Shirt Image">
                         </a>
                         <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ $tshirtImage->name }} - {{ $prices->first()->unit_price_catalog }} €
+                            </h5>
                             <h5 class="card-title">{{ $tshirtImage->name }} - {{ $prices->first()->unit_price_catalog }} €
                             </h5>
                             <p class="card-text">{{ $tshirtImage->description }}</p>
