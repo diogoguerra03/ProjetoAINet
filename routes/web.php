@@ -37,7 +37,7 @@ Route::resource('customers', CustomerController::class);
 
 Route::resource('catalog', TshirtImageController::class);
 
-Route::get('catalog/{product}/{name}', [TshirtImageController::class, 'show'])->name('catalog.show');
+Route::get('catalog/{slug}', [TshirtImageController::class, 'show'])->name('catalog.show');
 
 Route::get('/profile', [UserController::class, 'profile'])->name('profile');
 Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');

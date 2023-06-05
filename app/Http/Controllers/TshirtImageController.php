@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\TshirtImage;
 use App\Models\Price;
+use App\Models\Color;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -74,11 +75,15 @@ class TshirtImageController extends Controller
 
     }
 
-    public function show($tshirtImageId, $tshirtName)
+    public function show(string $slug)
     {
-        $tshirtImage = TshirtImage::findOrFail($tshirtImageId);
+        $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
 
-        return view('catalog.show', compact('tshirtImage'));
+        $colors = Color::whereNull('deleted_at')->orderBy('name')->pluck('name', 'code');
+        return view('catalog.show', compact('tshirtImage', 'colors'));
+
     }
+
+
 
 }

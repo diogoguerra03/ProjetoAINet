@@ -27,3 +27,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+const colorOptions = document.querySelectorAll(".color-option");
+const selectedColor = document.getElementById("selectedColor");
+colorOptions.forEach((option) => {
+    option.addEventListener("click", function () {
+        colorOptions.forEach((otherOption) =>
+            otherOption.classList.remove("active")
+        );
+        this.classList.add("active");
+        selectedColor.textContent = this.textContent.trim();
+    });
+});
