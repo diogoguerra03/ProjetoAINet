@@ -27,8 +27,8 @@
                     </div>
                     <div class="form-group">
                         <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="colorDropdown" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="colorDropdown"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span id="selectedColor">Select Color</span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="colorDropdown"
@@ -49,9 +49,6 @@
                     </form>
                     <div class="form-group">
                         <div class="quantity-input d-flex align-items-center">
-                            @csrf
-                            <button type="submit" name="addToCart" class="btn btn-primary ml-2">
-                                Add to cart</button>
                             <button type="button" class="btn btn-sm btn-secondary quantity-btn"
                                 data-action="decrement">-</button>
                             <input type="number" class="form-control quantity" name="quantity" min="1"
