@@ -47,8 +47,11 @@ Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard'
  *   CARRINHO
  */
 
+Route::match(['GET', 'POST'], 'catalog/{id}/{slug}', [CartController::class, 'addToCart'])->name('catalog.addToCart');
+
+
 // Add a "tshirt" to the cart:
-Route::post('cart/{orderItem}', [CartController::class, 'addToCart'])
+Route::post('cart/add', [CartController::class, 'addToCart'])
     ->name('cart.add');
 // Remove a "tshirt" from the cart:
 Route::delete('cart/{orderItem}', [CartController::class, 'removeFromCart'])

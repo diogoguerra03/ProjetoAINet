@@ -42,6 +42,11 @@
                             </div>
                         </div>
                     </div>
+                    <form method="POST" action="{{ route('cart.add') }}">
+                        @csrf
+                        <button type="submit" name="addToCart" class="btn btn-primary ml-2">
+                            Add to cart</button>
+                    </form>
                     <div class="form-group">
                         <div class="quantity-input d-flex align-items-center">
                             @csrf
