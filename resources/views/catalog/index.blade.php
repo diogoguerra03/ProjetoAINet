@@ -76,8 +76,6 @@
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title">{{ $tshirtImage->name }} - {{ $prices->first()->unit_price_catalog }} €
                             </h5>
-                            <h5 class="card-title">{{ $tshirtImage->name }} - {{ $prices->first()->unit_price_catalog }} €
-                            </h5>
                             <p class="card-text">{{ $tshirtImage->description }}</p>
                             <a href="{{ route('catalog.show', $tshirtImage->slug) }}" class="btn btn-primary mt-auto">View
                                 product</a>
