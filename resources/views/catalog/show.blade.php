@@ -28,9 +28,11 @@
                             <option value="Green">Green</option>
                         </select>
                     </div>
-                    <form method="POST" action="{{ route('cart.add', ['orderItem' => $tshirtImage]) }}">
+                    <form action="{{ route('cart.store') }}" mehod="POST">
                         @csrf
-                        <button type="submit" name="addToCart" class="btn btn-primary ml-2">
+                        <input type="hidden" name="product_id" value="{{ $tshirtImage->id }}"
+                        <input type="number" value="1" name="quantity" class="form-control w-25 d-inline">
+                        <button type="submit" name="store" class="btn btn-primary ml-2">
                             Add to cart</button>
                     </form>
                 </form>

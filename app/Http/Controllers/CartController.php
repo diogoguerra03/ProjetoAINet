@@ -8,6 +8,7 @@ use App\Models\TshirtImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 
 class CartController extends Controller
@@ -19,28 +20,15 @@ class CartController extends Controller
         return view('cart.show', compact('cart'));
     }
 
-    public function addToCart(Request $request, OrderItem $orderItem): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        try {
-            $cart[$orderItem->id] = $orderItem;
-            // We can access session with a request function
-            $request->session()->put('cart', $cart);
-            $alertType = 'success';
-            $url = route('catalog.index', ['catalog' => $orderItem]);
-            $htmlMessage = "Tshirt <a href='$url'>#{$orderItem->order_id}</a>
-                    <strong>\"{$orderItem->nome}\"</strong> foi adicionada ao carrinho!";
-        } catch (\Exception $error) {
-            $url = route('catalog.index', ['product' => $orderItem]);
-            $htmlMessage = "Não é possível adicionar a tshirt <a href='$url'>#{$orderItem->id}</a>
-                        <strong>\"{$orderItem->nome}\"</strong> ao carrinho, porque ocorreu um erro!";
-            $alertType = 'danger';
-        }
-        return back()
-            ->with('alert-msg', $htmlMessage)
-            ->with('alert-type', $alertType);
+        $product = TshirtImage::findOrFail($request->input('product_id'));
+
+        Cart::add($product->id, $product->name, $request->input('quantity'), $product->price / 100);
+
+        return redirect()->route('catalog.index');
+
     }
-
-
 
 
     // public function show(): View
