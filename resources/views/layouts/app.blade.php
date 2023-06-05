@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Imagine Shirt</title>
-    <link rel="icon" href="{{ asset('assets/images/items/1.jpg') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('assets/images/logos/imagineshirt.png') }}" type="image/x-icon" />
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
