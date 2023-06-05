@@ -78,9 +78,11 @@ class TshirtImageController extends Controller
     public function show(string $slug)
     {
         $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
-
         $colors = Color::whereNull('deleted_at')->orderBy('name')->pluck('name', 'code');
-        return view('catalog.show', compact('tshirtImage', 'colors'));
+
+        $price = Price::all()->first()->unit_price_catalog;
+
+        return view('catalog.show', compact('tshirtImage', 'colors', 'price'));
 
     }
 

@@ -9,8 +9,13 @@
             </div>
             <div class="col-md-6">
                 <h1>{{ $tshirtImage->name }}</h1>
-                <p>{{ $tshirtImage->description }}</p>
-                <form method="POST">
+                <h2><b>{{ $price }} € </b></h2>
+                <section class="mt-4 mb-3">
+                    <h4>Description</h4>
+                    <p>{{ $tshirtImage->description }}</p>
+                </section>
+
+                <form method="POST" action="{{ route('cart.add', ['orderItem' => $tshirtImage]) }}">
                     @csrf
                     <div class="form-group">
                         <label for="size">Size:</label>
@@ -22,8 +27,8 @@
                     </div>
                     <div class="form-group">
                         <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="colorDropdown"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn dropdown-toggle" type="button" id="colorDropdown" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
                                 <span id="selectedColor">Select Color</span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="colorDropdown"
@@ -39,19 +44,17 @@
                     </div>
                     <div class="form-group">
                         <div class="quantity-input d-flex align-items-center">
-                            <form method="POST" action="{{ route('cart.add', ['orderItem' => $tshirtImage]) }}">
-                                @csrf
-                                <button type="submit" name="addToCart" class="btn btn-primary ml-2">
-                                    Add to cart</button>
-                                <button type="button" class="btn btn-sm btn-secondary quantity-btn"
-                                    data-action="decrement">-</button>
-                                <input type="number" class="form-control quantity" name="quantity" min="1"
-                                    max="99" value="1">
-                                <button type="button" class="btn btn-sm btn-secondary quantity-btn"
-                                    data-action="increment">+</button>
+                            @csrf
+                            <button type="submit" name="addToCart" class="btn btn-primary ml-2">
+                                Add to cart</button>
+                            <button type="button" class="btn btn-sm btn-secondary quantity-btn"
+                                data-action="decrement">-</button>
+                            <input type="number" class="form-control quantity" name="quantity" min="1"
+                                max="99" value="1">
+                            <button type="button" class="btn btn-sm btn-secondary quantity-btn"
+                                data-action="increment">+</button>
                         </div>
                     </div>
-                </form>
                 </form>
             </div>
         </div>
