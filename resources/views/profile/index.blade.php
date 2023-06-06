@@ -13,19 +13,20 @@
                             <div class="card-body text-center">
 
                                 @if (Auth::user()->photo_url)
-                                    <img src="{{ asset('storage/photos/' . Auth::user()->photo_url) }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                                    <img src="{{ asset('storage/photos/' . Auth::user()->photo_url) }}" alt="avatar"
+                                        class="rounded-circle img-fluid" style="width: 150px;">
                                 @else
                                     <i class="fa fa-user icon icon-lg rounded-circle border"></i>
                                 @endif
 
-                                    <h5 class="my-3">{{ Auth::user()->name }}</h5>
+                                <h5 class="my-3">{{ Auth::user()->name }}</h5>
 
-                                    @if(Auth::user()->user_type === 'C')
-                                        <p class="text-muted mt-4 mb-1">Client</p>
-                                    @endif
-                                    @if(Auth::user()->user_type === 'A')
-                                        <p class="text-muted mt-4 mb-1">Administrator</p>
-                                    @endif
+                                @if (Auth::user()->user_type === 'C')
+                                    <p class="text-muted mt-4 mb-1">Client</p>
+                                @endif
+                                @if (Auth::user()->user_type === 'A')
+                                    <p class="text-muted mt-4 mb-1">Administrator</p>
+                                @endif
 
                             </div>
                         </div>
@@ -71,6 +72,8 @@
                             </div>
                         </div>
                         <button type="button" class="btn btn-primary btn-lg">Edit</button>
+                        <button type="button" class="btn btn-secondary btn-lg"><a class="dropdown-item"
+                                href="{{ route('password.change.show') }}">Change password</a></button>
                     </div>
                 </div>
             </div>

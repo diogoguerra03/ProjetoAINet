@@ -1,13 +1,12 @@
-
-
 <header class="section-header">
     <section class="header-main border-bottom">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-1 col-6 mr-lg-5">
-                    <a href="\" class="brand-wrap" >
-                        <img class="rounded-5" style="height: 100px" src="{{ asset('assets/images/logos/imagineshirt.png') }}" alt="Shirt Image"
-                             style="max-width: 100%;">
+                    <a href="\" class="brand-wrap">
+                        <img class="rounded-5" style="height: 100px"
+                            src="{{ asset('assets/images/logos/imagineshirt.png') }}" alt="Shirt Image"
+                            style="max-width: 100%;">
                     </a> <!-- brand-wrap.// -->
                 </div>
                 <div class="col-lg-6 col-12 col-sm-12">
@@ -26,22 +25,24 @@
                     <div class="widgets-wrap float-md-right">
                         <div class="widget-header mr-3">
                             <a href="{{ route('cart.show') }}"
-                               class="icon icon-sm rounded-circle border nav-link {{ Route::currentRouteName() == 'cart.show' ? 'active' : '' }}"><i
+                                class="icon icon-sm rounded-circle border nav-link {{ Route::currentRouteName() == 'cart.show' ? 'active' : '' }}"><i
                                     class="fa fa-shopping-cart"></i></a>
-                            <span
-                                class="badge badge-pill badge-danger notify">{{ count(session('cart', [])) }}</span>
+                            <span class="badge badge-pill badge-danger notify">{{ count(session('cart', [])) }}</span>
                         </div>
 
                         <div class="widget-header icontext">
-                        @guest
-                            <a href="{{ route('login') }}" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
-                        @else
-                            @if (Auth::user()->photo_url)
-                                <img src="{{ asset('storage/photos/' . Auth::user()->photo_url) }}" alt="User Photo" class="rounded-circle" width="40">
+                            @guest
+                                <a href="{{ route('login') }}" class="icon icon-sm rounded-circle border"><i
+                                        class="fa fa-user"></i></a>
                             @else
-                                <a href="#" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
-                            @endif
-                        @endguest
+                                @if (Auth::user()->photo_url)
+                                    <img src="{{ asset('storage/photos/' . Auth::user()->photo_url) }}" alt="User Photo"
+                                        class="rounded-circle" width="40">
+                                @else
+                                    <a href="#" class="icon icon-sm rounded-circle border"><i
+                                            class="fa fa-user"></i></a>
+                                @endif
+                            @endguest
                             <div class="text">
                                 <span class="text-muted">Welcome!</span>
                                 <!-- Right Side Of Navbar -->
@@ -56,34 +57,29 @@
 
                                         @if (Route::has('register'))
                                             <li class="nav-item">
-                                                <a class="nav-link"
-                                                   href="{{ route('register') }}">{{ __('Register') }}</a>
+                                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                             </li>
                                         @endif
                                     @else
                                         <li class="nav-item dropdown">
                                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#"
-                                               role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                                               aria-expanded="false" v-pre>
+                                                role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false" v-pre>
                                                 {{ Auth::user()->name }}
                                             </a>
 
-                                            <div class="dropdown-menu dropdown-menu-end"
-                                                 aria-labelledby="navbarDropdown">
-                                                @if(Auth::user()->user_type === 'C')
-                                                    <a class="dropdown-item" href="{{ route('profile') }}">My Profile</a>
-                                                @endif
-                                                @if(Auth::user()->user_type === 'A')
+                                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" href="{{ route('profile') }}">My Profile</a>
+                                                @if (Auth::user()->user_type === 'A')
                                                     <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
                                                 @endif
                                                 <a class="dropdown-item" href="{{ route('logout') }}"
-                                                   onclick="event.preventDefault();
+                                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                                     {{ __('Logout') }}
                                                 </a>
-
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                      class="d-none">
+                                                    class="d-none">
                                                     @csrf
                                                 </form>
                                             </div>
@@ -97,28 +93,28 @@
             </div> <!-- row.// -->
         </div> <!-- container.// -->
     </section> <!-- header-main .// -->
-<nav class="navbar navbar-main navbar-expand-lg navbar-light border-bottom">
-    <div class="container">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav"
+    <nav class="navbar navbar-main navbar-expand-lg navbar-light border-bottom">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav"
                 aria-controls="main_nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="main_nav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link"
-                       href="\">Main Menu</a>
+            <div class="collapse navbar-collapse" id="main_nav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link"
+                            href="\">Main Menu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="\catalog">Catalog</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="\about">About Us</a>
-                </li>
-            </ul>
-        </div> <!-- collapse .// -->
-    </div> <!-- container .// -->
-</nav>
+                            <a class="nav-link" href="\catalog">Catalog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="\about">About Us</a>
+                    </li>
+                </ul>
+            </div> <!-- collapse .// -->
+        </div> <!-- container .// -->
+    </nav>
 </header>
 <!-- section-header.// -->

@@ -8,6 +8,8 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TshirtImageController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\ChangePasswordController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +32,10 @@ Auth::routes([
     'verify' => true,
 ]);
 
+Route::get('/password/change', [ChangePasswordController::class, 'show'])
+    ->name('password.change.show');
+Route::post('/password/change', [ChangePasswordController::class, 'store'])
+    ->name('password.change.store');
 
 Route::resource('orders', OrderController::class);
 
