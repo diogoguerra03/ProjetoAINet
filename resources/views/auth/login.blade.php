@@ -5,7 +5,20 @@
         <div class="row justify-content-center">
             <div class="col-md-8 mb-5 mt-5">
                 <div class="card">
-                    <div class="card-header">{{ __('Login') }}</div>
+                    <div class="card-header">
+                        <div class="row">
+
+                            <div class="col-auto">
+                                <a class="bi bi-caret-left-fill" href="/"></a>
+                            </div>
+                            <div class="col text-center">
+                                <span>{{ __('Login') }}</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('login') }}">
