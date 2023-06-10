@@ -42,11 +42,10 @@ Route::resource('orders', OrderController::class);
 Route::resource('customers', CustomerController::class);
 
 Route::resource('catalog', TshirtImageController::class);
-Route::get('catalog/{id}/edit', [TshirtImageController::class, 'edit'])->name('catalog.edit')->middleware('AuthorizeAdmin');
-Route::delete('catalog/{id}', [TshirtImageController::class, 'destroy'])->name('catalog.destroy')->middleware('AuthorizeAdmin');
-
-
+Route::delete('catalog/{id}', [TshirtImageController::class, 'destroy'])->name('catalog.destroy');
 Route::get('catalog/{slug}', [TshirtImageController::class, 'show'])->name('catalog.show');
+Route::get('catalog/{slug}/edit', [TshirtImageController::class, 'edit'])->name('catalog.edit');
+
 
 Route::get('/profile', [UserController::class, 'profile'])->name('profile');
 Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');

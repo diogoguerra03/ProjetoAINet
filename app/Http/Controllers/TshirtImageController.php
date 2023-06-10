@@ -12,9 +12,11 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Http\Requests\TshirtImageRequest;
 
 class TshirtImageController extends Controller
 {
+
     public function index(Request $request): View
     {
         $categories = Category::all()->whereNull('deleted_at')->sortBy('name');
@@ -86,9 +88,10 @@ class TshirtImageController extends Controller
 
     }
 
-    public function edit($id)
+    public function edit(string $slug)
     {
-        $tshirtImage = TshirtImage::findOrFail($id);
+        $this->authorize('admin');
+        $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
         $categories = Category::all()->whereNull('deleted_at')->sortBy('name');
         $colors = Color::whereNull('deleted_at')->orderBy('name')->pluck('name', 'code');
         $price = Price::all()->first()->unit_price_catalog;
