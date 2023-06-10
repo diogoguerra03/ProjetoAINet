@@ -86,6 +86,15 @@ class TshirtImageController extends Controller
 
     }
 
-
+    public function edit($id)
+    {
+        $tshirtImage = TshirtImage::findOrFail($id);
+        $categories = Category::all()->whereNull('deleted_at')->sortBy('name');
+        $colors = Color::whereNull('deleted_at')->orderBy('name')->pluck('name', 'code');
+        $price = Price::all()->first()->unit_price_catalog;
+    
+        return view('catalog.edit', compact('tshirtImage', 'categories', 'colors', 'price'));
+    }
+    
 
 }

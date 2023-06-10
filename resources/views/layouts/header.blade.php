@@ -69,7 +69,9 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                                <a class="dropdown-item" href="{{ route('profile') }}">My Profile</a>
+                                                @if (Auth::user()->user_type !== 'E')
+                                                    <a class="dropdown-item" href="{{ route('profile') }}">My Profile</a>
+                                                @endif
                                                 @if (Auth::user()->user_type === 'A')
                                                     <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
                                                 @endif

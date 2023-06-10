@@ -79,6 +79,13 @@
                             <p class="card-text">{{ $tshirtImage->description }}</p>
                             <a href="{{ route('catalog.show', $tshirtImage->slug) }}" class="btn btn-primary mt-auto">View
                                 product</a>
+                                @if (auth()->check() && auth()->user()->user_type === 'A')
+                                <div class="mt-3 d-flex">
+                                    <a href="{{ route('catalog.edit', $tshirtImage->id) }}" class="btn btn-success flex-fill mr-1">Edit</a>
+                                    <button class="btn btn-danger flex-fill ml-1" onclick="deleteProduct({{ $tshirtImage->id }})">Delete</button>
+                                </div>
+                                @endif
+
 
                         </div>
                     </div>

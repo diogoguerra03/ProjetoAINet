@@ -42,6 +42,9 @@ Route::resource('orders', OrderController::class);
 Route::resource('customers', CustomerController::class);
 
 Route::resource('catalog', TshirtImageController::class);
+Route::get('catalog/{id}/edit', [TshirtImageController::class, 'edit'])->name('catalog.edit')->middleware('AuthorizeAdmin');
+Route::delete('catalog/{id}', [TshirtImageController::class, 'destroy'])->name('catalog.destroy')->middleware('AuthorizeAdmin');
+
 
 Route::get('catalog/{slug}', [TshirtImageController::class, 'show'])->name('catalog.show');
 
