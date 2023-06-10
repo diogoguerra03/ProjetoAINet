@@ -37,7 +37,7 @@
                             @else
                                 @if (Auth::user()->photo_url)
                                     <img src="{{ asset('storage/photos/' . Auth::user()->photo_url) }}" alt="User Photo"
-                                        class="rounded-circle" width="40">
+                                        class="rounded-circle mr-3" width="40">
                                 @else
                                     <a href="#" class="icon icon-sm rounded-circle border"><i
                                             class="fa fa-user"></i></a>
