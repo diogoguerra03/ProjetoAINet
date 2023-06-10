@@ -30,10 +30,9 @@
                             @csrf
                             <div class="row mb-3 mx-auto">
                                 <div class="col-md-6 mx-auto">
-                                    <input id="email" type="email"
-                                        class="form-control @error('email') is-invalid @enderror" name="email"
-                                        value="{{ old('email') }}" placeholder="Email Adress" required autocomplete="email"
-                                        autofocus>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
+    value="{{ old('email', $rememberedEmail) }}" placeholder="Email Address" required autocomplete="email" autofocus>
+
 
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
