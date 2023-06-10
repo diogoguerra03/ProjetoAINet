@@ -79,12 +79,15 @@
                             <p class="card-text">{{ $tshirtImage->description }}</p>
                             <a href="{{ route('catalog.show', $tshirtImage->slug) }}" class="btn btn-primary mt-auto">View
                                 product</a>
-                                @can('update', $tshirtImage)
+                                
                                 <div class="mt-3 d-flex">
+                                @can('update', $tshirtImage)
                                     <a href="{{ route('catalog.edit', $tshirtImage->slug) }}" class="btn btn-success flex-fill mr-1">Edit</a>
-                                    <button class="btn btn-danger flex-fill ml-1" onclick="deleteProduct({{ $tshirtImage->id }})">Delete</button>
-                                </div>
                                 @endcan
+                                @can('delete', $tshirtImage)
+                                    <button class="btn btn-danger flex-fill ml-1" onclick="deleteProduct({{ $tshirtImage->id }})">Delete</button>
+                                @endcan
+                                </div>
 
                         </div>
                     </div>
