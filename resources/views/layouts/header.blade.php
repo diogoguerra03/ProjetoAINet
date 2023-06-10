@@ -65,7 +65,15 @@
                                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#"
                                                 role="button" data-bs-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false" v-pre>
-                                                {{ Auth::user()->name }}
+                                                @php
+                                                    $names = explode(' ', Auth::user()->name);
+                                                    $firstName = $names[0];
+                                                    $lastName = end($names);
+                                                    if($firstName == $lastName)
+                                                        $lastName = '';
+                                                @endphp
+
+                                                {{ $firstName }} {{ $lastName }}
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
