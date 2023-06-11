@@ -15,8 +15,9 @@
                     <p>{{ $tshirtImage->description }}</p>
                 </section>
 
-                <form method="POST" action="{{ route('cart.add', ['orderItem' => $tshirtImage]) }}">
+                <form method="POST" action="{{ route('cart.add') }}">
                     @csrf
+                    <input type="hidden" name="orderItem" value="{{ \Illuminate\Support\Str::uuid()->toString() }}">
                     <div class="form-group">
                         <label for="size">Size:</label>
                         <select name="size" id="size" class="form-control">
@@ -44,10 +45,8 @@
                     </div>
                     <div class="form-group">
                         <div class="quantity-input d-flex">
-                            <form method="POST" action="{{ route('cart.add') }}">
-                                @csrf
-                                <button type="submit" name="addToCart" class="btn btn-primary ml-2 mr-5">Add to cart</button>
-                            </form>
+                            <button type="submit" name="addToCart" class="btn btn-primary ml-2 mr-5">Add to
+                                cart</button>
                             <button type="button" class="btn btn-sm btn-secondary quantity-btn ml-5"
                                 data-action="decrement">-</button>
                             <input type="number" class="form-control quantity" name="quantity" min="1"
