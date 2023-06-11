@@ -85,7 +85,7 @@
                                     <a href="{{ route('catalog.edit', $tshirtImage->slug) }}" class="btn btn-success flex-fill mr-1">Edit</a>
                                 @endcan
                                 @can('delete', $tshirtImage)
-                                    <button class="btn btn-danger flex-fill ml-1" onclick="deleteProduct({{ $tshirtImage->id }})">Delete</button>
+                                    <button class="btn btn-danger flex-fill ml-1">Delete</button>
                                 @endcan
                                 </div>
 
