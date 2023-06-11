@@ -3,12 +3,24 @@
 @extends('layouts.header')
 @extends('layouts.app')
 
-
 @section('content')
-    Content area...
-    Angola e um pais de muitas riquezas
+    teste1
+    <canvas id="barChart"></canvas>
+    teste
+    
+    </div>
+    </div>
+    </div>
 
-    </div>
-    </div>
-    </div>
+
+
+
+
+
+    @section('scripts')
+        <script src="{{ asset('js/app.js') }}"></script>
+    @endsection
+
+
+
 @endsection
