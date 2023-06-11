@@ -54,5 +54,5 @@ Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard'
  *   CARRINHO
  */
 
-Route::post('/cart/add', 'CartController@addToCart')->name('cart.add');
-Route::get('/cart', 'CartController@show')->name('cart.show');
+Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+Route::get('/cart', [CartController::class, 'show'])->name('cart.show');

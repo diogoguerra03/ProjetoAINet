@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 class CartController extends Controller
 {
@@ -17,18 +18,16 @@ class CartController extends Controller
     public function addToCart(Request $request) : RedirectResponse
     {
 
-        
+        // Retrieve the submitted form data
+        $tshirtImage = $request->session()->get('orderItem');
+        $size = $request->session()->get('size');
+        $color = $request->session()->get('color');
+        $quantity = $request->session()->get('quantity');
 
+        // Implement your cart logic here, such as storing the item in the cart session or database
 
-        // // Retrieve the submitted form data
-        // $tshirtImage = $request->input('orderItem');
-        // $size = $request->input('size');
-        // $color = $request->input('color');
-        // $quantity = $request->input('quantity');
-
-        // // Implement your cart logic here, such as storing the item in the cart session or database
-
-        // // Optionally, you can redirect the user to the cart page or a success message
-        // return redirect()->route('cart')->with('success', 'Item added to cart successfully');
+        // Optionally, you can redirect the user to the cart page or a success message
+        return redirect()->route('cart.show')->with('success', 'Item added to cart successfully');
     }
 }
+
