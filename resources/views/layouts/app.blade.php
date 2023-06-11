@@ -23,6 +23,7 @@
     <link href="{{ asset('assets/css/all.min.css') }}" rel="stylesheet">
     <script src="{{ asset('assets/js/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('https://cdn.jsdelivr.net/npm/chart.js') }}" type="text/javascript"></script>
 
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>

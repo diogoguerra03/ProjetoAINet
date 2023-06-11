@@ -77,7 +77,7 @@ class TshirtImageController extends Controller
 
     }
 
-    public function show(string $slug)
+    public function show(string $slug): View
     {
         $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
         $colors = Color::whereNull('deleted_at')->orderBy('name')->pluck('name', 'code');
@@ -88,16 +88,30 @@ class TshirtImageController extends Controller
 
     }
 
-    public function edit(string $slug)
+    public function edit(string $slug): View
     {
-        $this->authorize('admin');
         $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
+        $this->authorize('update', $tshirtImage);
         $categories = Category::all()->whereNull('deleted_at')->sortBy('name');
         $colors = Color::whereNull('deleted_at')->orderBy('name')->pluck('name', 'code');
         $price = Price::all()->first()->unit_price_catalog;
-    
+
         return view('catalog.edit', compact('tshirtImage', 'categories', 'colors', 'price'));
     }
+
     
+    public function update(TshirtImageRequest $request, TshirtImage $tshirtImage): RedirectResponse
+    {
+        $tshirtImage->update($request->validated());
+
+        $url = route('catalog.show', $tshirtImage->slug);
+        $htmlMessage = "Product <a href='$url'>#{$tshirtImage->id}</a>
+                        <strong>\"{$tshirtImage->name}\"</strong> foi alterada com sucesso!";
+        return redirect()->route('catalog.index')
+            ->with('alert-msg', $htmlMessage)
+            ->with('alert-type', 'success');
+    }
+
+
 
 }

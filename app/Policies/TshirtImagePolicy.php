@@ -21,7 +21,6 @@ class TshirtImagePolicy
      */
     public function view(User $user, TshirtImage $tshirtImage): bool
     {
-
         return true;
     }
 

@@ -1,14 +1,26 @@
 @extends('layouts.footer')
+@extends('layouts.sidebar')
 @extends('layouts.header')
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Dashboard</h1>
-                <!-- Conteúdo da dashboard -->
-            </div>
-        </div>
+    teste1
+    <canvas id="barChart"></canvas>
+    teste
+    
     </div>
+    </div>
+    </div>
+
+
+
+
+
+
+    @section('scripts')
+        <script src="{{ asset('js/app.js') }}"></script>
+    @endsection
+
+
+
 @endsection

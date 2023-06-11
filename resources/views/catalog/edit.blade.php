@@ -1,6 +1,7 @@
 @extends('layouts.footer')
 @extends('layouts.header')
 @extends('layouts.app')
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -8,60 +9,37 @@
                 <img src="{{ $tshirtImage->image_url }}" alt="{{ $tshirtImage->name }}" class="image-container">
             </div>
             <div class="col-md-6">
-                <h1>{{ $tshirtImage->name }}</h1>
-                <h2><b>{{ $price }} € </b></h2>
-                <section class="mt-4 mb-3">
-                    <h4>Description</h4>
-                    <p>{{ $tshirtImage->description }}</p>
-                </section>
-
-                <form method="POST" action="{{ route('cart.add', ['orderItem' => $tshirtImage]) }}">
+                
+                <form novalidate class="needs-validation" method="POST" action="{{ route('catalog.update', ['catalog' => $tshirtImage]) }}" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
+                    
                     <div class="form-group">
-                        <label for="size">Size:</label>
-                        <select name="size" id="size" class="form-control">
-                            <option value="S">Small</option>
-                            <option value="M">Medium</option>
-                            <option value="L">Large</option>
-                        </select>
+                        <label for="name">{{ __('Name') }}</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ $tshirtImage->name }}" required>
                     </div>
+                    
                     <div class="form-group">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="colorDropdown"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span id="selectedColor">Select Color</span>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="colorDropdown"
-                                style="max-height: 200px; overflow-y: auto;">
-                                @foreach ($colors as $colorCode => $colorName)
-                                    <span class="dropdown-item color-option" data-color="{{ $colorCode }}">
-                                        <i class="bi bi-circle-fill mr-2" style="color: #{{ $colorCode }}"></i>
-                                        {{ $colorName }}
-                                    </span>
-                                @endforeach
-                            </div>
-                        </div>
+                        <label for="description">{{ __('Description') }}</label>
+                        <textarea class="form-control" id="description" name="description" rows="7" required>{{ $tshirtImage->description }}</textarea>
                     </div>
+
+                    
                     <div class="form-group">
-                        <div class="quantity-input d-flex">
-                            <form method="POST" action="{{ route('cart.add') }}">
-                                @csrf
-                                <button type="submit" name="addToCart" class="btn btn-primary ml-2 mr-5">Add to cart</button>
-                            </form>
-                            <button type="button" class="btn btn-sm btn-secondary quantity-btn ml-5"
-                                data-action="decrement">-</button>
-                            <input type="number" class="form-control quantity" name="quantity" min="1"
-                                max="99" value="1">
-                            <button type="button" class="btn btn-sm btn-secondary quantity-btn"
-                                data-action="increment">+</button>
-                        </div>
+                        <label for="image">{{ __('Image') }}</label>
+                        <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                    </div>
+                    
+                    <div class="form-group mb-0">
+                        <button type="submit" class="btn btn-primary" name="ok">{{ __('Update') }}</button>
+                        <a href="{{ route('catalog.show', $tshirtImage->slug) }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-@section('scripts')
-    <script src="{{ asset('js/app.js') }}"></script>
 @endsection
 
+@section('scripts')
+    <script src="{{ asset('js/app.js') }}"></script>
 @endsection
