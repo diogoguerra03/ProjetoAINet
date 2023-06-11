@@ -100,9 +100,8 @@ class TshirtImageController extends Controller
     }
 
     
-    public function update(TshirtImageRequest $request, string $slug): RedirectResponse
+    public function update(TshirtImageRequest $request, TshirtImage $tshirtImage): RedirectResponse
     {
-        $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
         $tshirtImage->update($request->validated());
 
         $url = route('catalog.show', $tshirtImage->slug);
@@ -112,6 +111,7 @@ class TshirtImageController extends Controller
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
     }
+
 
 
 }
