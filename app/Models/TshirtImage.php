@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -42,6 +43,13 @@ class TshirtImage extends Model
     {
         return Storage::url('tshirt_images/' . $value);
 
+    }
+
+    public function getColorUrlAttribute()
+    {
+        $selectedColor = request()->input('selectedColor');
+        $defaultColorUrl = Storage::url('tshirt_base/e7e0ee.jpg'); // the whitest color
+        return $selectedColor ? Storage::url('tshirt_base/' . $selectedColor . '.jpg') : $defaultColorUrl;
     }
 
     public function getExtraInfoAttribute($value)

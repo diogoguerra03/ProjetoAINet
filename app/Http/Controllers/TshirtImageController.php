@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\TshirtImage;
-use App\Models\Price;
 use App\Models\Color;
-use Illuminate\Http\Request;
+use App\Models\Price;
+use App\Models\Category;
 use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
+use App\Models\TshirtImage;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\TshirtImageRequest;
 
 class TshirtImageController extends Controller
@@ -99,7 +100,7 @@ class TshirtImageController extends Controller
         return view('catalog.edit', compact('tshirtImage', 'categories', 'colors', 'price'));
     }
 
-    
+
     public function update(TshirtImageRequest $request, TshirtImage $tshirtImage): RedirectResponse
     {
         $tshirtImage->update($request->validated());
@@ -111,7 +112,5 @@ class TshirtImageController extends Controller
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
     }
-
-
 
 }
