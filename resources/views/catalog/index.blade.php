@@ -87,12 +87,12 @@
                                 @endcan
                                 @can('delete', $tshirtImage)
                                     <div class="flex-fill ml-1">
-                                        <form method="POST" action="{{ route('catalog.destroy', $tshirtImage->slug) }}"
-                                            id="deleteForm">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger flex-fill w-100">Delete</button>
-                                        </form>
+                                    <form method="POST" action="{{ route('catalog.destroy', $tshirtImage->slug) }}"
+                                        id="deleteForm_{{ $tshirtImage->id }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger flex-fill w-100">Delete</button>
+                                    </form>
                                     </div>
                                 @endcan
                             </div>
