@@ -33,7 +33,8 @@ colorOptions.forEach((option) => {
         colorOptions.forEach((otherOption) => otherOption.classList.remove("active"))
         this.classList.add("active")
         selectedColor.textContent = this.textContent.trim()
-        document.getElementById("tshirtImage").src = this.textContent.trim()
+        var colorHex = this.getAttribute("data-color")
+        document.getElementById("tshirtImage").src = "/storage/tshirt_base/" + colorHex + ".jpg"
     })
 })
 
