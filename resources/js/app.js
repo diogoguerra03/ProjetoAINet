@@ -24,19 +24,21 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 })
 
+// Change the color of the tshirt
 const colorOptions = document.querySelectorAll(".color-option")
 const selectedColor = document.getElementById("selectedColor")
-const tshirtImage = document.getElementById("tshirtImage")
-
 colorOptions.forEach((option) => {
     option.addEventListener("click", function () {
         colorOptions.forEach((otherOption) => otherOption.classList.remove("active"))
         this.classList.add("active")
         selectedColor.textContent = this.textContent.trim()
         var colorHex = this.getAttribute("data-color")
-        document.getElementById("tshirtImage").src = "/storage/tshirt_base/" + colorHex + ".jpg"
+        document.getElementById("tshirt").src = "/storage/tshirt_base/" + colorHex + ".jpg"
     })
 })
+
+// carrossel -> impedir o carrossel de andar sozinho
+$(".carousel").carousel({interval:0})
 
 //bargraph
 console.log("Hello from dashboard.js!")

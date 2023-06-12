@@ -22,7 +22,6 @@
     font-size: 24px;
 }
 
-
 .quantity-input .quantity {
     width: 60px;
     margin: 5px;
@@ -36,3 +35,53 @@
     margin-right: 5%;
 }
 
+/*
+*
+* affects: catalog/show.blade.php
+*
+*/
+
+.zoom {
+    overflow: hidden;
+}
+
+.zoom img {
+    transition: all 1.5s ease;
+}
+
+.zoom:hover img {
+    transform: scale(1.5);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: grey;
+    position: absolute;
+    top: 60%;
+    width: 50px;
+    height: 40px;
+}
+
+// First slide image
+.imagesParent {
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+#tshirt {
+    // remove white background
+    mix-blend-mode: multiply;
+    background-color: transparent;
+    // positioning
+    position: relative;
+    left: 0;
+}
+
+#tshirtImage {
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    max-height: 120px;
+    z-index: 5;
+}
