@@ -113,15 +113,6 @@ class TshirtImageController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function changeColor(Request $request)
-    {
-        $colorCode = $request->query('colorCode');
-        // Retrieve the TshirtImage model instance based on your logic
-        $colorCode = Color::where('code', $colorCode)->firstOrFail();
-
-        $imageUrl = $colorCode->code;
-
-        return response()->json(['colorUrl' => $imageUrl]);
-    }
+    
 
 }

@@ -47,9 +47,10 @@ class TshirtImage extends Model
 
     public function getColorUrlAttribute()
     {
-        $selectedColor = request()->input('selectedColor');
+        $selectedColorString = request()->input('color', 'Off white'); // default color is white (hex: #e7e0ee
+        $colorHex = Color::where('name', $selectedColorString)->pluck('code')->first();
         $defaultColorUrl = Storage::url('tshirt_base/e7e0ee.jpg'); // the whitest color
-        return $selectedColor ? Storage::url('tshirt_base/' . $selectedColor . '.jpg') : $defaultColorUrl;
+        return $colorHex ? Storage::url('tshirt_base/' . $colorHex . '.jpg') : $defaultColorUrl;
     }
 
     public function getExtraInfoAttribute($value)
