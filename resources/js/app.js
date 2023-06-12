@@ -26,14 +26,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const colorOptions = document.querySelectorAll(".color-option")
 const selectedColor = document.getElementById("selectedColor")
+const tshirtImage = document.getElementById("tshirtImage")
+
 colorOptions.forEach((option) => {
     option.addEventListener("click", function () {
         colorOptions.forEach((otherOption) => otherOption.classList.remove("active"))
         this.classList.add("active")
         selectedColor.textContent = this.textContent.trim()
+
+        // Send the selected color to the server
+        const colorCode = this.dataset.color
+        const url = `/change-color?colorCode=${encodeURIComponent(colorCode)}`
+
+        // Make an AJAX request to the server
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                tshirtImage.src = data.colorUrl
+                tshirtImage.setAttribute('data-color-url', data.colorUrl);
+            })
+            .catch((error) => {
+                console.error("Error:", error)
+            })
     })
 })
-
 
 //bargraph
 console.log("Hello from dashboard.js!")

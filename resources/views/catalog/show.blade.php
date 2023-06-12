@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <img src="{{ $tshirtImage->color_url }}" alt="" class="image-container" id="tshirtImage">
+                <img src="{{ $tshirtImage->color_url }}" data-color-url="{{$tshirtImage->color_url}}" alt="" class="image-container" id="tshirtImage">
                 <img src="{{ $tshirtImage->image_url }}" alt="{{ $tshirtImage->name }}" class="image-container">
             </div>
             <div class="col-md-6">
