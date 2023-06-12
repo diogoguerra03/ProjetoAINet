@@ -5,8 +5,46 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <img src='/storage/tshirt_base/e7e0ee.jpg'" alt="" class="image-container" id="tshirtImage">
-                <img src="{{ $tshirtImage->image_url }}" alt="{{ $tshirtImage->name }}" class="image-container">
+                <div id="carouselExampleIndicators" class=" carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="zoom imagesParent carousel-item active" >
+                            <img src='/storage/tshirt_base/e7e0ee.jpg' alt="" class="image-container d-block w-100"
+                                id="tshirt">
+                            <img src="{{ $tshirtImage->image_url }}" alt="{{ $tshirtImage->name }}"
+                                class="image-container d-block w-100" id="tshirtImage">
+                        </div>
+                        <div class="zoom carousel-item">
+                            <img class="image-container d-block w-100" src="{{ $tshirtImage->image_url }}"
+                                alt="{{ $tshirtImage->name }}">
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog" data-dismiss="modal">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <button type="button" class="close" data-dismiss="modal"><span
+                                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <img src="" class="imagepreview" style="width: 100%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
             </div>
             <div class="col-md-6">
                 <h1>{{ $tshirtImage->name }}</h1>

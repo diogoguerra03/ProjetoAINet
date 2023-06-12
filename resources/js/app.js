@@ -31,10 +31,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// Change the color of the tshirt
 const colorOptions = document.querySelectorAll(".color-option");
 const selectedColor = document.getElementById("selectedColor");
-const tshirtImage = document.getElementById("tshirtImage");
-
 colorOptions.forEach((option) => {
     option.addEventListener("click", function () {
         colorOptions.forEach((otherOption) =>
@@ -43,41 +42,10 @@ colorOptions.forEach((option) => {
         this.classList.add("active");
         selectedColor.textContent = this.textContent.trim();
         var colorHex = this.getAttribute("data-color");
-        document.getElementById("tshirtImage").src =
+        document.getElementById("tshirt").src =
             "/storage/tshirt_base/" + colorHex + ".jpg";
     });
 });
-
-// -----------------Delete TshirtImage-----------------
-
-document.addEventListener("DOMContentLoaded", function () {
-    const deleteForm = document.getElementById("deleteForm");
-    if (deleteForm) {
-        deleteForm.addEventListener("submit", function (event) {
-            event.preventDefault();
-
-            Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    event.target.submit();
-                }
-            });
-        });
-    }
-});
-
-// -----------------DashBoard-----------------
-
-// -----------------Dashboard-----------------
-
-// -----------------Dashboard-----------------
 
 if (window.location.pathname === "/dashboard") {
     document.addEventListener("DOMContentLoaded", function () {
