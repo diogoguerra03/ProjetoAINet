@@ -94,25 +94,44 @@ class TshirtImageController extends Controller
         $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
         $this->authorize('update', $tshirtImage);
         $categories = Category::all()->whereNull('deleted_at')->sortBy('name');
-        $colors = Color::whereNull('deleted_at')->orderBy('name')->pluck('name', 'code');
-        $price = Price::all()->first()->unit_price_catalog;
 
-        return view('catalog.edit', compact('tshirtImage', 'categories', 'colors', 'price'));
+        return view('catalog.edit', compact('tshirtImage', 'categories'));
     }
 
 
-    public function update(TshirtImageRequest $request, TshirtImage $tshirtImage): RedirectResponse
+    public function update(TshirtImageRequest $request, string $slug): RedirectResponse
     {
-        $tshirtImage->update($request->validated());
+        $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
+
+        $formData = $request->validated();
+        $tshirtImage = DB::transaction(function () use ($formData, $tshirtImage, $request) {
+            $tshirtImage->name = $formData['name'];
+            $tshirtImage->description = $formData['description'];
+            $tshirtImage->category_id = $formData['category_id'];
+
+            if ($request->hasFile('image')) {
+                if ($tshirtImage->image_url) {
+                    Storage::delete('public/tshirt_images/' . $tshirtImage->image_url);
+                }
+
+                $path = $request->file('image')->store('public/tshirt_images');
+                $filename = basename($path);
+                $tshirtImage->image_url = $filename;
+            }
+
+            $tshirtImage->save();
+
+            return $tshirtImage;
+        });
 
         $url = route('catalog.show', $tshirtImage->slug);
         $htmlMessage = "Product <a href='$url'>#{$tshirtImage->id}</a>
-                        <strong>\"{$tshirtImage->name}\"</strong> foi alterada com sucesso!";
+                    <strong>\"{$tshirtImage->name}\"</strong> foi alterado com sucesso!";
+
         return redirect()->route('catalog.index')
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
     }
 
-    
 
 }

@@ -25,6 +25,7 @@ class TshirtImageRequest extends FormRequest
             'category_id' => 'required|exists:categories,id',
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
+            'image_url' => 'sometimes|image|max:4096', // maxsize = 4Mb
         ];
     }
 
@@ -44,7 +45,8 @@ class TshirtImageRequest extends FormRequest
             'description.required' => 'O campo de descrição é obrigatório.',
             'description.string' => 'O campo de descrição deve ser uma string.',
             'description.max' => 'O campo de descrição não pode exceder 255 caracteres.',
-            
+            'image_url.image' => 'O ficheiro com a foto não é uma imagem',
+            'image_url.size' => 'O tamanho do ficheiro com a foto tem que ser inferior a 4 Mb',
         ];
     }
 }
