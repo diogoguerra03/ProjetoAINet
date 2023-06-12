@@ -44,6 +44,7 @@ Route::resource('customers', CustomerController::class);
 Route::resource('catalog', TshirtImageController::class);
 Route::get('catalog/{slug}', [TshirtImageController::class, 'show'])->name('catalog.show');
 Route::get('catalog/{slug}/edit', [TshirtImageController::class, 'edit'])->name('catalog.edit');
+Route::delete('catalog/{slug}/delete', [TshirtImageController::class, 'destroy'])->name('catalog.destroy');
 
 Route::get('/profile', [UserController::class, 'profile'])->name('profile');
 Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');

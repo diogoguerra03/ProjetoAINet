@@ -126,12 +126,30 @@ class TshirtImageController extends Controller
 
         $url = route('catalog.show', $tshirtImage->slug);
         $htmlMessage = "Product <a href='$url'>#{$tshirtImage->id}</a>
-                    <strong>\"{$tshirtImage->name}\"</strong> foi alterado com sucesso!";
+                    <strong>\"{$tshirtImage->name}\"</strong> was successfully updated!";
 
         return redirect()->route('catalog.index')
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
     }
+
+    public function destroy(string $slug): RedirectResponse
+    {
+        $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
+
+        if ($tshirtImage->orderItems()->exists()) {
+            $tshirtImage->delete();
+        } else {
+            Storage::delete('public/tshirt_images/' . $tshirtImage->image_url);
+            $tshirtImage->forceDelete();
+        }
+
+        return redirect()->route('catalog.index')
+            ->with('alert-msg', 'Image deleted successfully.')
+            ->with('alert-type', 'success');
+    }
+
+
 
 
 }
