@@ -1,25 +1,20 @@
 @extends('layouts.footer')
+@extends('layouts.header')
 @extends('layouts.app')
 
-@section('titulo', 'Carrinho')
 
-@section('subtitulo')
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">Espaço Privado</li>
-        <li class="breadcrumb-item active">Carrinho</li>
-    </ol>
-@endsection
 
-@section('main')
+@section('content')
     <div>
         <h3>T-shirts no carrinho</h3>
     </div>
     @foreach ($cart as $item)
         <tr>
-            <td>{{ $item->color }}</td>
-            <td>{{ $item->size }}</td>
-            <td>{{ $item->quantity }}</td>
-            <td>{{ $item->product_id }}</td>
+            1 <td>{{ $item['product_id'] }}</td> /
+            2 <td>{{ $item['color'] }}</td> /
+            3 <td>{{ $item['size'] }}</td> /
+            4 <td>{{ $item['quantity'] }}</td> /
+            <br>
         </tr>
     @endforeach
     <div class="my-4 d-flex justify-content-end">

@@ -13,7 +13,7 @@ class DashboardController extends Controller
     {
         $totalProducts = TshirtImage::count();
         $ordersPlaced = Order::count();
-        $moneyEarned = Order::sum('total_price');
+        $moneyEarned = Order::where('status', 'closed')->sum('total_price'); // só contabiliza as orders fechadas
         $numberCustomers = User::where('user_type', 'C')->count();
 
 
