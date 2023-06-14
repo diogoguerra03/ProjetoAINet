@@ -41,6 +41,8 @@ Route::get('catalog/{slug}', [TshirtImageController::class, 'show'])->name('cata
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [UserController::class, 'profile'])->name('profile')->middleware('verified');
+    Route::get('/profile/edit', [UserController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [UserController::class, 'update'])->name('profile.update');
     Route::get('/password/change', [ChangePasswordController::class, 'show'])
         ->name('password.change.show');
     Route::post('/password/change', [ChangePasswordController::class, 'store'])
