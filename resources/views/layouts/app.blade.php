@@ -24,8 +24,8 @@
     <script src="{{ asset('assets/js/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" type="text/javascript"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" type="text/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('https://cdn.jsdelivr.net/npm/chart.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11') }}"></script>
 
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
