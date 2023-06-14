@@ -71,9 +71,11 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primary btn-lg">Edit</button>
-                        <button type="button" class="btn btn-secondary btn-lg"><a class="dropdown-item"
-                                href="{{ route('password.change.show') }}">Change password</a></button>
+                        @can('update', Auth::user())
+                            <a href="{{ route('profile.edit') }}" class="btn btn-primary btn-lg">Edit</a>
+                            <button type="button" class="btn btn-secondary btn-lg"><a class="dropdown-item"
+                                    href="{{ route('password.change.show') }}">Change password</a></button>
+                        @endcan
                     </div>
                 </div>
             </div>
