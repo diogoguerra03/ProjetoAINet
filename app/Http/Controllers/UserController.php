@@ -21,11 +21,6 @@ class UserController extends Controller
         return view('profile.index', ['user' => $user]);
     }
 
-    public function dashboard(Request $request): View
-    {
-        return view('dashboard.index');
-    }
-
     public function edit(User $user): View
     {
         $this->authorize('update', $user);

@@ -10,7 +10,7 @@
             <div class="card h-100 bg-info text-white">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">Total Products</h5>
-                    <p class="card-text">3928</p>
+                    <p class="card-text">{{$totalProducts}}</p>
                     <hr>
                     <a href="" class="btn btn-light mt-auto">More info</a>
                 </div>
@@ -20,7 +20,7 @@
             <div class="card h-100 bg-success text-white">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">Orders placed</h5>
-                    <p class="card-text">293</p>
+                    <p class="card-text">{{$ordersPlaced}}</p>
                     <hr>
                     <a href="" class="btn btn-light mt-auto">More info</a>
                 </div>
@@ -30,7 +30,7 @@
             <div class="card h-100 bg-danger text-white">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">Money Earned</h5>
-                    <p class="card-text">1120€</p>
+                    <p class="card-text">{{$moneyEarned}}€</p>
                     <hr>
                     <a href="" class="btn btn-light mt-auto">More info</a>
                 </div>
@@ -40,7 +40,7 @@
             <div class="card h-100 bg-warning text-white">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">Costumers registered</h5>
-                    <p class="card-text">120</p>
+                    <p class="card-text">{{$numberCustomers}}</p>
                     <hr>
                     <a href="" class="btn btn-light mt-auto">More info</a>
                 </div>

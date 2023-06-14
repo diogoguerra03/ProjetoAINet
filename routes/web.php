@@ -9,6 +9,8 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TshirtImageController;
 use App\Http\Controllers\Auth\ChangePasswordController;
+use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\DashboardController;
 
 
 /*
@@ -22,7 +24,7 @@ use App\Http\Controllers\Auth\ChangePasswordController;
 |
 */
 
-Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index']);
+Route::get('/', [WelcomeController::class, 'index']);
 
 Route::get('/about', function () {
     return view('about');
@@ -50,7 +52,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('admin')->group(function () {
-    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('catalog/{slug}/edit', [TshirtImageController::class, 'edit'])->name('catalog.edit');
     Route::delete('catalog/{slug}/delete', [TshirtImageController::class, 'destroy'])->name('catalog.destroy');
 });
