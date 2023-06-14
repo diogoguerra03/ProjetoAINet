@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -22,8 +23,16 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'photo_url' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Apenas arquivos de imagem são permitidos, com tamanho máximo de 2MB
+            'name' => [
+                'required',
+                Rule::unique('users', 'name')->ignore($this->id),
+            ],
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email')->ignore($this->id),
+            ],
+            'photo_url' => 'sometimes|image|max:4096', // maxsize = 4Mb
         ];
     }
 

@@ -1,44 +1,50 @@
-import "./bootstrap"
-import Swal from "sweetalert2"
+import "./bootstrap";
 
 // -----------------Show TshirtImage-----------------
 
 document.addEventListener("DOMContentLoaded", function () {
-    const quantityInputs = document.querySelectorAll(".quantity-input")
+    const quantityInputs = document.querySelectorAll(".quantity-input");
 
     quantityInputs.forEach(function (quantityInput) {
-        const decrementBtn = quantityInput.querySelector('[data-action="decrement"]')
-        const incrementBtn = quantityInput.querySelector('[data-action="increment"]')
-        const quantityField = quantityInput.querySelector(".quantity")
+        const decrementBtn = quantityInput.querySelector(
+            '[data-action="decrement"]'
+        );
+        const incrementBtn = quantityInput.querySelector(
+            '[data-action="increment"]'
+        );
+        const quantityField = quantityInput.querySelector(".quantity");
 
         decrementBtn.addEventListener("click", function () {
-            const currentValue = parseInt(quantityField.value)
+            const currentValue = parseInt(quantityField.value);
             if (currentValue > 1) {
-                quantityField.value = currentValue - 1
+                quantityField.value = currentValue - 1;
             }
-        })
+        });
 
         incrementBtn.addEventListener("click", function () {
-            const currentValue = parseInt(quantityField.value)
+            const currentValue = parseInt(quantityField.value);
             if (currentValue < 99) {
-                quantityField.value = currentValue + 1
+                quantityField.value = currentValue + 1;
             }
-        })
-    })
-})
+        });
+    });
+});
 
 // Change the color of the tshirt
-const colorOptions = document.querySelectorAll(".color-option")
-const selectedColor = document.getElementById("selectedColor")
+const colorOptions = document.querySelectorAll(".color-option");
+const selectedColor = document.getElementById("selectedColor");
 colorOptions.forEach((option) => {
     option.addEventListener("click", function () {
-        colorOptions.forEach((otherOption) => otherOption.classList.remove("active"))
-        this.classList.add("active")
-        selectedColor.textContent = this.textContent.trim()
-        var colorHex = this.getAttribute("data-color")
-        document.getElementById("tshirt").src = "/storage/tshirt_base/" + colorHex + ".jpg"
-    })
-})
+        colorOptions.forEach((otherOption) =>
+            otherOption.classList.remove("active")
+        );
+        this.classList.add("active");
+        selectedColor.textContent = this.textContent.trim();
+        var colorHex = this.getAttribute("data-color");
+        document.getElementById("tshirt").src =
+            "/storage/tshirt_base/" + colorHex + ".jpg";
+    });
+});
 
 // -----------------Delete TshirtImage-----------------
 
@@ -67,13 +73,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-
 // -------------------Dashboard-------------------
 
 if (window.location.pathname === "/dashboard") {
     document.addEventListener("DOMContentLoaded", function () {
         // Bargraph
-        var ctxB = document.getElementById("barChart").getContext("2d")
+        var ctxB = document.getElementById("barChart").getContext("2d");
         var myBarChart = new Chart(ctxB, {
             type: "bar",
             data: {
@@ -117,14 +122,20 @@ if (window.location.pathname === "/dashboard") {
                     },
                 },
             },
-        })
+        });
 
         // Piechart
-        var ctxP = document.getElementById("pieChart").getContext("2d")
+        var ctxP = document.getElementById("pieChart").getContext("2d");
         var myPieChart = new Chart(ctxP, {
             type: "pie",
             data: {
-                labels: ["Eletrônicos", "Roupas", "Livros", "Brinquedos", "Outros"],
+                labels: [
+                    "Eletrônicos",
+                    "Roupas",
+                    "Livros",
+                    "Brinquedos",
+                    "Outros",
+                ],
                 datasets: [
                     {
                         data: [300, 50, 100, 40, 120],
@@ -154,6 +165,6 @@ if (window.location.pathname === "/dashboard") {
                 },
                 responsive: true,
             },
-        })
-    })
+        });
+    });
 }

@@ -13,6 +13,7 @@ class userPolicy
     public function viewAny(User $user): bool
     {
         // index
+        return true;
     }
 
     /**
@@ -21,6 +22,7 @@ class userPolicy
     public function view(User $user, User $model): bool
     {
         // show
+        return true;
     }
 
     /**
@@ -29,6 +31,7 @@ class userPolicy
     public function create(User $user): bool
     {
         // create
+        return $user->user_type === 'A';
     }
 
     /**
@@ -45,22 +48,6 @@ class userPolicy
      */
     public function delete(User $user, User $model): bool
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, User $model): bool
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, User $model): bool
-    {
-        //
+        return $user->user_type === 'A';
     }
 }
