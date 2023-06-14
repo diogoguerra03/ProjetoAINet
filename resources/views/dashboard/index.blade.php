@@ -39,10 +39,10 @@
         <div class="col-md-3">
             <div class="card h-100 bg-warning text-white">
                 <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">Costumers registered</h5>
+                    <h5 class="card-title">Customers registered</h5>
                     <p class="card-text">{{$numberCustomers}}</p>
                     <hr>
-                    <a href="" class="btn btn-light mt-auto">More info</a>
+                    <a href="{{ route('dashboard.customers') }}" class="btn btn-light mt-auto">More info</a>
                 </div>
             </div>
         </div>

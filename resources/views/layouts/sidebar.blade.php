@@ -10,10 +10,6 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link px-0 align-middle text-white">
-                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Orders</span></a>
-                    </li>
-                    <li>
                         <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
                             <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Products</span> </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
@@ -33,10 +29,14 @@
                     </li>
                     <li>
                         <a href="#" class="nav-link px-0 align-middle text-white">
-                            <i class="fs-4 bi-briefcase"></i> <span class="ms-1 d-none d-sm-inline">Workers</span></a>
+                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Orders</span></a>
                     </li>
                     <li>
                         <a href="#" class="nav-link px-0 align-middle text-white">
+                            <i class="fs-4 bi-briefcase"></i> <span class="ms-1 d-none d-sm-inline">Employees</span></a>
+                    </li>
+                    <li>
+                        <a href="{{ route('dashboard.customers') }}" class="nav-link px-0 align-middle text-white">
                             <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Customers</span></a>
                     </li>
                 </ul>

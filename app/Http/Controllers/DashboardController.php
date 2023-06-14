@@ -19,4 +19,10 @@ class DashboardController extends Controller
 
         return view('dashboard.index', compact('totalProducts', 'ordersPlaced', 'numberCustomers', 'moneyEarned'));
     }
+
+    public function customers()
+    {
+        $customers = User::where('user_type', 'C')->get();
+        return view('dashboard.customers', compact('customers'));
+    }
 }
