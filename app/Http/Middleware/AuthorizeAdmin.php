@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Providers\RouteServiceProvider;
 
 class AuthorizeAdmin
 {
@@ -20,10 +21,13 @@ class AuthorizeAdmin
         if (!$user || $user->user_type !== 'A') {
             return $request->expectsJson()
                 ? abort(403, 'You are not an administrator.')
-                : redirect()->route('root')
+                : redirect()->to('/')
                     ->with('alert-msg', 'You are not an administrator.')
                     ->with('alert-type', 'danger');
         }
+
+
+
 
         return $next($request);
     }

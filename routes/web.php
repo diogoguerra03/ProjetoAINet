@@ -32,22 +32,26 @@ Auth::routes([
     'verify' => true,
 ]);
 
-Route::get('/password/change', [ChangePasswordController::class, 'show'])
-    ->name('password.change.show');
-Route::post('/password/change', [ChangePasswordController::class, 'store'])
-    ->name('password.change.store');
-
 Route::resource('orders', OrderController::class);
 
 Route::resource('customers', CustomerController::class);
 
 Route::resource('catalog', TshirtImageController::class);
 Route::get('catalog/{slug}', [TshirtImageController::class, 'show'])->name('catalog.show');
-Route::get('catalog/{slug}/edit', [TshirtImageController::class, 'edit'])->name('catalog.edit');
-Route::delete('catalog/{slug}/delete', [TshirtImageController::class, 'destroy'])->name('catalog.destroy');
 
-Route::get('/profile', [UserController::class, 'profile'])->name('profile')->middleware('verified');
-Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile')->middleware('verified');
+    Route::get('/password/change', [ChangePasswordController::class, 'show'])
+        ->name('password.change.show');
+    Route::post('/password/change', [ChangePasswordController::class, 'store'])
+        ->name('password.change.store');
+});
+
+Route::middleware('admin')->group(function () {
+    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+    Route::get('catalog/{slug}/edit', [TshirtImageController::class, 'edit'])->name('catalog.edit');
+    Route::delete('catalog/{slug}/delete', [TshirtImageController::class, 'destroy'])->name('catalog.destroy');
+});
 
 
 /*
