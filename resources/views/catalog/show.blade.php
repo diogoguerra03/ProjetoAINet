@@ -11,7 +11,7 @@
                         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                     </ol>
                     <div class="carousel-inner">
-                        <div class="zoom imagesParent carousel-item active" >
+                        <div class="zoom imagesParent carousel-item active">
                             <img src='/storage/tshirt_base/e7e0ee.jpg' alt="" class="image-container d-block w-100"
                                 id="tshirt">
                             <img src="{{ $tshirtImage->image_url }}" alt="{{ $tshirtImage->name }}"
@@ -46,17 +46,17 @@
                     </a>
                 </div>
             </div>
-            <div class="col-md-6">
-                <h1>{{ $tshirtImage->name }}</h1>
-                <h2><b>{{ $price }} € </b></h2>
-                <section class="mt-4 mb-3">
-                    <h4>Description</h4>
-                    <p>{{ $tshirtImage->description }}</p>
-                </section>
+            <form method="POST" action="{{ route('cart.add') }}">
+                @csrf
+                <input type="hidden" name="orderItem" value="{{ $tshirtImage->id }}">
+                <div class="col-md-6">
+                    <h1>{{ $tshirtImage->name }}</h1>
+                    <h2><b>{{ $price }} € </b></h2>
+                    <section class="mt-4 mb-3">
+                        <h4>Description</h4>
+                        <p>{{ $tshirtImage->description }}</p>
+                    </section>
 
-                <form method="POST" action="{{ route('cart.add') }}">
-                    @csrf
-                    <input type="hidden" name="orderItem" value="{{ \Illuminate\Support\Str::uuid()->toString() }}">
                     <div class="form-group">
                         <label for="size">Size:</label>
                         <select name="size" id="size" class="form-control">
@@ -65,6 +65,7 @@
                             <option value="L">Large</option>
                         </select>
                     </div>
+
                     <div class="form-group">
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="colorDropdown"
@@ -75,6 +76,7 @@
                                 style="max-height: 200px; overflow-y: auto;">
                                 @foreach ($colors as $colorCode => $colorName)
                                     <span class="dropdown-item color-option" data-color="{{ $colorCode }}">
+                                        <input type="hidden" name="color" value="{{ $colorName }}">
                                         <i class="bi bi-circle-fill mr-2" style="color: #{{ $colorCode }}"></i>
                                         {{ $colorName }}
                                     </span>
@@ -94,10 +96,11 @@
                                 data-action="increment">+</button>
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
+
 @section('scripts')
     <script src="{{ asset('js/app.js') }}"></script>
 @endsection

@@ -10,7 +10,11 @@
     </div>
     @foreach ($cart as $item)
         <tr>
-            1 <td>{{ $item['product_id'] }}</td> /
+            1
+                <div>
+                    <img src="{{ $item['product_id' ]}}" alt="T-Shirt Image">
+                </div> /
+
             2 <td>{{ $item['color'] }}</td> /
             3 <td>{{ $item['size'] }}</td> /
             4 <td>{{ $item['quantity'] }}</td> /

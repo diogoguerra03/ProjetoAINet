@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\View\View;
+use App\Models\TshirtImage;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
@@ -12,8 +13,8 @@ class CartController extends Controller
     public function show(): View
     {
         $cart = Session::get('cart', []);
-        return view('cart.show', ['cart' => $cart]);
 
+        return view('cart.show', ['cart' => $cart,]);
     }
 
     public function addToCart(Request $request): RedirectResponse
@@ -25,8 +26,11 @@ class CartController extends Controller
         $color = $request->input('color');
         $quantity = $request->input('quantity');
 
+        // product_id => imagem do produto
+        $tshirtImage = TshirtImage::findOrFail($productId);
+
         $item = [
-            'product_id' => $productId,
+            'product_id' => $tshirtImage,
             'quantity'   => $quantity,
             'color'      => $color,
             'size'       => $size,
