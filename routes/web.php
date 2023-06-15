@@ -65,3 +65,4 @@ Route::middleware('admin')->group(function () {
 
 Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
+Route::delete('/cart/{productId}/delete', [CartController::class, 'removeFromCart'])->name('cart.remove');

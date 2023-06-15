@@ -3,6 +3,12 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
+        @if (session('alert-msg'))
+            <div class="alert alert-{{ session('alert-type') }} alert-dismissible">
+                {{ session('alert-msg') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <div class="row">
             <div class="col-md-6">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -49,7 +55,8 @@
             <div class="col-md-6">
                 <form method="POST" action="{{ route('cart.add') }}">
                     @csrf
-                    <input type="hidden" name="orderItem" value="{{ $tshirtImage->id }}">
+                    <input type="hidden" name="tshirtId" value="{{ $tshirtImage->id }}">
+                    <input type="hidden" name="tshirtName" value="{{ $tshirtImage->name }}">
                     <h1>{{ $tshirtImage->name }}</h1>
                     <h2><b>{{ $price }} € </b></h2>
                     <section class="mt-4 mb-3">
