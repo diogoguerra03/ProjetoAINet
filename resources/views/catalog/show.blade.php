@@ -87,4 +87,16 @@
                             </div>
                         @endforeach
                     </div>
+                    <div class="form-group">
+                        <div class="quantity-input d-flex">
+                            <button type="submit" name="addToCart" class="btn btn-primary ml-2 mr-5">Add to
+                                cart</button>
+                            <button type="button" class="btn btn-sm btn-secondary quantity-btn ml-5"
+                                data-action="decrement">-</button>
+                            <input type="number" class="form-control quantity" name="quantity" min="1"
+                                max="99" value="1">
+                            <button type="button" class="btn btn-sm btn-secondary quantity-btn"
+                                data-action="increment">+</button>
+                        </div>
+                    </div>
                 @endsection
