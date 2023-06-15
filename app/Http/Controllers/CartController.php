@@ -46,9 +46,10 @@ class CartController extends Controller
                 $price = Price::pluck('unit_price_own')->first();
         }
 
-
+        // criar o array do item com todas as informações
         $item = [
             'product_id'   => $productId,
+            'product_name' => $productName,
             'tshirt_image' => $tshirtImage,
             'quantity'     => $quantity,
             'color'        => $color,
@@ -72,13 +73,16 @@ class CartController extends Controller
     {
         $cart = Session::get('cart', []);
 
+        $tshirtName = $cart[$index]['product_name'];
+        $tshirtQuantity = $cart[$index]['quantity'];
+
         if (isset($cart[$index])) {
             unset($cart[$index]);
             Session::put('cart', $cart);
         }
 
         return redirect()->back()
-        ->with('alert-msg',  "Item removido do carrinho.")
+        ->with('alert-msg',  "$tshirtQuantity x \"$tshirtName\" removido do carrinho.")
         ->with('alert-type', 'success');
     }
 }

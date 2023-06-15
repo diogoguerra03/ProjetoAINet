@@ -21,20 +21,15 @@
                 <div class="col">
                     <div class="card">
                         <div class="card-body p-4">
-
                             <div class="row">
-
                                 <div class="col-lg-7">
-
-
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <div>
-                                            <p class="mb-1">Carrinho de compras</p>
-                                            <p class="mb-0">You have 4 items in your cart</p>
+                                            <p class="h1 mb-1">Carrinho de compras</p>
+                                            <p class="h4 mb-0">You have {{ count(session('cart', [])) }} items in your cart
+                                            </p>
                                         </div>
                                     </div>
-
-
                                     @foreach ($cart as $index => $item)
                                         <div class="card mb-3">
                                             <div class="card-body">
@@ -42,10 +37,10 @@
                                                     <div class="d-flex flex-row align-items-center">
                                                         <div>
                                                             <img src="{{ $item['tshirt_image'] }}" alt="T-Shirt Image"
-                                                                class="img-fluid rounded-3" style="width: 150px;">
+                                                                class="img-fluid rounded-3" style="height: 150px;">
                                                         </div>
                                                         <div class="ms-3">
-                                                            <h2>Iphone 11 pro</h2>
+                                                            <h2>{{ $item['product_name'] }}</h2>
                                                             <p class="h5">Color: {{ $item['color'] }}</p>
                                                             <p class="h5">Size: {{ $item['size'] }}</p>
                                                         </div>
@@ -61,7 +56,8 @@
                                                             @endphp
 
                                                         </div>
-                                                        <form action="{{ route('cart.remove', $index) }}" method="POST">
+                                                        <form action="{{ route('cart.remove', $index) }}" method="POST"
+                                                            id="deleteFromCart_{{ $item['product_id'] }}">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="btn btn-link"
@@ -74,44 +70,26 @@
                                             </div>
                                         </div>
                                     @endforeach
-
                                 </div>
                                 <div class="col-lg-5">
-
                                     <hr class="my-4">
-
                                     <div class="d-flex justify-content-between">
                                         <p class="h3 mb-2">Total (IVA incluído)</p>
                                         <p class="h3 mb-2">{{ $subtotal }}€</p>
                                     </div>
-
                                     <button type="button" class="btn btn-info btn-block btn-lg">
-                                        <div class="d-flex justify-content-between">
-                                            <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                                        <div class="d-flex">
+                                            <span>Checkout <i class="fas ms-2 h1"></i></span>
                                         </div>
                                     </button>
-
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>
     </section>
-
-
-    <div class="my-4 d-flex justify-content-end">
-        <button type="submit" class="btn btn-primary" name="ok" form="formStore">Confirmar Compra</button>
-        <button type="submit" class="btn btn-danger ms-3" name="clear" form="formClear">Limpar Carrinho</button>
-    </div>
-    {{-- <form id="formStore" method="POST" action="{{ route('cart.store') }}" class="d-none">
-        @csrf
-    </form>
-    <form id="formClear" method="POST" action="{{ route('cart.destroy') }}" class="d-none"> --}}
     @csrf
     @method('DELETE')
     </form>
