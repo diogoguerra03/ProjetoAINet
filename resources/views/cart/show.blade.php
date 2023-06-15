@@ -9,7 +9,7 @@
         $subtotal = 0; // Initialize the subtotal variable
     @endphp
 
-    <section class="h-100 h-custom" style="background-color: #eee;">
+    <section class="h-100 h-custom">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 @if (session('alert-msg'))
@@ -25,8 +25,8 @@
                                 <div class="col-lg-7">
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <div>
-                                            <p class="h1 mb-1">Shopping cart</p>
-                                            <p class="h4 mb-0">You have {{ count(session('cart', [])) }} items in your cart
+                                            <p class="h1 mb-2">Shopping cart</p>
+                                            <p class="h5 mb-3">You have {{ count(session('cart', [])) }} items in your cart
                                             </p>
                                         </div>
                                     </div>
@@ -40,17 +40,17 @@
                                                                 class="img-fluid rounded-3" style="height: 150px;">
                                                         </div>
                                                         <div class="ms-3">
-                                                            <h2>{{ $item['product_name'] }}</h2>
-                                                            <p class="h5">Color: {{ $item['color'] }}</p>
-                                                            <p class="h5">Size: {{ $item['size'] }}</p>
+                                                            <h3>{{ $item['product_name'] }}</h3>
+                                                            <p class="h6">Color: {{ $item['color'] }}</p>
+                                                            <p class="h6">Size: {{ $item['size'] }}</p>
                                                         </div>
                                                     </div>
                                                     <div class="d-flex flex-row align-items-center">
                                                         <div style="width: 50px;">
-                                                            <h5 class="h4 fw-normal mb-0">{{ $item['quantity'] }}</h5>
+                                                            <h4 class="fw-normal mb-0">{{ $item['quantity'] }}</h4>
                                                         </div>
                                                         <div style="width: 80px;">
-                                                            <h5 class="h4 mb-0">{{ $item['price'] }}€</h5>
+                                                            <h4 class="mb-0">{{ $item['price'] }}€</h4>
                                                             @php
                                                                 $subtotal += $item['price']; // adicionar os valores das tshirts
                                                             @endphp
@@ -76,17 +76,15 @@
                                         @endforelse
 
                                     </div>
-                                    <div class="col-lg-5">
+                                    <div class="col-lg-5 d-flex flex-column-reverse">
+                                        <button type="button" class="btn btn-primary btn-block btn-lg mt-3">
+                                            <span>Checkout <i class="fas ms-2 h1"></i></span>
+                                        </button>
                                         <hr class="my-4">
                                         <div class="d-flex justify-content-between">
                                             <p class="h3 mb-2">Total (IVA included)</p>
                                             <p class="h3 mb-2">{{ $subtotal }}€</p>
                                         </div>
-                                        <button type="button" class="btn btn-info btn-block btn-lg">
-                                            <div class="d-flex">
-                                                <span>Checkout <i class="fas ms-2 h1"></i></span>
-                                            </div>
-                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -95,6 +93,8 @@
                 </div>
             </div>
         </section>
+
+
 
         @csrf
         @method('DELETE')
