@@ -47,10 +47,10 @@
                                                     </div>
                                                     <div class="d-flex flex-row align-items-center">
                                                         <div style="width: 50px;">
-                                                            <h5 class="fw-normal mb-0">{{ $item['quantity'] }}</h5>
+                                                            <h5 class="h4 fw-normal mb-0">{{ $item['quantity'] }}</h5>
                                                         </div>
                                                         <div style="width: 80px;">
-                                                            <h5 class="mb-0">{{ $item['price'] }}€</h5>
+                                                            <h5 class="h4 mb-0">{{ $item['price'] }}€</h5>
                                                             @php
                                                                 $subtotal += $item['price']; // adicionar os valores das tshirts
                                                             @endphp
@@ -61,7 +61,7 @@
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="btn btn-link"
-                                                                style="color: #cecece;">
+                                                                style="color: #cecece; font-size: 2em;">
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </button>
                                                         </form>

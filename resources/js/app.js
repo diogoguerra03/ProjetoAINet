@@ -1,54 +1,49 @@
-import "./bootstrap";
+import "./bootstrap"
 
 // -----------------Show TshirtImage-----------------
 
 document.addEventListener("DOMContentLoaded", function () {
-    const quantityInputs = document.querySelectorAll(".quantity-input");
+    const quantityInputs = document.querySelectorAll(".quantity-input")
 
     quantityInputs.forEach(function (quantityInput) {
-        const decrementBtn = quantityInput.querySelector(
-            '[data-action="decrement"]'
-        );
-        const incrementBtn = quantityInput.querySelector(
-            '[data-action="increment"]'
-        );
-        const quantityField = quantityInput.querySelector(".quantity");
+        const decrementBtn = quantityInput.querySelector('[data-action="decrement"]')
+        const incrementBtn = quantityInput.querySelector('[data-action="increment"]')
+        const quantityField = quantityInput.querySelector(".quantity")
 
         decrementBtn.addEventListener("click", function () {
-            const currentValue = parseInt(quantityField.value);
+            const currentValue = parseInt(quantityField.value)
             if (currentValue > 1) {
-                quantityField.value = currentValue - 1;
+                quantityField.value = currentValue - 1
             }
-        });
+        })
 
         incrementBtn.addEventListener("click", function () {
-            const currentValue = parseInt(quantityField.value);
+            const currentValue = parseInt(quantityField.value)
             if (currentValue < 99) {
-                quantityField.value = currentValue + 1;
+                quantityField.value = currentValue + 1
             }
-        });
-    });
-});
+        })
+    })
+})
 
 // Change the color of the tshirt
-const colorOptions = document.querySelectorAll(".color-option");
+const colorOptions = document.querySelectorAll(".color-option")
 colorOptions.forEach((option) => {
-    option.addEventListener("click", changeTshirtColor);
-});
+    option.addEventListener("click", changeTshirtColor)
+})
 
 function changeTshirtColor() {
-    document.getElementById("tshirt").src =
-        "/storage/tshirt_base/" + this.value + ".jpg";
+    document.getElementById("tshirt").src = "/storage/tshirt_base/" + this.value + ".jpg"
 }
 
 // -----------------Delete TshirtImage-----------------
 
 document.addEventListener("DOMContentLoaded", function () {
-    const deleteForms = document.querySelectorAll("[id^='deleteForm_']");
+    const deleteForms = document.querySelectorAll("[id^='deleteForm_']")
     if (deleteForms) {
         deleteForms.forEach(function (deleteForm) {
             deleteForm.addEventListener("submit", function (event) {
-                event.preventDefault();
+                event.preventDefault()
 
                 Swal.fire({
                     title: "Are you sure?",
@@ -60,23 +55,22 @@ document.addEventListener("DOMContentLoaded", function () {
                     confirmButtonText: "Yes, delete it!",
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        event.target.submit();
+                        event.target.submit()
                     }
-                });
-            });
-        });
+                })
+            })
+        })
     }
-});
-
+})
 
 // -----------------Delete Tshirt from cart-----------------
 
 document.addEventListener("DOMContentLoaded", function () {
-    const deleteForms = document.querySelectorAll("[id^='deleteFromCart_']");
+    const deleteForms = document.querySelectorAll("[id^='deleteFromCart_']")
     if (deleteForms) {
         deleteForms.forEach(function (deleteForm) {
             deleteForm.addEventListener("submit", function (event) {
-                event.preventDefault();
+                event.preventDefault()
 
                 Swal.fire({
                     title: "Are you sure?",
@@ -88,14 +82,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     confirmButtonText: "Yes, delete it!",
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        event.target.submit();
+                        event.target.submit()
                     }
-                });
-            });
-        });
+                })
+            })
+        })
     }
-});
-
+})
 
 
 // -------------------Dashboard-------------------
@@ -103,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
 if (window.location.pathname === "/dashboard") {
     document.addEventListener("DOMContentLoaded", function () {
         // Bargraph
-        var ctxB = document.getElementById("barChart").getContext("2d");
+        var ctxB = document.getElementById("barChart").getContext("2d")
         var myBarChart = new Chart(ctxB, {
             type: "bar",
             data: {
@@ -147,20 +140,14 @@ if (window.location.pathname === "/dashboard") {
                     },
                 },
             },
-        });
+        })
 
         // Piechart
-        var ctxP = document.getElementById("pieChart").getContext("2d");
+        var ctxP = document.getElementById("pieChart").getContext("2d")
         var myPieChart = new Chart(ctxP, {
             type: "pie",
             data: {
-                labels: [
-                    "Eletrônicos",
-                    "Roupas",
-                    "Livros",
-                    "Brinquedos",
-                    "Outros",
-                ],
+                labels: ["Eletrônicos", "Roupas", "Livros", "Brinquedos", "Outros"],
                 datasets: [
                     {
                         data: [300, 50, 100, 40, 120],
@@ -190,6 +177,6 @@ if (window.location.pathname === "/dashboard") {
                 },
                 responsive: true,
             },
-        });
-    });
+        })
+    })
 }

@@ -96,7 +96,6 @@
                                 <input class="form-check-input color-option" type="radio" name="color"
                                     id="{{ $colorCode }}" value="{{ $colorCode }}"
                                     style="background-color: #{{ $colorCode }};">
-
                             </div>
                         @endforeach
                     </div>
