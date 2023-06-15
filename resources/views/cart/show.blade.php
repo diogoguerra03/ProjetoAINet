@@ -7,6 +7,7 @@
 @section('content')
     @php
         $subtotal = 0; // Initialize the subtotal variable
+        $quantityItems = 0; // Quantity of items in the cart
     @endphp
 
     <section class="h-100 h-custom">
@@ -47,12 +48,13 @@
                                                     </div>
                                                     <div class="d-flex flex-row align-items-center">
                                                         <div style="width: 50px;">
-                                                            <h4 class="fw-normal mb-0">{{ $item['quantity'] }}</h4>
+                                                            <h5 class="fw-normal mb-0">{{ $item['quantity'] }}</h5>
                                                         </div>
                                                         <div style="width: 80px;">
-                                                            <h4 class="mb-0">{{ $item['price'] }}€</h4>
+                                                            <h5 class="mb-0">{{ $item['price'] }}€</h5>
                                                             @php
                                                                 $subtotal += $item['price']; // adicionar os valores das tshirts
+                                                                $quantityItems ++; // adicionar a quantidade de tshirts
                                                             @endphp
 
                                                         </div>
@@ -76,15 +78,17 @@
                                         @endforelse
 
                                     </div>
-                                    <div class="col-lg-5 d-flex flex-column-reverse">
-                                        <button type="button" class="btn btn-primary btn-block btn-lg mt-3">
-                                            <span>Checkout <i class="fas ms-2 h1"></i></span>
-                                        </button>
-                                        <hr class="my-4">
-                                        <div class="d-flex justify-content-between">
-                                            <p class="h3 mb-2">Total (IVA included)</p>
-                                            <p class="h3 mb-2">{{ $subtotal }}€</p>
+                                    <div class="col-lg-5">
+                                        <h3 class="mb-5">Order Resumed</h3>
+                                        <p class="h5">{{$quantityItems}} items</p>
+                                        <div class="d-flex justify-content-between mt-5">
+                                            <p class="h4 mb-2">Total (IVA included)</p>
+                                            <p class="h4 mb-2">{{ $subtotal }}€</p>
                                         </div>
+                                        <hr class="my-4">
+                                            <button type="button" class="btn btn-primary btn-block btn-lg mt-3">
+                                                <span>Checkout <i class="fas ms-2 h1"></i></span>
+                                            </button>
                                     </div>
                                 </div>
                             </div>
