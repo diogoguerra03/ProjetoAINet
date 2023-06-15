@@ -23,6 +23,7 @@ class DashboardController extends Controller
     public function customers()
     {
         $customers = User::where('user_type', 'C')->get();
+
         return view('dashboard.customers', compact('customers'));
     }
 }
