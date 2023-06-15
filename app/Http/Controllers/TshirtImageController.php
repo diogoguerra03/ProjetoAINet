@@ -30,28 +30,24 @@ class TshirtImageController extends Controller
             $tshirtQuery = $tshirtQuery->where('category_id', $filterByCategory);
         }
         if ($filterByName !== '') {
-            $imagesId = TshirtImage::where('name', 'like', "%$filterByName%")->pluck('id'); // pluck retorna um array com os ids
-            $tshirtQuery->whereIn('id', $imagesId);
+            $imagesId = TshirtImage::where('name', 'like', "%$filterByName%")->pluck('tshirt_images.id'); // pluck retorna um array com os ids
+            $tshirtQuery->whereIn('tshirt_images.id', $imagesId);
         }
         if ($filterByDescription !== '') {
-            $imagesId = TshirtImage::where('description', 'like', "%$filterByDescription%")->pluck('id'); // pluck retorna um array com os ids
-            $tshirtQuery->whereIn('id', $imagesId);
+            $imagesId = TshirtImage::where('description', 'like', "%$filterByDescription%")->pluck('tshirt_images.id'); // pluck retorna um array com os ids
+            $tshirtQuery->whereIn('tshirt_images.id', $imagesId);
         }
 
         $orderBy = $request->orderBy ?? 'popular_products'; // Ordenação padrão
-        $orderByColumn = 'created_at'; // Coluna padrão para ordenação
-        $orderByDirection = 'desc'; // Direção padrão para ordenação
 
         if ($orderBy === 'name_asc') {
-            $orderByColumn = 'name';
-            $orderByDirection = 'asc';
+            $tshirtQuery->orderBy('name', 'asc');
         } elseif ($orderBy === 'name_desc') {
-            $orderByColumn = 'name';
+            $tshirtQuery->orderBy('name', 'desc');
         } elseif ($orderBy === 'older_arrivals') {
-            $orderByColumn = 'created_at';
-            $orderByDirection = 'asc';
+            $tshirtQuery->orderBy('created_at', 'asc');
         } elseif ($orderBy === 'new_arrivals') {
-            $orderByColumn = 'created_at';
+            $tshirtQuery->orderBy('created_at', 'desc');
         } elseif ($orderBy === 'popular_products') {
             $tshirtQuery->leftJoin('order_items', 'tshirt_images.id', '=', 'order_items.tshirt_image_id')
                 ->select('tshirt_images.*', DB::raw('SUM(order_items.qty) as total_quantity'))
@@ -59,7 +55,7 @@ class TshirtImageController extends Controller
                 ->orderBy('total_quantity', 'desc');
         }
 
-        $tshirtImages = $tshirtQuery->orderBy($orderByColumn, $orderByDirection)->paginate(18); // Paginação
+        $tshirtImages = $tshirtQuery->paginate(18); // Paginação
 
         $prices = Price::all(); // Busca todos os preços
 

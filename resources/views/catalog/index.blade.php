@@ -37,16 +37,10 @@
                         <select class="form-select" name="orderBy" id="inputOrderBy">
                             <option {{ old('orderBy', $orderBy) === 'popular_products' ? 'selected' : '' }}
                                 value="popular_products">Popular products
-                            <option {{ old('orderBy', $orderBy) === 'popular_products' ? 'selected' : '' }}
-                                value="popular_products">Popular products
                             </option>
                             <option {{ old('orderBy', $orderBy) === 'new_arrivals' ? 'selected' : '' }}
                                 value="new_arrivals">New arrivals
-                            <option {{ old('orderBy', $orderBy) === 'new_arrivals' ? 'selected' : '' }}
-                                value="new_arrivals">New arrivals
                             </option>
-                            <option {{ old('orderBy', $orderBy) === 'older_arrivals' ? 'selected' : '' }}
-                                value="older_arrivals">Older products
                             <option {{ old('orderBy', $orderBy) === 'older_arrivals' ? 'selected' : '' }}
                                 value="older_arrivals">Older products
                             </option>
@@ -87,12 +81,12 @@
                                 @endcan
                                 @can('delete', $tshirtImage)
                                     <div class="flex-fill ml-1">
-                                    <form method="POST" action="{{ route('catalog.destroy', $tshirtImage->slug) }}"
-                                        id="deleteForm_{{ $tshirtImage->id }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger flex-fill w-100">Delete</button>
-                                    </form>
+                                        <form method="POST" action="{{ route('catalog.destroy', $tshirtImage->slug) }}"
+                                            id="deleteForm_{{ $tshirtImage->id }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger flex-fill w-100">Delete</button>
+                                        </form>
                                     </div>
                                 @endcan
                             </div>
