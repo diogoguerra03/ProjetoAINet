@@ -3,6 +3,13 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
+        @if (session('alert-msg'))
+            <div class="alert alert-{{ session('alert-type') }} alert-dismissible">
+                {{ session('alert-msg') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         <form method="GET" action="{{ route('catalog.index') }}">
             <div class="row">
                 <div class="col-md-8">
@@ -57,6 +64,7 @@
                 <a href="{{ route('catalog.index') }}" class="btn btn-secondary">Clean</a>
             </div>
         </form>
+
 
 
         <div class="row mt-5">

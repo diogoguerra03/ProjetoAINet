@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <div id="carouselExampleIndicators" class=" carousel slide" data-ride="carousel">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -46,10 +46,10 @@
                     </a>
                 </div>
             </div>
-            <form method="POST" action="{{ route('cart.add') }}">
-                @csrf
-                <input type="hidden" name="orderItem" value="{{ $tshirtImage->id }}">
-                <div class="col-md-6">
+            <div class="col-md-6">
+                <form method="POST" action="{{ route('cart.add') }}">
+                    @csrf
+                    <input type="hidden" name="orderItem" value="{{ $tshirtImage->id }}">
                     <h1>{{ $tshirtImage->name }}</h1>
                     <h2><b>{{ $price }} € </b></h2>
                     <section class="mt-4 mb-3">
@@ -58,51 +58,33 @@
                     </section>
 
                     <div class="form-group">
-                        <label for="size">Size:</label>
-                        <select name="size" id="size" class="form-control">
-                            <option value="S">Small</option>
-                            <option value="M">Medium</option>
-                            <option value="L">Large</option>
-                        </select>
+                        <div class="sizes mt-5">
+                            <h6 class="text-uppercase">Size</h6>
+                            <label class="radio">
+                                <input type="radio" name="size" value="XS" checked>
+                                <span>XS</span> </label>
+                            <label class="radio"> <input type="radio" name="size" value="S">
+                                <span>S</span>
+                            </label>
+                            <label class="radio"> <input type="radio" name="size" value="M">
+                                <span>M</span>
+                            </label>
+                            <label class="radio"> <input type="radio" name="size" value="L">
+                                <span>L</span>
+                            </label>
+                            <label class="radio"> <input type="radio" name="size" value="XL">
+                                <span>XL</span>
+                            </label>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="colorDropdown"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span id="selectedColor">Select Color</span>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="colorDropdown"
-                                style="max-height: 200px; overflow-y: auto;">
-                                @foreach ($colors as $colorCode => $colorName)
-                                    <span class="dropdown-item color-option" data-color="{{ $colorCode }}">
-                                        <input type="hidden" name="color" value="{{ $colorName }}">
-                                        <i class="bi bi-circle-fill mr-2" style="color: #{{ $colorCode }}"></i>
-                                        {{ $colorName }}
-                                    </span>
-                                @endforeach
+                    <div class="form-group d-flex">
+                        @foreach ($colors as $colorCode => $colorName)
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input color-option" type="radio" name="color"
+                                    id="{{ $colorCode }}" value="{{ $colorCode }}"
+                                    style="background-color: #{{ $colorCode }};">
                             </div>
-                        </div>
+                        @endforeach
                     </div>
-                    <div class="form-group">
-                        <div class="quantity-input d-flex">
-                            <button type="submit" name="addToCart" class="btn btn-primary ml-2 mr-5">Add to
-                                cart</button>
-                            <button type="button" class="btn btn-sm btn-secondary quantity-btn ml-5"
-                                data-action="decrement">-</button>
-                            <input type="number" class="form-control quantity" name="quantity" min="1"
-                                max="99" value="1">
-                            <button type="button" class="btn btn-sm btn-secondary quantity-btn"
-                                data-action="increment">+</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-@section('scripts')
-    <script src="{{ asset('js/app.js') }}"></script>
-@endsection
-
-@endsection
+                @endsection

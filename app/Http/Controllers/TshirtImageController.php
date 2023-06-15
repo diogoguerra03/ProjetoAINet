@@ -120,9 +120,7 @@ class TshirtImageController extends Controller
             return $tshirtImage;
         });
 
-        $url = route('catalog.show', $tshirtImage->slug);
-        $htmlMessage = "Product <a href='$url'>#{$tshirtImage->id}</a>
-                    <strong>\"{$tshirtImage->name}\"</strong> was successfully updated!";
+        $htmlMessage = "Product $tshirtImage->name was successfully updated!";
 
         return redirect()->route('catalog.index')
             ->with('alert-msg', $htmlMessage)
