@@ -63,9 +63,9 @@
                 <p class="text-muted"> 2023 Imagine Shirt </p>
             </div>
             <div class="col-md-8 text-md-center">
-                <span class="px-2">imagineshirt@vski.com</span>
+                <span class="px-2">imagineshirt@mail.com</span>
                 <span class="px-2">+351 932 183 921</span>
-                <span class="px-2">Rua do Tiagovski 32, RCºE</span>
+                <span class="px-2">Rua da D.Rosa Rosília 32, RCºE</span>
             </div>
             <div class="col-md-2 text-md-right text-muted">
                 <i class="fab fa-lg fa-cc-visa"></i>

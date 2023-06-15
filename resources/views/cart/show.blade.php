@@ -25,12 +25,12 @@
                                 <div class="col-lg-7">
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <div>
-                                            <p class="h1 mb-1">Carrinho de compras</p>
+                                            <p class="h1 mb-1">Shopping cart</p>
                                             <p class="h4 mb-0">You have {{ count(session('cart', [])) }} items in your cart
                                             </p>
                                         </div>
                                     </div>
-                                    @foreach ($cart as $index => $item)
+                                    @forelse ($cart as $index => $item)
                                         <div class="card mb-3">
                                             <div class="card-body">
                                                 <div class="d-flex justify-content-between">
@@ -69,28 +69,34 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    @endforeach
-                                </div>
-                                <div class="col-lg-5">
-                                    <hr class="my-4">
-                                    <div class="d-flex justify-content-between">
-                                        <p class="h3 mb-2">Total (IVA incluído)</p>
-                                        <p class="h3 mb-2">{{ $subtotal }}€</p>
+                                        @empty
+                                            <div class="col-md-12 text-center">
+                                                <h1>Cart is empty!</h1>
+                                            </div>
+                                        @endforelse
+
                                     </div>
-                                    <button type="button" class="btn btn-info btn-block btn-lg">
-                                        <div class="d-flex">
-                                            <span>Checkout <i class="fas ms-2 h1"></i></span>
+                                    <div class="col-lg-5">
+                                        <hr class="my-4">
+                                        <div class="d-flex justify-content-between">
+                                            <p class="h3 mb-2">Total (IVA included)</p>
+                                            <p class="h3 mb-2">{{ $subtotal }}€</p>
                                         </div>
-                                    </button>
+                                        <button type="button" class="btn btn-info btn-block btn-lg">
+                                            <div class="d-flex">
+                                                <span>Checkout <i class="fas ms-2 h1"></i></span>
+                                            </div>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    @csrf
-    @method('DELETE')
-    </form>
-@endsection
+        </section>
+
+        @csrf
+        @method('DELETE')
+        </form>
+    @endsection

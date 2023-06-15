@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Color;
 use App\Models\Price;
 use Illuminate\View\View;
 use App\Models\TshirtImage;
@@ -25,14 +26,14 @@ class CartController extends Controller
         $productId = $request->input('tshirtId');
         $productName = $request->input('tshirtName');
         $size = $request->input('size');
-        $color = $request->input('color');
+        $colorCode = $request->input('color') ?? 'fafafa'; // cor default -> branco
         $quantity = $request->input('quantity');
 
         // product_id => imagem do produto
         $tshirtImage = TshirtImage::findOrFail($productId)->image_url;
         $checkClientNull = TshirtImage::findOrFail($productId)->customer_id;
         $quantityDiscount = Price::pluck('qty_discount')->first();
-        $price = 0;
+        $colorName = Color::where('code', $colorCode)->pluck('name')->first();
 
         if ($checkClientNull == null) {
             if ($quantity >= $quantityDiscount)
@@ -52,7 +53,7 @@ class CartController extends Controller
             'product_name' => $productName,
             'tshirt_image' => $tshirtImage,
             'quantity'     => $quantity,
-            'color'        => $color,
+            'color'        => $colorName,
             'size'         => $size,
             'price'        => $price * $quantity,
         ];
@@ -64,8 +65,8 @@ class CartController extends Controller
 
         // Redirecionar de volta ao catálogo ou a outra página
         return redirect()->back()
-        ->with('alert-msg', "$quantity x \"$productName\" adicionado ao carrinho.")
-        ->with('alert-type', 'success');
+            ->with('alert-msg', "$quantity x \"$productName\" added to cart.")
+            ->with('alert-type', 'success');
 
     }
 
@@ -82,7 +83,7 @@ class CartController extends Controller
         }
 
         return redirect()->back()
-        ->with('alert-msg',  "$tshirtQuantity x \"$tshirtName\" removido do carrinho.")
-        ->with('alert-type', 'success');
+            ->with('alert-msg', "$tshirtQuantity x \"$tshirtName\" removed from cart.")
+            ->with('alert-type', 'success');
     }
 }

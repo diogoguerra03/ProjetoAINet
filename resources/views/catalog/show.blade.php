@@ -18,7 +18,7 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="zoom imagesParent carousel-item active">
-                            <img src='/storage/tshirt_base/e7e0ee.jpg' alt="" class="image-container d-block w-100"
+                            <img src='/storage/tshirt_base/fafafa.jpg' alt="" class="image-container d-block w-100"
                                 id="tshirt">
                             <img src="{{ $tshirtImage->image_url }}" alt="{{ $tshirtImage->name }}"
                                 class="image-container d-block w-100" id="tshirtImage">
@@ -96,11 +96,12 @@
                                 <input class="form-check-input color-option" type="radio" name="color"
                                     id="{{ $colorCode }}" value="{{ $colorCode }}"
                                     style="background-color: #{{ $colorCode }};">
+
                             </div>
                         @endforeach
                     </div>
 
-                    <br> <!-- Quebra de linha -->
+                    <!-- Quebra de linha -->
 
                     <div class="form-group d-flex mb-5">
                         @foreach ($colors->skip($halfColorsCount) as $colorCode => $colorName)
