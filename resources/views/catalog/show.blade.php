@@ -55,7 +55,8 @@
             <div class="col-md-6">
                 <form method="POST" action="{{ route('cart.add') }}">
                     @csrf
-                    <input type="hidden" name="orderItem" value="{{ $tshirtImage->id }}">
+                    <input type="hidden" name="tshirtId" value="{{ $tshirtImage->id }}">
+                    <input type="hidden" name="tshirtName" value="{{ $tshirtImage->name }}">
                     <h1>{{ $tshirtImage->name }}</h1>
                     <h2><b>{{ $price }} € </b></h2>
                     <section class="mt-4 mb-3">

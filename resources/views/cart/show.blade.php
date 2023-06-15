@@ -12,6 +12,12 @@
     <section class="h-100 h-custom" style="background-color: #eee;">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
+                @if (session('alert-msg'))
+                    <div class="alert alert-{{ session('alert-type') }} alert-dismissible">
+                        {{ session('alert-msg') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
                 <div class="col">
                     <div class="card">
                         <div class="card-body p-4">
@@ -29,7 +35,7 @@
                                     </div>
 
 
-                                    @foreach ($cart as $item)
+                                    @foreach ($cart as $index => $item)
                                         <div class="card mb-3">
                                             <div class="card-body">
                                                 <div class="d-flex justify-content-between">
@@ -55,8 +61,14 @@
                                                             @endphp
 
                                                         </div>
-                                                        <a href="#!" style="color: #cecece;"><i
-                                                                class="fas fa-trash-alt"></i></a>
+                                                        <form action="{{ route('cart.remove', $index) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-link"
+                                                                style="color: #cecece;">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
@@ -70,7 +82,7 @@
 
                                     <div class="d-flex justify-content-between">
                                         <p class="h3 mb-2">Total (IVA incluído)</p>
-                                        <p class="h3 mb-2">{{$subtotal}}€</p>
+                                        <p class="h3 mb-2">{{ $subtotal }}€</p>
                                     </div>
 
                                     <button type="button" class="btn btn-info btn-block btn-lg">

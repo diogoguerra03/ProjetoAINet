@@ -22,7 +22,8 @@ class CartController extends Controller
     public function addToCart(Request $request): RedirectResponse
     {
 
-        $productId = $request->input('orderItem');
+        $productId = $request->input('tshirtId');
+        $productName = $request->input('tshirtName');
         $size = $request->input('size');
         $color = $request->input('color');
         $quantity = $request->input('quantity');
@@ -62,7 +63,7 @@ class CartController extends Controller
 
         // Redirecionar de volta ao catálogo ou a outra página
         return redirect()->back()
-        ->with('alert-msg', "$quantity x $tshirtImage adicionado ao carrinho.")
+        ->with('alert-msg', "$quantity x \"$productName\" adicionado ao carrinho.")
         ->with('alert-type', 'success');
 
     }
@@ -76,6 +77,8 @@ class CartController extends Controller
             Session::put('cart', $cart);
         }
 
-        return redirect()->back()->with('success', 'Item removido do carrinho com sucesso.');
+        return redirect()->back()
+        ->with('alert-msg',  "Item removido do carrinho.")
+        ->with('alert-type', 'success');
     }
 }
