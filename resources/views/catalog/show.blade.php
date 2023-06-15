@@ -79,7 +79,12 @@
                     </div>
 
                     <div class="form-group d-flex">
-                        @foreach ($colors as $colorCode => $colorName)
+                        @php
+                            $colorsCount = $colors->count();
+                            $halfColorsCount = ceil($colorsCount / 2);
+                        @endphp
+
+                        @foreach ($colors->take($halfColorsCount) as $colorCode => $colorName)
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input color-option" type="radio" name="color"
                                     id="{{ $colorCode }}" value="{{ $colorCode }}"
@@ -87,6 +92,19 @@
                             </div>
                         @endforeach
                     </div>
+
+                    <br> <!-- Quebra de linha -->
+
+                    <div class="form-group d-flex mb-5">
+                        @foreach ($colors->skip($halfColorsCount) as $colorCode => $colorName)
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input color-option" type="radio" name="color"
+                                    id="{{ $colorCode }}" value="{{ $colorCode }}"
+                                    style="background-color: #{{ $colorCode }};">
+                            </div>
+                        @endforeach
+                    </div>
+
                     <div class="form-group">
                         <div class="quantity-input d-flex">
                             <button type="submit" name="addToCart" class="btn btn-primary ml-2 mr-5">Add to
