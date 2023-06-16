@@ -54,8 +54,9 @@ class CartController extends Controller
             'tshirt_image' => $productUrl,
             'quantity'     => $quantity,
             'color'        => $colorName,
+            'color_code'   => $colorCode,
             'size'         => $size,
-            'price'        => $price * $quantity,
+            'price'        => $price,
         ];
 
         // Adicionar o item ao carrinho na sessão

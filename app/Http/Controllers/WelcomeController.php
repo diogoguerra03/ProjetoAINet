@@ -39,4 +39,5 @@ class WelcomeController extends Controller
 
         return view('welcome', compact('popularProducts', 'newArrivals', 'price', 'discountPercentage'));
     }
+
 }
