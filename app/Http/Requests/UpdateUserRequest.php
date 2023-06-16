@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -22,15 +23,16 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules(): array
     {
+        $user = Auth::user();
         return [
             'name' => [
                 'required',
-                Rule::unique('users', 'name')->ignore($this->id),
+                Rule::unique('users', 'name')->ignore($user->id),
             ],
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users', 'email')->ignore($this->id),
+                Rule::unique('users', 'email')->ignore($user->id),
             ],
             'photo_url' => 'sometimes|image|max:4096', // maxsize = 4Mb
         ];

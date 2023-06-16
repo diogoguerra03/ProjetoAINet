@@ -30,41 +30,25 @@ class UserController extends Controller
     }
 
 
-
-    public function update(UpdateUserRequest $request, User $user): RedirectResponse
+    public function update(UpdateUserRequest $request): RedirectResponse
     {
-        $formData = $request->validated();
-        $user = DB::transaction(function () use ($formData, $user, $request) {
-            $user->name = $formData['name'];
-            $user->email = $formData['email'];
+        $user = Auth::user();
+        $this->authorize('update', $user);
 
-            if ($request->hasFile('image')) {
-                if ($user->photo_url) {
-                    Storage::delete('public/photos/' . $user->photo_url);
-                }
+        $data = $request->validated();
 
-                $path = $request->file('image')->store('public/photos');
-                $filename = basename($path);
-                $user->photo_url = $filename;
-            }
+        if ($request->hasFile('photo_url')) {
+            $photo = $request->file('photo_url');
+            $photoPath = $photo->store('photos', 'public');
+            $data['photo_url'] = $photoPath;
+        }
 
-            $user->save();
+        $user->update($data);
 
-            return $user;
-        });
-
-        $url = route('catalog.show', $user->slug);
-        $htmlMessage = "Product <a href='$url'>#{$user->id}</a>
-                    <strong>\"{$user->name}\"</strong> was successfully updated!";
-
-        return redirect()->route('catalog.index')
+        $htmlMessage = "$user->name was successfully updated!";
+        return redirect()->route('profile')
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
-
     }
-
-
-
-
 
 }
