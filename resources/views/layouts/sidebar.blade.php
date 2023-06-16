@@ -32,7 +32,7 @@
                             <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Orders</span></a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link px-0 align-middle text-white">
+                        <a href="{{ route('dashboard.employees') }}" class="nav-link px-0 align-middle text-white">
                             <i class="fs-4 bi-briefcase"></i> <span class="ms-1 d-none d-sm-inline">Employees</span></a>
                     </li>
                     <li>

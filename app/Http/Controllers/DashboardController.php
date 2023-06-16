@@ -26,4 +26,11 @@ class DashboardController extends Controller
 
         return view('dashboard.customers', compact('customers'));
     }
+
+    public function employees()
+    {
+        $employees = User::where('user_type', 'E')->get();
+
+        return view('dashboard.employees', compact('employees'));
+    }
 }
