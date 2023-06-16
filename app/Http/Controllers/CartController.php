@@ -65,7 +65,7 @@ class CartController extends Controller
 
         // Redirecionar de volta ao catálogo ou a outra página
         return redirect()->back()
-            ->with('alert-msg', "$quantity x \"$productName\" added to cart.")
+            ->with('alert-msg', "$quantity x \"$productName\" ($size - $colorName) added to cart.")
             ->with('alert-type', 'success');
 
     }
@@ -76,6 +76,8 @@ class CartController extends Controller
 
         $tshirtName = $cart[$index]['product_name'];
         $tshirtQuantity = $cart[$index]['quantity'];
+        $tshirtSize = $cart[$index]['size'];
+        $tshirtColor = $cart[$index]['color'];
 
         if (isset($cart[$index])) {
             unset($cart[$index]);
@@ -83,7 +85,7 @@ class CartController extends Controller
         }
 
         return redirect()->back()
-            ->with('alert-msg', "$tshirtQuantity x \"$tshirtName\" removed from cart.")
+            ->with('alert-msg', "$tshirtQuantity x \"$tshirtName\" ($tshirtSize - $tshirtColor) removed from cart.")
             ->with('alert-type', 'success');
     }
 }

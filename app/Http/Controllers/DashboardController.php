@@ -16,7 +16,6 @@ class DashboardController extends Controller
         $moneyEarned = Order::where('status', 'closed')->sum('total_price'); // só contabiliza as orders fechadas
         $numberCustomers = User::where('user_type', 'C')->count();
 
-
         return view('dashboard.index', compact('totalProducts', 'ordersPlaced', 'numberCustomers', 'moneyEarned'));
     }
 
