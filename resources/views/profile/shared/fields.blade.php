@@ -96,6 +96,13 @@
                         </div>
                     </div>
                 @endif
+                @if (!$disabledStr)
+                    <hr>
+                    <div class="form-group">
+                        <label for="image">{{ __('Image') }}</label>
+                        <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                    </div>
+                @endif
 
             </div>
         </div>

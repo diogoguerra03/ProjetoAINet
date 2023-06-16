@@ -41,11 +41,11 @@ class UpdateUserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'O campo de nome é obrigatório.',
-            'name.string' => 'O campo de nome deve ser uma string.',
-            'name.max' => 'O campo de nome não pode exceder 255 caracteres.',
-            'photo_url.image' => 'O ficheiro com a foto não é uma imagem',
-            'photo_url.size' => 'O tamanho do ficheiro com a foto tem que ser inferior a 4 Mb',
+            'name.required' => 'The name field is required.',
+            'name.string' => 'The name field must be a string.',
+            'name.max' => 'The name field must be less than 255 characters.',
+            'photo_url.image' => 'The photo must be an image file.',
+            'photo_url.size' => 'The photo must be less than 4Mb.',
         ];
     }
 }

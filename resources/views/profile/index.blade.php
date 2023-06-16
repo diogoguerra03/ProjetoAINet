@@ -5,8 +5,8 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-12 mt-2">
-                <h1>User Profile</h1>
+            <h1>User Profile</h1>
+            <div class="col-md-12 mt-5">
                 @if (session('alert-msg'))
                     <div class="alert alert-{{ session('alert-type') }} alert-dismissible">
                         {{ session('alert-msg') }}

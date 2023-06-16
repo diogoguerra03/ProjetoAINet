@@ -37,10 +37,14 @@ class UserController extends Controller
 
         $data = $request->validated();
 
-        if ($request->hasFile('photo_url')) {
-            $photo = $request->file('photo_url');
-            $photoPath = $photo->store('photos', 'public');
-            $data['photo_url'] = $photoPath;
+        if ($request->hasFile('image')) {
+            if ($user->photo_url) {
+                Storage::delete('public/photos/' . $user->photo_url);
+            }
+
+            $path = $request->file('image')->store('public/photos');
+            $filename = basename($path);
+            $user->photo_url = $filename;
         }
 
         $user->update($data);
@@ -49,6 +53,19 @@ class UserController extends Controller
         return redirect()->route('profile')
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
+    }
+
+    public function deletePhoto(): RedirectResponse
+    {
+        $user = Auth::user();
+        if ($user->photo_url) {
+            Storage::delete('public/photos/' . $user->photo_url);
+            $user->photo_url = null;
+            $user->save();
+        }
+
+        $htmlMessage = "Photo deleted successfully.";
+        return redirect()->route('profile')->with('success', $htmlMessage);
     }
 
 }

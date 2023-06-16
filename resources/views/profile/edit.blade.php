@@ -5,9 +5,17 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-12 mt-2">
-                <h1>Edit Profile</h1>
-                <form method="POST" action="{{ route('profile.update') }}">
+            <h1>Edit Profile</h1>
+            <div class="col-md-12 mt-5">
+                @if ($user->photo_url)
+                    <form id="deleteUserForm_{{ $user->id }}" method="POST" action="{{ route('profile.deletephoto') }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger flex-fill">Delete photo</button>
+                    </form>
+                @endif
+
+                <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     @include('profile.shared.fields')
@@ -16,6 +24,7 @@
                         <a href="{{ route('profile', ['user' => $user]) }}" class="btn btn-secondary ms-3">Cancelar</a>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
