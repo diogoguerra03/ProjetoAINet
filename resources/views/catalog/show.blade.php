@@ -57,6 +57,7 @@
                     @csrf
                     <input type="hidden" name="tshirtId" value="{{ $tshirtImage->id }}">
                     <input type="hidden" name="tshirtName" value="{{ $tshirtImage->name }}">
+                    <input type="hidden" name="tshirtUrl" value="{{ $tshirtImage->image_url }}">
                     <h1>{{ $tshirtImage->name }}</h1>
                     <h2><b>{{ $price }} € </b></h2>
                     <section class="mt-4 mb-3">
@@ -84,6 +85,7 @@
                             </label>
                         </div>
                     </div>
+
 
                     <div class="form-group d-flex">
                         @php

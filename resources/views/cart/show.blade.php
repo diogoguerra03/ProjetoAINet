@@ -68,36 +68,36 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @empty
-                                            <div class="col-md-12 text-center">
-                                                <h1>Cart is empty!</h1>
-                                            </div>
-                                        @endforelse
-
-                                    </div>
-                                    <div class="col-lg-5">
-                                        <h3 class="mb-5">Order Resumed</h3>
-                                        <p class="h5 mb-3">{{ count(session('cart', [])) }} items total</p>
-                                        <div class="d-flex justify-content-between mt-5">
-                                            <p class="h4 mb-2">Total (IVA included)</p>
-                                            <p class="h4 mb-2">{{ $subtotal }}€</p>
+                                    @empty
+                                        <div class="col-md-12 text-center">
+                                            <h1>Cart is empty!</h1>
                                         </div>
-                                        <hr class="my-4">
-                                            <button type="button" class="btn btn-primary btn-block btn-lg mt-3">
-                                                <span>Checkout <i class="fas ms-2 h1"></i></span>
-                                            </button>
+                                    @endforelse
+
+                                </div>
+                                <div class="col-lg-5">
+                                    <h3 class="mb-5">Order Resumed</h3>
+                                    <p class="h5 mb-3">{{ count(session('cart', [])) }} items total</p>
+                                    <div class="d-flex justify-content-between mt-5">
+                                        <p class="h4 mb-2">Total (IVA included)</p>
+                                        <p class="h4 mb-2">{{ $subtotal }}€</p>
                                     </div>
+                                    <hr class="my-4">
+                                    <button type="button" class="btn btn-primary btn-block btn-lg mt-3">
+                                        <span>Checkout <i class="fas ms-2 h1"></i></span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
 
 
-        @csrf
-        @method('DELETE')
-        </form>
-    @endsection
+    @csrf
+    @method('DELETE')
+    </form>
+@endsection

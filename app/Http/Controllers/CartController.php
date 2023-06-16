@@ -26,12 +26,11 @@ class CartController extends Controller
 
         $productId = $request->input('tshirtId');
         $productName = $request->input('tshirtName');
+        $productUrl = $request->input('tshirtUrl');
         $size = $request->input('size');
         $colorCode = $request->input('color') ?? 'fafafa'; // cor default -> branco
         $quantity = $request->input('quantity');
 
-        // product_id => imagem do produto
-        $tshirtImage = TshirtImage::findOrFail($productId)->image_url;
         $checkClientNull = TshirtImage::findOrFail($productId)->customer_id;
         $quantityDiscount = Price::pluck('qty_discount')->first();
         $colorName = Color::where('code', $colorCode)->pluck('name')->first();
@@ -52,7 +51,7 @@ class CartController extends Controller
         $item = [
             'product_id'   => $productId,
             'product_name' => $productName,
-            'tshirt_image' => $tshirtImage,
+            'tshirt_image' => $productUrl,
             'quantity'     => $quantity,
             'color'        => $colorName,
             'size'         => $size,
