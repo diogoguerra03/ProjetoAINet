@@ -42,6 +42,7 @@
                                                             <h3>{{ $item['product_name'] }}</h3>
                                                             <p class="h6">Color: {{ $item['color'] }}</p>
                                                             <p class="h6">Size: {{ $item['size'] }}</p>
+                                                            <p class="h6">Unit. Price: {{ $item['price'] }}€</p>
                                                         </div>
                                                     </div>
                                                     <div class="d-flex flex-row align-items-center">
@@ -49,9 +50,10 @@
                                                             <h5 class="fw-normal mb-0">{{ $item['quantity'] }}</h5>
                                                         </div>
                                                         <div style="width: 80px;">
-                                                            <h5 class="mb-0">{{ $item['price'] }}€</h5>
+                                                            <h5 class="mb-0">{{ $item['price'] * $item['quantity'] }}€
+                                                            </h5>
                                                             @php
-                                                                $subtotal += $item['price']; // adicionar os valores das tshirts
+                                                                $subtotal += $item['price'] * $item['quantity']; // adicionar os valores das tshirts
                                                             @endphp
 
                                                         </div>
@@ -83,9 +85,12 @@
                                         <p class="h4 mb-2">{{ $subtotal }}€</p>
                                     </div>
                                     <hr class="my-4">
-                                    <button type="button" class="btn btn-primary btn-block btn-lg mt-3">
-                                        <span>Checkout <i class="fas ms-2 h1"></i></span>
-                                    </button>
+                                    <form action="{{ route('cart.checkout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary btn-block btn-lg mt-3">
+                                            <span>Checkout <i class="fas ms-2 h1"></i></span>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
