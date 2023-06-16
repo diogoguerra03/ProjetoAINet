@@ -10,23 +10,25 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
 
-    public function profile(Request $request): View
+    public function profile(): View
     {
-        $user = User::find($request->user()->id);
-
-        return view('profile.index', ['user' => $user]);
+        $user = Auth::user();
+        return view('profile.index', compact('user'));
     }
 
     public function edit(User $user): View
     {
         $this->authorize('update', $user);
+        $user = Auth::user();
 
-        return view('profile.edit', ['user' => $user]);
+        return view('profile.edit', compact('user'));
     }
+
 
 
     public function update(UpdateUserRequest $request, User $user): RedirectResponse
