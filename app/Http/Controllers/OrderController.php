@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Order;
+use App\Models\Customer;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,31 +17,40 @@ class OrderController extends Controller
 
         $cart = Session::get('cart', []);
 
-        // get last order_id of order_items table
-        $lastOrder = OrderItem::orderBy('order_id', 'desc')->pluck('order_id')->first();
-        $thisOrderId = $lastOrder + 1;
-
         // Assuming you have an authenticated user
         $user = Auth::user();
+        $customer = Customer::where('id', $user->id)->first();
 
-        // Assuming the order is associated with the user
         $order = new Order();
-        $order->user_id = $user->id;
-        $order->save();
+        $total_price = 0;
+
+        $order->id = Order::orderBy('id', 'desc')->pluck('id')->first();
 
         // Iterate over the cart items and create OrderItem records
+
         foreach ($cart as $item) {
-            $order->orderItems()->create([
-                'order_id'        => $thisOrderId,
-                'tshirt_image_id' => $item['product_id'],
-                'color_code'      => $item['color_code'],
-                'size'            => $item['size'],
-                'quantity'        => $item['quantity'],
-                'price'           => $item['price'],
-                'sub_total'       => $item['price'] * $item['quantity'],
-                $order->save(),
-            ]);
+            $orderItem = new OrderItem();
+            $orderItem->order_id = $order->id;
+            $orderItem->tshirt_image_id = $item['product_id'];
+            $orderItem->color_code = $item['color_code'];
+            $orderItem->size = $item['size'];
+            $orderItem->qty = $item['quantity'];
+            $orderItem->unit_price = $item['price'];
+            $orderItem->sub_total = $item['price'] * $item['quantity'];
+            $total_price += $orderItem->sub_total;
+            $orderItem->save();
         }
+
+        $order->status = 'pending';
+        $order->costumer_id = $customer->id;
+        $order->date = Carbon::now()->format('Y-m-d');
+        $order->total_price = $total_price;
+        $order->notes = null;
+        $order->nif = $customer->nif;
+        $order->address = $customer->address;
+        $order->payment_type = $customer->default_payment_type;
+        $order->payment_ref = $customer->default_payment_ref;
+        $order->save();
 
         // Clear the cart
         $request->session()->forget('cart');
