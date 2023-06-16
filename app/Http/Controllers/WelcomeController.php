@@ -26,8 +26,17 @@ class WelcomeController extends Controller
             ->take(4)
             ->get();
 
-        $prices = Price::all();
+        $priceWithoutDiscount = Price::first()->unit_price_catalog;
+        $quantityForDiscount = Price::first()->qty_discount;
+        $priceWithDiscount = Price::first()->unit_price_catalog_discount;
+        $discountPercentage = 100 - (($priceWithDiscount * 100) / $priceWithoutDiscount);
 
-        return view('welcome', compact('popularProducts', 'newArrivals', 'prices'));
+        $price = [
+            'withoutDiscount' => $priceWithoutDiscount,
+            'quantityForDiscount' => $quantityForDiscount,
+            'withDiscount' => $priceWithDiscount,
+        ];
+
+        return view('welcome', compact('popularProducts', 'newArrivals', 'price', 'discountPercentage'));
     }
 }

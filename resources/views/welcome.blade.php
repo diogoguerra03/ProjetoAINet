@@ -2,13 +2,29 @@
 @extends('layouts.header')
 @extends('layouts.app')
 
+@php
+    $discountPercentage = round($discountPercentage);
+@endphp
+
 @section('content')
     <!-- ========================= SECTION INTRO ========================= -->
     <section class="section-intro padding-y-sm">
         <div class="container">
 
             <div class="intro-banner-wrap">
-                <img src="assets/images/banner.png" class="img-fluid rounded">
+                <div class="jumbotron jumbotron-fluid text-center"
+                    style="background-image:url(assets/images/backgroundDiscount.png);">
+                    <div class="container" style="background:">
+                        <h1 class="display-4"
+                            style="color:white; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
+                            PROMOÇÃO</h1>
+                        <h5 class="lead"
+                            style="font-size:40px; color:white; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
+                            {{ $discountPercentage }}% de desconto na
+                            compra de
+                            {{ $price['quantityForDiscount'] }} t-shirts</h5>
+                    </div>
+                </div>
             </div>
 
         </div> <!-- container //  -->
@@ -30,7 +46,7 @@
                             <img class="card-img-top img-fluid mx-auto d-block image-container"
                                 src="{{ $product->image_url }}" alt="Product Image">
                             <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">{{ $product->name }} - {{ $prices->first()->unit_price_catalog }} €
+                                <h5 class="card-title">{{ $product->name }} - {{ $price['withoutDiscount'] }}€
                                 </h5>
                                 <p class="card-text">{{ $product->description }}</p>
                                 <a href="{{ route('catalog.show', $product->slug) }}" class="btn btn-primary mt-auto">View
@@ -59,7 +75,7 @@
                             <img class="card-img-top img-fluid mx-auto d-block image-container"
                                 src="{{ $product->image_url }}" alt="Product Image">
                             <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">{{ $product->name }} - {{ $prices->first()->unit_price_catalog }} €
+                                <h5 class="card-title">{{ $product->name }} - {{ $price['withoutDiscount'] }}€
                                 </h5>
                                 <p class="card-text">{{ $product->description }}</p>
                                 <a href="{{ route('catalog.show', $product->slug) }}" class="btn btn-primary mt-auto">View
