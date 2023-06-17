@@ -24,13 +24,13 @@ class OrderController extends Controller
         $order = new Order();
         $total_price = 0;
 
-        $order->id = Order::orderBy('id', 'desc')->pluck('id')->first();
+        $order_id = Order::orderBy('id', 'desc')->pluck('id')->first();
 
         // Iterate over the cart items and create OrderItem records
 
         foreach ($cart as $item) {
             $orderItem = new OrderItem();
-            $orderItem->order_id = $order->id;
+            $orderItem->order_id = $order_id;
             $orderItem->tshirt_image_id = $item['product_id'];
             $orderItem->color_code = $item['color_code'];
             $orderItem->size = $item['size'];
@@ -42,7 +42,7 @@ class OrderController extends Controller
         }
 
         $order->status = 'pending';
-        $order->costumer_id = $customer->id;
+        $order->customer_id = $customer->id;
         $order->date = Carbon::now()->format('Y-m-d');
         $order->total_price = $total_price;
         $order->notes = null;
