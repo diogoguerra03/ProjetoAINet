@@ -65,7 +65,13 @@
                             <p class="mb-0">NIF</p>
                         </div>
                         <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ $user->nif }}</p>
+                            <input type="text" class="form-control @error('nif') is-invalid @enderror" name="nif"
+                                id="inputName" {{ $disabledStr }} value="{{ old('nif', $customer->nif) }}">
+                            @error('nif')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <hr>
@@ -74,7 +80,14 @@
                             <p class="mb-0">Address</p>
                         </div>
                         <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ $user->created_at }}</p>
+                            <input type="text" class="form-control @error('address') is-invalid @enderror"
+                                name="address" id="inputName" {{ $disabledStr }}
+                                value="{{ old('address', $customer->address) }}">
+                            @error('address')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <hr>
@@ -83,7 +96,15 @@
                             <p class="mb-0">Payment reference</p>
                         </div>
                         <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ $user->updated_at }}</p>
+                            <input type="text"
+                                class="form-control @error('default_payment_ref') is-invalid @enderror"
+                                name="default_payment_ref" id="inputName" {{ $disabledStr }}
+                                value="{{ old('default_payment_ref', $customer->default_payment_ref) }}">
+                            @error('default_payment_ref')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <hr>
@@ -92,7 +113,23 @@
                             <p class="mb-0">Payment type</p>
                         </div>
                         <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ $user->updated_at }}</p>
+                            <select class="form-control @error('default_payment_type') is-invalid @enderror"
+                                name="default_payment_type" id="inputName" {{ $disabledStr }}>
+                                <option value="PAYPAL"
+                                    {{ old('default_payment_type', $customer->default_payment_type) === 'PAYPAL' ? 'selected' : '' }}>
+                                    PAYPAL</option>
+                                <option value="MC"
+                                    {{ old('default_payment_type', $customer->default_payment_type) === 'MC' ? 'selected' : '' }}>
+                                    MASTER CARD</option>
+                                <option value="VISA"
+                                    {{ old('default_payment_type', $customer->default_payment_type) === 'VISA' ? 'selected' : '' }}>
+                                    VISA</option>
+                            </select>
+                            @error('default_payment_type')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                 @endif
@@ -100,7 +137,13 @@
                     <hr>
                     <div class="form-group">
                         <label for="image">{{ __('Image') }}</label>
-                        <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                        <input type="file" class="form-control @error('image') is-invalid @enderror"" id="image"
+                            name="image" accept="image/*">
+                        @error('image')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 @endif
 

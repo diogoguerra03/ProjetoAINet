@@ -24,6 +24,11 @@ class TshirtImagePolicy
         return true;
     }
 
+    public function viewMinhas(User $user): bool
+    {
+        return $user->tipo == 'C';
+    }
+
     /**
      * Determine whether the user can create models.
      */
@@ -32,7 +37,7 @@ class TshirtImagePolicy
      */
     public function create(User $user): bool
     {
-        return $user->user_type === 'A';
+        return $user->user_type === 'A' || $user->user_type === 'C';
     }
 
     /**

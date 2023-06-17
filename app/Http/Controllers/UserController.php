@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Customer;
 
 class UserController extends Controller
 {
@@ -18,17 +18,27 @@ class UserController extends Controller
     public function profile(): View
     {
         $user = Auth::user();
-        return view('profile.index', compact('user'));
+        $customer = null;
+
+        if ($user->user_type === 'C') {
+            $customer = Customer::find($user->id); // Obtém uma instância de Customer com o ID 1
+        }
+
+        return view('profile.index', compact('user', 'customer'));
     }
 
     public function edit(User $user): View
     {
         $this->authorize('update', $user);
         $user = Auth::user();
+        $customer = null;
 
-        return view('profile.edit', compact('user'));
+        if ($user->user_type === 'C') {
+            $customer = Customer::find($user->id); // Obtém uma instância de Customer com o ID 1
+        }
+
+        return view('profile.edit', compact('user', 'customer'));
     }
-
 
     public function update(UpdateUserRequest $request): RedirectResponse
     {
@@ -48,6 +58,20 @@ class UserController extends Controller
         }
 
         $user->update($data);
+
+        if ($user->user_type === 'C') {
+            $customer = Customer::find($user->id);
+
+            $customerData = [
+                'nif' => $data['nif'],
+                'address' => $data['address'],
+                'default_payment_type' => $data['default_payment_type'],
+                'default_payment_ref' => $data['default_payment_ref'],
+            ];
+
+            $customer->update($customerData);
+
+        }
 
         $htmlMessage = "$user->name was successfully updated!";
         return redirect()->route('profile')
