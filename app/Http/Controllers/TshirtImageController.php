@@ -20,13 +20,29 @@ class TshirtImageController extends Controller
 
     public function index(Request $request): View
     {
+        $user = auth()->user();
         $categories = Category::all()->whereNull('deleted_at')->sortBy('name');
         $filterByCategory = $request->category ?? '';
         $filterByName = $request->name ?? '';
         $filterByDescription = $request->description ?? '';
-        $tshirtQuery = TshirtImage::whereNull('customer_id')->whereNull('deleted_at');
 
-        if ($filterByCategory !== '') {
+        // Construir a query base para as imagens de camiseta
+        $tshirtQuery = TshirtImage::whereNull('deleted_at');
+
+        // Verificar se o usuário é do tipo "C" e filtrar as imagens de camiseta correspondentes
+        if ($user !== null) {
+            if ($user->user_type === 'C') {
+                $tshirtQuery->where(function ($query) use ($user) {
+                    $query->whereNull('customer_id')
+                        ->orWhere('customer_id', $user->id);
+                });
+            }
+        } else {
+            $tshirtQuery->whereNull('customer_id');
+        }
+
+
+        if ($filterByCategory !== '' && $filterByCategory !== 'my_products') {
             $tshirtQuery = $tshirtQuery->where('category_id', $filterByCategory);
         }
         if ($filterByName !== '') {
@@ -35,6 +51,10 @@ class TshirtImageController extends Controller
         }
         if ($filterByDescription !== '') {
             $imagesId = TshirtImage::where('description', 'like', "%$filterByDescription%")->pluck('tshirt_images.id'); // pluck retorna um array com os ids
+            $tshirtQuery->whereIn('tshirt_images.id', $imagesId);
+        }
+        if ($filterByCategory === 'my_products') {
+            $imagesId = TshirtImage::where('customer_id', $user->id)->pluck('tshirt_images.id'); // pluck retorna um array com os ids
             $tshirtQuery->whereIn('tshirt_images.id', $imagesId);
         }
 
@@ -68,10 +88,16 @@ class TshirtImageController extends Controller
                 'filterByName',
                 'filterByDescription',
                 'orderBy',
-                'prices'
+                'prices',
+                'user'
             )
         );
 
+    }
+
+    public function getfile($path)
+    {
+        return response()->file(storage_path('app/tshirt_images_private/' . $path));
     }
 
     public function show(string $slug): View
@@ -142,8 +168,4 @@ class TshirtImageController extends Controller
             ->with('alert-msg', 'Image deleted successfully.')
             ->with('alert-type', 'success');
     }
-
-
-
-
 }

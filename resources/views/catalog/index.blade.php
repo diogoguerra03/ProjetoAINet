@@ -23,6 +23,12 @@
                                     <option {{ old('category', $filterByCategory) == $category->id ? 'selected' : '' }}
                                         value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
+                                @if ($user !== null && $user->user_type === 'C')
+                                    <option {{ old('category', $filterByCategory) === 'my_products' ? 'selected' : '' }}
+                                        value="my_products">My products</option>
+                                @endif
+
+
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
@@ -68,12 +74,30 @@
 
 
         <div class="row mt-5">
-            @forelse($tshirtImages as $tshirtImage)
+            @forelse($tshirtImages as $index => $tshirtImage)
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
                         <a href="{{ route('catalog.show', $tshirtImage->slug) }}">
-                            <img class="card-img-top img-fluid mx-auto d-block image-container"
-                                src="{{ $tshirtImage->image_url }}" alt="T-Shirt Image">
+                            @if ($index < 3 && $orderBy === 'popular_products')
+                                <div class="position-absolute top-0 start-0 bg-success text-white px-2 py-1">
+                                    <i class="fas fa-star mr-1"></i> Popular
+                                </div>
+                            @endif
+
+                            @if ($index < 3 && $orderBy === 'new_arrivals')
+                                <div class="position-absolute top-0 start-0 bg-primary text-white px-2 py-1">
+                                    <i class="bi-exclamation-circle-fill mr-1"></i> New
+                                </div>
+                            @endif
+
+                            @if ($tshirtImage->customer_id === $user->id)
+                                <img class="card-img-top img-fluid mx-auto d-block image-container"
+                                    src="{{ route('photo', ['path' => $tshirtImage->image_url]) }}" alt="T-Shirt Image">
+                            @else
+                                <img class="card-img-top img-fluid mx-auto d-block image-container"
+                                    src="{{ $tshirtImage->image_url }}" alt="T-Shirt Image">
+                            @endif
+
                         </a>
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title">{{ $tshirtImage->name }} - {{ $prices->first()->unit_price_catalog }} €

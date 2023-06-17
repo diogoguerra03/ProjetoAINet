@@ -41,6 +41,8 @@ Route::resource('customers', CustomerController::class);
 Route::resource('catalog', TshirtImageController::class);
 Route::get('catalog/{slug}', [TshirtImageController::class, 'show'])->name('catalog.show');
 
+Route::get('photo/{path}', [TshirtImageController::class, 'getfile'])->name('photo');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [UserController::class, 'profile'])->name('profile')->middleware('verified');
     Route::get('/profile/edit', [UserController::class, 'edit'])->name('profile.edit')->middleware('verified');
@@ -53,6 +55,7 @@ Route::middleware('auth')->group(function () {
         ->name('password.change.show');
     Route::post('/password/change', [ChangePasswordController::class, 'store'])
         ->name('password.change.store');
+
 });
 
 Route::middleware('admin')->group(function () {

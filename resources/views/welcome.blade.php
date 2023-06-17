@@ -43,6 +43,9 @@
                 @foreach ($popularProducts as $product)
                     <div class="col-md-3 mb-4">
                         <div class="card h-100">
+                            <div class="position-absolute top-0 start-0 bg-success text-white px-2 py-1">
+                                <i class="fas fa-star mr-1"></i> Popular
+                            </div>
                             <img class="card-img-top img-fluid mx-auto d-block image-container"
                                 src="{{ $product->image_url }}" alt="Product Image">
                             <div class="card-body d-flex flex-column">
@@ -72,6 +75,9 @@
                 @foreach ($newArrivals as $product)
                     <div class="col-md-3 mb-4">
                         <div class="card h-100">
+                            <div class="position-absolute top-0 start-0 bg-primary text-white px-2 py-1">
+                                <i class="bi-exclamation-circle-fill mr-1"></i> New
+                            </div>
                             <img class="card-img-top img-fluid mx-auto d-block image-container"
                                 src="{{ $product->image_url }}" alt="Product Image">
                             <div class="card-body d-flex flex-column">

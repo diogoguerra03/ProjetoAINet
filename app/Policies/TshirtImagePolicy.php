@@ -24,9 +24,9 @@ class TshirtImagePolicy
         return true;
     }
 
-    public function viewMinhas(User $user): bool
+    public function viewMyProducts(User $user): bool
     {
-        return $user->tipo == 'C';
+        return $user->tipo === 'C';
     }
 
     /**
