@@ -32,6 +32,10 @@
                             <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Orders</span></a>
                     </li>
                     <li>
+                        <a href="{{ route('dashboard.admins') }}" class="nav-link px-0 align-middle text-white">
+                            <i class="fs-4 bi-server"></i> <span class="ms-1 d-none d-sm-inline">Administrators</span></a>
+                    </li>
+                    <li>
                         <a href="{{ route('dashboard.employees') }}" class="nav-link px-0 align-middle text-white">
                             <i class="fs-4 bi-briefcase"></i> <span class="ms-1 d-none d-sm-inline">Employees</span></a>
                     </li>
