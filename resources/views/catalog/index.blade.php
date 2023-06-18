@@ -90,7 +90,7 @@
                                 </div>
                             @endif
 
-                            @if ($tshirtImage->customer_id === $user->id)
+                            @if ($user !== null && $tshirtImage->customer_id === $user->id)
                                 <img class="card-img-top img-fluid mx-auto d-block image-container"
                                     src="{{ route('photo', ['path' => $tshirtImage->image_url]) }}" alt="T-Shirt Image">
                             @else
