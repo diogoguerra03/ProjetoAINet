@@ -67,6 +67,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/dashboard/customers', [DashboardController::class, 'customers'])->name('dashboard.customers');
     Route::get('/dashboard/employees', [DashboardController::class, 'employees'])->name('dashboard.employees');
     Route::get('/dashboard/admins', [DashboardController::class, 'admins'])->name('dashboard.admins');
+    Route::get('/dashboard/orders', [DashboardController::class, 'orders'])->name('dashboard.orders');
 
     Route::get('catalog/{slug}/edit', [TshirtImageController::class, 'edit'])->name('catalog.edit');
     Route::delete('catalog/{slug}/delete', [TshirtImageController::class, 'destroy'])->name('catalog.destroy');
