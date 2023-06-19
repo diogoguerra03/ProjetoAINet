@@ -34,14 +34,14 @@
                                                     <div class="d-flex justify-content-between">
                                                         <div class="d-flex flex-row align-items-center">
                                                             <div>
-                                                                <img src="{{ $orderItem->tshirt_image_id }}"
+                                                                <img src=" {{ asset('storage/tshirt_images/' . $tshirts[$orderItem->id]['image_url']) }}"
                                                                     alt="T-Shirt Image" class="img-fluid rounded-3"
                                                                     style="height: 150px;">
                                                             </div>
                                                             <div class="ms-3">
-                                                                <h3>nome da tshirt</h3>
+                                                                <h3>{{$tshirts[$orderItem->id]['name']}}</h3>
                                                                 <p class="h6">Color:
-                                                                    {{ $orderItem->color_code }}</p>
+                                                                    {{ $colors[$orderItem->id] }}</p>
                                                                 <p class="h6">Size: {{ $orderItem->size }}
                                                                 </p>
                                                                 <p class="h6">Unit. Price:

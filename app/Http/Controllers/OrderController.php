@@ -83,15 +83,18 @@ class OrderController extends Controller
 
 
             foreach ($orderItems[$order_id] as $orderItem) {
-                $tshirt = TshirtImage::where('id', $orderItem->tshirt_image_id)->first();
-                $tshirts[$orderItem->id] = $tshirt ? $tshirt->name : '';
+                $tshirt = TshirtImage::find($orderItem->tshirt_image_id);
+                $tshirts[$orderItem->id] = [
+                    'name' => $tshirt ? $tshirt->name : '',
+                    'image_url' => $tshirt ? $tshirt->image_url : '',
+                ];
 
-                $color = Color::where('code', $orderItem->color_code)->first();
-                $colors[$orderItem->id] = $color ? $color->name : '';
+                $color = Color::where('code', $orderItem->color_code)->pluck('name')->first();
+                $colors[$orderItem->id] = $color ? $color : '';
             }
         }
 
-        return view('history.order', compact('orders', 'orderItems'));
+        return view('history.order', compact('orders', 'orderItems', 'tshirts', 'colors'));
     }
 
 }
