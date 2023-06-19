@@ -92,7 +92,7 @@
                                     <i class="bi bi-archive-fill mr-1"></i> My Product
                                 </div>
                                 <img class="card-img-top img-fluid mx-auto d-block image-container"
-                                    src="{{ route('photo', $tshirtImage->slug) }}" alt="T-Shirt Image">
+                                    src="{{ route('photo', $tshirtImage) }}" alt="T-Shirt Image">
                             @else
                                 <img class="card-img-top img-fluid mx-auto d-block image-container"
                                     src="{{ asset('storage/tshirt_images/' . $tshirtImage->image_url) }}"

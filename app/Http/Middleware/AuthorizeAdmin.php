@@ -26,9 +26,6 @@ class AuthorizeAdmin
                     ->with('alert-type', 'danger');
         }
 
-
-
-
         return $next($request);
     }
 }

@@ -20,10 +20,7 @@ class TshirtImageController extends Controller
     // construct
     public function __construct()
     {
-        // $this->middleware('auth')->except(['index', 'show', 'getfile']);
-        // $this->middleware('verified')->except(['index', 'show', 'getfile']);
-        // $this->middleware('admin')->except(['index', 'show', 'getfile']);
-        $this->authorizeResource(TshirtImage::class, 'tshirt_image');
+        $this->authorizeResource(TshirtImage::class, 'catalog');
     }
 
     public function index(Request $request): View
@@ -112,14 +109,14 @@ class TshirtImageController extends Controller
 
     }
 
-    public function show(string $slug): View
+    public function show(TshirtImage $catalog): View
     {
-        $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
+        $user = auth()->user();
         $colors = Color::whereNull('deleted_at')->orderBy('name')->pluck('name', 'code');
 
         $price = Price::all()->first()->unit_price_catalog;
 
-        return view('catalog.show', compact('tshirtImage', 'colors', 'price'));
+        return view('catalog.show', compact('catalog', 'colors', 'price', 'user'));
 
     }
 

@@ -20,12 +20,13 @@
                         <div class="zoom imagesParent carousel-item active">
                             <img src='/storage/tshirt_base/fafafa.jpg' alt="" class="image-container d-block w-100"
                                 id="tshirt">
-                            <img src="{{ $tshirtImage->image_url }}" alt="{{ $tshirtImage->name }}"
-                                class="image-container d-block w-100" id="tshirtImage">
+                            <img src="{{ asset('storage/tshirt_images/' . $catalog->image_url) }}"
+                                alt="{{ $catalog->name }}" class="image-container d-block w-100" id="tshirtImage">
                         </div>
                         <div class="zoom carousel-item">
-                            <img class="image-container d-block w-100" src="{{ $tshirtImage->image_url }}"
-                                alt="{{ $tshirtImage->name }}">
+                            <img class="image-container d-block w-100"
+                                src="{{ asset('storage/tshirt_images/' . $catalog->image_url) }}"
+                                alt="{{ $catalog->name }}">
                         </div>
                     </div>
 
@@ -55,14 +56,14 @@
             <div class="col-md-6">
                 <form method="POST" action="{{ route('cart.add') }}">
                     @csrf
-                    <input type="hidden" name="tshirtId" value="{{ $tshirtImage->id }}">
-                    <input type="hidden" name="tshirtName" value="{{ $tshirtImage->name }}">
-                    <input type="hidden" name="tshirtUrl" value="{{ $tshirtImage->image_url }}">
-                    <h1>{{ $tshirtImage->name }}</h1>
+                    <input type="hidden" name="tshirtId" value="{{ $catalog->id }}">
+                    <input type="hidden" name="tshirtName" value="{{ $catalog->name }}">
+                    <input type="hidden" name="tshirtUrl" value="{{ $catalog->image_url }}">
+                    <h1>{{ $catalog->name }}</h1>
                     <h2><b>{{ $price }} € </b></h2>
                     <section class="mt-4 mb-3">
                         <h4>Description</h4>
-                        <p>{{ $tshirtImage->description }}</p>
+                        <p>{{ $catalog->description }}</p>
                     </section>
 
                     <div class="form-group">
