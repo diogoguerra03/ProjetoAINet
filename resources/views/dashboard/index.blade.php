@@ -22,7 +22,7 @@
                     <h5 class="card-title">Orders placed</h5>
                     <p class="card-text">{{ $ordersPlaced }}</p>
                     <hr>
-                    <a href="" class="btn btn-light mt-auto">More info</a>
+                    <a href="{{ route('dashboard.orders') }}" class="btn btn-light mt-auto">More info</a>
                 </div>
             </div>
         </div>
