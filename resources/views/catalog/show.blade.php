@@ -20,24 +20,14 @@
                         <div class="zoom imagesParent carousel-item active">
                             <img src='/storage/tshirt_base/fafafa.jpg' alt="" class="image-container d-block w-100"
                                 id="tshirt">
-                            @if ($catalog->customer_id)
-                                <img src="{{ route('photo', $catalog->slug) }}" alt="{{ $catalog->name }}"
-                                    class="image-container d-block w-100 h-25" id="tshirtImage">
-                            @else
-                                <img src="{{ asset('storage/tshirt_images/' . $catalog->image_url) }}"
-                                    alt="{{ $catalog->name }}" class="image-container d-block w-100" id="tshirtImage">
-                            @endif
+
+                            <img src="{{ route('photo', $catalog) }}" alt="{{ $catalog->name }}"
+                                class="image-container d-block w-100 h-25" id="tshirtImage">
 
                         </div>
                         <div class="zoom carousel-item">
-                            @if ($catalog->customer_id)
-                                <img class="image-container d-block w-100" src="{{ route('photo', $catalog->slug) }}"
-                                    alt="{{ $catalog->name }}">
-                            @else
-                                <img class="image-container d-block w-100"
-                                    src="{{ asset('storage/tshirt_images/' . $catalog->image_url) }}"
-                                    alt="{{ $catalog->name }}">
-                            @endif
+                            <img class="image-container d-block w-100" src="{{ route('photo', $catalog) }}"
+                                alt="{{ $catalog->name }}">
 
                         </div>
                     </div>
