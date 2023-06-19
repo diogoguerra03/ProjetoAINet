@@ -69,8 +69,9 @@
                                                     $names = explode(' ', Auth::user()->name);
                                                     $firstName = $names[0];
                                                     $lastName = end($names);
-                                                    if($firstName == $lastName)
+                                                    if ($firstName == $lastName) {
                                                         $lastName = '';
+                                                    }
                                                 @endphp
 
                                                 {{ $firstName }} {{ $lastName }}
@@ -78,7 +79,8 @@
 
                                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                                 @if (Auth::user()->user_type !== 'E')
-                                                    <a class="dropdown-item" href="{{ route('profile') }}">My Profile</a>
+                                                    <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
+                                                    <a class="dropdown-item" href="{{ route('order.history') }}">Orders</a>
                                                 @endif
                                                 @if (Auth::user()->user_type === 'A')
                                                     <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>

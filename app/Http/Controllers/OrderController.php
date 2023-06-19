@@ -64,7 +64,16 @@ class OrderController extends Controller
             ->with('alert-msg', "Order submited successfuly.")
             ->with('alert-type', 'success');
 
-
-
     }
+
+    public function showOrderHistory()
+    {
+        $user = auth()->user(); // Assuming you're using Laravel's authentication
+        $orders = Order::where('customer_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('history.order', compact('orders'));
+    }
+
 }

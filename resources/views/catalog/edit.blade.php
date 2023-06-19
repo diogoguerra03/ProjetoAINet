@@ -6,7 +6,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <img src="{{ $tshirtImage->image_url }}" alt="{{ $tshirtImage->name }}" class="img-fluid mx-auto d-block image-container">
+                <img src="{{ $tshirtImage->image_url }}" alt="{{ $tshirtImage->name }}"
+                    class="img-fluid mx-auto d-block image-container">
             </div>
             <div class="col-md-6">
 

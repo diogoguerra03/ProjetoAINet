@@ -55,8 +55,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/password/change', [ChangePasswordController::class, 'store'])
         ->name('password.change.store');
 
-    // Encomenda    
+    // Encomenda
     Route::post('/cart/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
+    Route::get('/order-history', [OrderController::class, 'showOrderHistory'])->name('order.history');
+
 
 });
 
