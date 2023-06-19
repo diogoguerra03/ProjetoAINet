@@ -24,11 +24,11 @@
                 <td>
                         @if($order->status == "pending")
                             <button type="button" class="btn btn-primary mb-2">
-                                <a href="" class="text-white">Declare paid </a>
+                                <a href="" class="text-white">Declare paid</a>
                             </button>
                         @elseif($order->status == "paid")
-                            <button>
-                                <a href="">Declare closed </a>
+                            <button type="button" class="btn btn-primary mb-2">
+                                <a href="" class="text-white">Declare closed</a>
                             </button>
                         @endif
 
