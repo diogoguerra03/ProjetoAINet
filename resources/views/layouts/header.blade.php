@@ -78,7 +78,7 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                                @if (Auth::user()->user_type !== 'E')
+                                                @if (Auth::user()->user_type == 'C')
                                                     <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
                                                     <a class="dropdown-item" href="{{ route('order.history') }}">Orders</a>
                                                 @endif
