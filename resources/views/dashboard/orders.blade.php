@@ -17,16 +17,22 @@
         <tbody>
         @foreach ($orders as $order)
             <tr>
+                @if($order->status != "canceled" && $order->status != "closed")
                 <th scope="row">{{ $order->id }}</th>
                 <td>{{ $order->status }}</td>
                 <td>{{ $order->date }}</td>
                 <td>
-                @if ($order->status != "closed" && $order->status != "cancelled")
                         <div class="d-inline-flex align-content-center">
                             <i class="bi bi-pencil ml-4 mr-3"></i>
                         </div>
-                @endif
                 </td>
+                @elseif(Auth::user()->user_type != 'E' && ($order->status == "canceled" || $order->status == "closed"))
+                        <th scope="row">{{ $order->id }}</th>
+                        <td>{{ $order->status }}</td>
+                        <td>{{ $order->date }}</td>
+                        <td>
+                        </td>
+                @endif
             </tr>
         @endforeach
         </tbody>
