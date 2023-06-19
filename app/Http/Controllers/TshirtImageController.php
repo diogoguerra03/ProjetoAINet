@@ -104,9 +104,11 @@ class TshirtImageController extends Controller
     {
         $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
         $path = $tshirtImage->image_url;
-
-        return response()->file(storage_path('app/tshirt_images_private/' . $path));
-
+        $customerID = $tshirtImage->customer_id;
+        if ($customerID !== null) {
+            return response()->file(storage_path('app/tshirt_images_private/' . $path));
+        }
+        return response()->file(public_path('storage/tshirt_images/' . $path));
     }
 
     public function show(TshirtImage $catalog): View

@@ -87,17 +87,14 @@
                                 </div>
                             @endif
 
-                            @if ($user !== null && $tshirtImage->customer_id === $user->id)
+
+                            @if ($tshirtImage->customer_id !== null)
                                 <div class="position-absolute top-0 start-0 bg-success text-white px-2 py-1">
                                     <i class="bi bi-archive-fill mr-1"></i> My Product
                                 </div>
-                                <img class="card-img-top img-fluid mx-auto d-block image-container"
-                                    src="{{ route('photo', $tshirtImage) }}" alt="T-Shirt Image">
-                            @else
-                                <img class="card-img-top img-fluid mx-auto d-block image-container"
-                                    src="{{ asset('storage/tshirt_images/' . $tshirtImage->image_url) }}"
-                                    alt="T-Shirt Image">
                             @endif
+                            <img class="card-img-top img-fluid mx-auto d-block image-container"
+                                src="{{ route('photo', $tshirtImage) }}" alt="T-Shirt Image">
 
                         </a>
                         <div class="card-body d-flex flex-column">
