@@ -78,12 +78,18 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                                @if (Auth::user()->user_type != 'E')
                                                 <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
+                                                @endif
                                                 @if (Auth::user()->user_type == 'C')
                                                     <a class="dropdown-item" href="{{ route('order.history') }}">Orders</a>
                                                 @endif
-                                                @if (Auth::user()->user_type != 'C')
+                                                @if (Auth::user()->user_type === 'A')
                                                     <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
+                                                @endif
+                                                @if (Auth::user()->user_type === 'E')
+                                                    <a class="dropdown-item" href="/password/change">Change Password</a>
+                                                    <a class="dropdown-item" href="{{ route('dashboard.orders') }}">View Orders</a>
                                                 @endif
                                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                                     onclick="event.preventDefault();

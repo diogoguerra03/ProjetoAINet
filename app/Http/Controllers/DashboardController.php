@@ -39,4 +39,11 @@ class DashboardController extends Controller
 
         return view('dashboard.admins', compact('admins'));
     }
+
+    public function orders()
+    {
+        $orders = Order::all();
+
+        return view('dashboard.orders', compact('orders'));
+    }
 }
