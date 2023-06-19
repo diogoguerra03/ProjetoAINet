@@ -24,10 +24,20 @@ class OrderController extends Controller
         $order = new Order();
         $total_price = 0;
 
+
+        $order->status = 'pending';
+        $order->customer_id = $customer->id;
+        $order->date = Carbon::now()->format('Y-m-d');
+        $order->total_price = 0;
+        $order->notes = null;
+        $order->nif = $customer->nif;
+        $order->address = $customer->address;
+        $order->payment_type = $customer->default_payment_type;
+        $order->payment_ref = $customer->default_payment_ref;
+        $order->save();
+
         $order_id = Order::orderBy('id', 'desc')->pluck('id')->first();
-
         // Iterate over the cart items and create OrderItem records
-
         foreach ($cart as $item) {
             $orderItem = new OrderItem();
             $orderItem->order_id = $order_id;
@@ -41,16 +51,10 @@ class OrderController extends Controller
             $orderItem->save();
         }
 
-        $order->status = 'pending';
-        $order->customer_id = $customer->id;
-        $order->date = Carbon::now()->format('Y-m-d');
         $order->total_price = $total_price;
-        $order->notes = null;
-        $order->nif = $customer->nif;
-        $order->address = $customer->address;
-        $order->payment_type = $customer->default_payment_type;
-        $order->payment_ref = $customer->default_payment_ref;
         $order->save();
+
+        // ver ficha 9 transaçao
 
         // Clear the cart
         $request->session()->forget('cart');
@@ -59,6 +63,8 @@ class OrderController extends Controller
         return redirect()->back()
             ->with('alert-msg', "Order submited successfuly.")
             ->with('alert-type', 'success');
+
+
 
     }
 }

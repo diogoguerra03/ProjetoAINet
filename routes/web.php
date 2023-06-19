@@ -56,6 +56,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/password/change', [ChangePasswordController::class, 'store'])
         ->name('password.change.store');
 
+    // Encomenda    
+    Route::post('/cart/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
+
 });
 
 Route::middleware('admin')->group(function () {
@@ -72,5 +75,3 @@ Route::middleware('admin')->group(function () {
 Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
 Route::delete('/cart/{productId}/delete', [CartController::class, 'removeFromCart'])->name('cart.remove');
-// Encomenda
-Route::post('/cart/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
