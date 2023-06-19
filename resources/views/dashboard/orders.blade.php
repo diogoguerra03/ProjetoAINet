@@ -22,9 +22,16 @@
                 <td>{{ $order->status }}</td>
                 <td>{{ $order->date }}</td>
                 <td>
-                        <div class="d-inline-flex align-content-center">
-                            <i class="bi bi-pencil ml-4 mr-3"></i>
-                        </div>
+                        @if($order->status == "pending")
+                            <button type="button" class="btn btn-primary mb-2">
+                                <a href="" class="text-white">Declare paid </a>
+                            </button>
+                        @elseif($order->status == "paid")
+                            <button>
+                                <a href="">Declare closed </a>
+                            </button>
+                        @endif
+
                 </td>
                 @elseif(Auth::user()->user_type != 'E' && ($order->status == "canceled" || $order->status == "closed"))
                         <th scope="row">{{ $order->id }}</th>
