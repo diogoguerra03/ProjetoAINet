@@ -42,8 +42,7 @@ class DashboardController extends Controller
 
     public function orders()
     {
-        $orders = Order::all();
-
+        $orders = Order::all()->sortByDesc('created_at');
         return view('dashboard.orders', compact('orders'));
     }
 }

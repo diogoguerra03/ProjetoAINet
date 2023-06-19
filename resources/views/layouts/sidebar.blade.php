@@ -1,3 +1,5 @@
+<!-- apenas mostra a sidebar se for admin -->
+@if(Auth::user()->user_type === 'A')
 <div class="container-fluid">
     <div class="row flex-nowrap">
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
@@ -36,3 +38,4 @@
             </div>
         </div>
         <div class="col py-3">
+@endif

@@ -18,7 +18,8 @@ class AuthorizeEmployee
     {
         $user = $request->user();
 
-        if (!$user || $user->user_type !== 'E') {
+        /* O admin também tem acesso as coisas que o employee tem */
+        if (!$user || $user->user_type !== 'E' && $user->user_type !== 'A') {
             return $request->expectsJson()
                 ? abort(403, 'You are not an employee.')
                 : redirect()->to('/')
