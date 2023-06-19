@@ -39,7 +39,7 @@ class userPolicy
      */
     public function update(User $user, User $model): bool
     {
-        return $user->user_type === 'A' || $user->user_type === 'C';
+        return true;
     }
 
 

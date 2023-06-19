@@ -22,6 +22,9 @@
                 @if ($user->user_type === 'A')
                     <p class="text-muted mt-4 mb-1">Administrator</p>
                 @endif
+                    @if ($user->user_type === 'E')
+                        <p class="text-muted mt-4 mb-1">Employee</p>
+                    @endif
 
             </div>
         </div>
