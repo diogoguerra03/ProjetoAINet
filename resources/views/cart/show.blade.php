@@ -35,7 +35,7 @@
                                                 <div class="d-flex justify-content-between">
                                                     <div class="d-flex flex-row align-items-center">
                                                         <div>
-                                                            <img src="{{ $item['tshirt_image'] }}" alt="T-Shirt Image"
+                                                            <img src="{{ asset('storage/tshirt_images/' . $item['tshirt_image']) }}" alt="T-Shirt Image"
                                                                 class="img-fluid rounded-3" style="height: 150px;">
                                                         </div>
                                                         <div class="ms-3">

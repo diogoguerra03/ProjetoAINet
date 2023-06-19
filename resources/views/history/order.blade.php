@@ -5,7 +5,6 @@
 
 
 @section('content')
-    <h1>Order History</h1>
 
     @foreach ($orders as $order)
         <section class="h-100 h-custom">
@@ -39,7 +38,7 @@
                                                                     style="height: 150px;">
                                                             </div>
                                                             <div class="ms-3">
-                                                                <h3>{{$tshirts[$orderItem->id]['name']}}</h3>
+                                                                <h3>{{ $tshirts[$orderItem->id]['name'] }}</h3>
                                                                 <p class="h6">Color:
                                                                     {{ $colors[$orderItem->id] }}</p>
                                                                 <p class="h6">Size: {{ $orderItem->size }}
@@ -66,6 +65,19 @@
                                                 <h1>There are no orders!</h1>
                                             </div>
                                         @endforelse
+
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <h3 class="mb-5">Order Resumed</h3>
+                                        <div class="d-flex justify-content-between mt-5">
+                                            <p class="h4 mb-2">Total (IVA included)</p>
+                                            <p class="h4 mb-2">{{ $order->total_price }}€</p>
+                                        </div>
+                                        <div class="d-flex justify-content-between mt-5">
+                                            <p class="h4 mb-2">Status:</p>
+                                            <p class="h4 mb-2">{{ strtoupper($order->status) }}</p>
+                                        </div>
+                                        <hr class="my-4">
 
                                     </div>
 
