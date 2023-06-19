@@ -41,9 +41,8 @@ Route::resource('customers', CustomerController::class);
 Route::resource('catalog', TshirtImageController::class);
 Route::get('catalog/{slug}', [TshirtImageController::class, 'show'])->name('catalog.show');
 
-Route::get('photo/{path}', [TshirtImageController::class, 'getfile'])->name('photo');
-
 Route::middleware('auth')->group(function () {
+    Route::get('catalog/{slug}/image', [TshirtImageController::class, 'getfile'])->name('photo')->middleware('verified');
     Route::get('/profile', [UserController::class, 'profile'])->name('profile')->middleware('verified');
     Route::get('/profile/edit', [UserController::class, 'edit'])->name('profile.edit')->middleware('verified');
     Route::put('/profile', [UserController::class, 'update'])->name('profile.update')->middleware('verified');
@@ -65,6 +64,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/customers', [DashboardController::class, 'customers'])->name('dashboard.customers');
     Route::get('/dashboard/employees', [DashboardController::class, 'employees'])->name('dashboard.employees');
+    Route::get('/dashboard/admins', [DashboardController::class, 'admins'])->name('dashboard.admins');
 
     Route::get('catalog/{slug}/edit', [TshirtImageController::class, 'edit'])->name('catalog.edit');
     Route::delete('catalog/{slug}/delete', [TshirtImageController::class, 'destroy'])->name('catalog.destroy');

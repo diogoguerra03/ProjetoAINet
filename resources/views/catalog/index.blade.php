@@ -19,15 +19,14 @@
                             <select class="form-select" name="category" id="inputCategory">
                                 <option {{ old('category', $filterByCategory) === '' ? 'selected' : '' }} value="">
                                     All categories</option>
+                                @can('viewMyProducts', \App\Models\TshirtImage::class)
+                                    <option {{ old('category', $filterByCategory) === 'my_products' ? 'selected' : '' }}
+                                        value="my_products">My products</option>
+                                @endcan
                                 @foreach ($categories as $category)
                                     <option {{ old('category', $filterByCategory) == $category->id ? 'selected' : '' }}
                                         value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
-                                @if ($user !== null && $user->user_type === 'C')
-                                    <option {{ old('category', $filterByCategory) === 'my_products' ? 'selected' : '' }}
-                                        value="my_products">My products</option>
-                                @endif
-
 
                             </select>
                         </div>
@@ -71,36 +70,46 @@
             </div>
         </form>
 
-
-
         <div class="row mt-5">
             @forelse($tshirtImages as $index => $tshirtImage)
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
                         <a href="{{ route('catalog.show', $tshirtImage->slug) }}">
-                            @if ($index < 3 && $orderBy === 'popular_products')
+                            @if ($index < 3 && $orderBy === 'popular_products' && $tshirtImage->customer_id === null)
                                 <div class="position-absolute top-0 start-0 bg-success text-white px-2 py-1">
                                     <i class="fas fa-star mr-1"></i> Popular
                                 </div>
                             @endif
 
-                            @if ($index < 3 && $orderBy === 'new_arrivals')
+                            @if ($index < 3 && $orderBy === 'new_arrivals' && $tshirtImage->customer_id === null)
                                 <div class="position-absolute top-0 start-0 bg-primary text-white px-2 py-1">
                                     <i class="bi-exclamation-circle-fill mr-1"></i> New
                                 </div>
                             @endif
 
-                            @if ($tshirtImage->customer_id === $user->id)
+                            @if ($user !== null && $tshirtImage->customer_id === $user->id)
+                                <div class="position-absolute top-0 start-0 bg-success text-white px-2 py-1">
+                                    <i class="bi bi-archive-fill mr-1"></i> My Product
+                                </div>
                                 <img class="card-img-top img-fluid mx-auto d-block image-container"
-                                    src="{{ route('photo', ['path' => $tshirtImage->image_url]) }}" alt="T-Shirt Image">
+                                    src="{{ route('photo', $tshirtImage->slug) }}" alt="T-Shirt Image">
                             @else
                                 <img class="card-img-top img-fluid mx-auto d-block image-container"
-                                    src="{{ $tshirtImage->image_url }}" alt="T-Shirt Image">
+                                    src="{{ asset('storage/tshirt_images/' . $tshirtImage->image_url) }}"
+                                    alt="T-Shirt Image">
                             @endif
 
                         </a>
                         <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">{{ $tshirtImage->name }} - {{ $prices->first()->unit_price_catalog }} €
+                            @if ($user !== null && $tshirtImage->customer_id === $user->id)
+                                @can('viewMyProducts', \App\Models\TshirtImage::class)
+                                    <h5 class="card-title">{{ $tshirtImage->name }} -
+                                        {{ $prices->first()->unit_price_own }} €
+                                    @endcan
+                                @else
+                                    <h5 class="card-title">{{ $tshirtImage->name }} -
+                                        {{ $prices->first()->unit_price_catalog }} €
+                            @endif
                             </h5>
                             <p class="card-text">{{ $tshirtImage->description }}</p>
                             <a href="{{ route('catalog.show', $tshirtImage->slug) }}" class="btn btn-primary mt-auto">View

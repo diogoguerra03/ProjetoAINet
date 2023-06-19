@@ -11,7 +11,7 @@ class TshirtImagePolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(?User $user): bool
     {
         return true;
     }
@@ -19,14 +19,14 @@ class TshirtImagePolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, TshirtImage $tshirtImage): bool
+    public function view(?User $user, TshirtImage $tshirtImage): bool
     {
         return true;
     }
 
     public function viewMyProducts(User $user): bool
     {
-        return $user->tipo === 'C';
+        return $user->user_type === 'C';
     }
 
     /**

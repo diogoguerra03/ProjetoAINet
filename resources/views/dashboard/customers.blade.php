@@ -6,12 +6,6 @@
 @section('content')
 
     <h1 class="text-center mb-3 mt-0">Customers</h1>
-    <button type="button" class="btn btn-outline-dark mb-2">
-        <div class="d-inline-flex align-items-center">
-        <i class="bi bi-plus-circle mr-2 d-inline-flex align-items-center"></i>
-         Add Customer
-        </div>
-    </button>
     <table class="table table-striped">
         <thead class="thead-dark">
         <tr>
@@ -35,7 +29,6 @@
             @endif
             <td>
                 <div class="d-inline-flex align-content-center">
-                    <i class="bi bi-pencil ml-4 mr-3"></i>
                     <i class="bi bi-trash "></i>
                 </div>
             </td>

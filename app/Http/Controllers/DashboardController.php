@@ -32,4 +32,11 @@ class DashboardController extends Controller
 
         return view('dashboard.employees', compact('employees'));
     }
+
+    public function admins()
+    {
+        $admins = User::where('user_type', 'A')->get();
+
+        return view('dashboard.admins', compact('admins'));
+    }
 }
