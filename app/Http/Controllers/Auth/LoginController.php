@@ -24,7 +24,7 @@ class LoginController extends Controller
     {
         $credentials = $this->credentials($request);
 
-        // Adicionar verificação para usuário bloqueado aqui
+        // Adicionar verificação para user bloqueado aqui
         $credentials['blocked'] = 0;
 
         return $this->guard()->attempt(

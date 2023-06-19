@@ -20,12 +20,25 @@
                         <div class="zoom imagesParent carousel-item active">
                             <img src='/storage/tshirt_base/fafafa.jpg' alt="" class="image-container d-block w-100"
                                 id="tshirt">
-                            <img src="{{ $tshirtImage->image_url }}" alt="{{ $tshirtImage->name }}"
-                                class="image-container d-block w-100" id="tshirtImage">
+                            @if ($catalog->customer_id)
+                                <img src="{{ route('photo', $catalog->slug) }}" alt="{{ $catalog->name }}"
+                                    class="image-container d-block w-100 h-25" id="tshirtImage">
+                            @else
+                                <img src="{{ asset('storage/tshirt_images/' . $catalog->image_url) }}"
+                                    alt="{{ $catalog->name }}" class="image-container d-block w-100" id="tshirtImage">
+                            @endif
+
                         </div>
                         <div class="zoom carousel-item">
-                            <img class="image-container d-block w-100" src="{{ $tshirtImage->image_url }}"
-                                alt="{{ $tshirtImage->name }}">
+                            @if ($catalog->customer_id)
+                                <img class="image-container d-block w-100" src="{{ route('photo', $catalog->slug) }}"
+                                    alt="{{ $catalog->name }}">
+                            @else
+                                <img class="image-container d-block w-100"
+                                    src="{{ asset('storage/tshirt_images/' . $catalog->image_url) }}"
+                                    alt="{{ $catalog->name }}">
+                            @endif
+
                         </div>
                     </div>
 
@@ -55,14 +68,18 @@
             <div class="col-md-6">
                 <form method="POST" action="{{ route('cart.add') }}">
                     @csrf
-                    <input type="hidden" name="tshirtId" value="{{ $tshirtImage->id }}">
-                    <input type="hidden" name="tshirtName" value="{{ $tshirtImage->name }}">
-                    <input type="hidden" name="tshirtUrl" value="{{ $tshirtImage->image_url }}">
-                    <h1>{{ $tshirtImage->name }}</h1>
-                    <h2><b>{{ $price }} € </b></h2>
+                    <input type="hidden" name="tshirtId" value="{{ $catalog->id }}">
+                    <input type="hidden" name="tshirtName" value="{{ $catalog->name }}">
+                    <input type="hidden" name="tshirtUrl" value="{{ $catalog->image_url }}">
+                    <h1>{{ $catalog->name }}</h1>
+                    @if ($catalog->customer_id)
+                        <h2><b>{{ $price->first()->unit_price_own }} € </b></h2>
+                    @else
+                        <h2><b>{{ $price->first()->unit_price_catalog }} € </b></h2>
+                    @endif
                     <section class="mt-4 mb-3">
                         <h4>Description</h4>
-                        <p>{{ $tshirtImage->description }}</p>
+                        <p>{{ $catalog->description }}</p>
                     </section>
 
                     <div class="form-group">
