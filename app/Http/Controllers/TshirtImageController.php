@@ -114,7 +114,7 @@ class TshirtImageController extends Controller
         $user = auth()->user();
         $colors = Color::whereNull('deleted_at')->orderBy('name')->pluck('name', 'code');
 
-        $price = Price::all()->first()->unit_price_catalog;
+        $price = Price::all();
 
         return view('catalog.show', compact('catalog', 'colors', 'price', 'user'));
 
