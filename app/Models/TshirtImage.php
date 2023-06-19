@@ -40,11 +40,10 @@ class TshirtImage extends Model
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
-    public function getImageUrlAttribute($value)
-    {
-        return Storage::url('tshirt_images/' . $value);
-
-    }
+    // public function getImageUrlAttribute($value)
+    // {
+    //     return Storage::url('tshirt_images/' . $value);
+    // }
 
     public function getExtraInfoAttribute($value)
     {

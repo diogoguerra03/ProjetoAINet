@@ -47,7 +47,7 @@
                                 <i class="fas fa-star mr-1"></i> Popular
                             </div>
                             <img class="card-img-top img-fluid mx-auto d-block image-container"
-                                src="{{ $product->image_url }}" alt="Product Image">
+                                src="{{ asset('storage/tshirt_images/' . $product->image_url) }}" alt="Product Image">
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">{{ $product->name }} - {{ $price['withoutDiscount'] }}€
                                 </h5>
@@ -79,7 +79,7 @@
                                 <i class="bi-exclamation-circle-fill mr-1"></i> New
                             </div>
                             <img class="card-img-top img-fluid mx-auto d-block image-container"
-                                src="{{ $product->image_url }}" alt="Product Image">
+                                src="{{ asset('storage/tshirt_images/' . $product->image_url) }}" alt="Product Image">
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">{{ $product->name }} - {{ $price['withoutDiscount'] }}€
                                 </h5>

@@ -17,6 +17,14 @@ use App\Http\Requests\TshirtImageRequest;
 
 class TshirtImageController extends Controller
 {
+    // construct
+    public function __construct()
+    {
+        // $this->middleware('auth')->except(['index', 'show', 'getfile']);
+        // $this->middleware('verified')->except(['index', 'show', 'getfile']);
+        // $this->middleware('admin')->except(['index', 'show', 'getfile']);
+        $this->authorizeResource(TshirtImage::class, 'tshirt_image');
+    }
 
     public function index(Request $request): View
     {
@@ -95,9 +103,13 @@ class TshirtImageController extends Controller
 
     }
 
-    public function getfile($path)
+    public function getfile(string $slug)
     {
+        $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
+        $path = $tshirtImage->image_url;
+
         return response()->file(storage_path('app/tshirt_images_private/' . $path));
+
     }
 
     public function show(string $slug): View
