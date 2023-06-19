@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Color;
 use App\Models\Order;
 use App\Models\Customer;
 use App\Models\OrderItem;
+use App\Models\TshirtImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -73,7 +75,23 @@ class OrderController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('history.order', compact('orders'));
+        $orderItems = [];
+
+        foreach ($orders as $order) {
+            $order_id = $order->id;
+            $orderItems[$order_id] = OrderItem::where('order_id', $order_id)->get();
+
+
+            foreach ($orderItems[$order_id] as $orderItem) {
+                $tshirt = TshirtImage::where('id', $orderItem->tshirt_image_id)->first();
+                $tshirts[$orderItem->id] = $tshirt ? $tshirt->name : '';
+
+                $color = Color::where('code', $orderItem->color_code)->first();
+                $colors[$orderItem->id] = $color ? $color->name : '';
+            }
+        }
+
+        return view('history.order', compact('orders', 'orderItems'));
     }
 
 }
