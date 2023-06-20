@@ -25,20 +25,42 @@ class OrderController extends Controller
         $user = Auth::user();
         $customer = Customer::where('id', $user->id)->first();
 
+        // verifica que user está logado
+        if ($user === null){
+            return redirect()->back()
+                ->with('alert-msg', "You need to login in order to resume the order.")
+                ->with('alert-type', 'danger');
+        }
+
+        // verifica se o user tem email verificado
+        if ($user->email_verified_at === null){
+            return redirect()->back()
+                ->with('alert-msg', "You need to verify your email in order to resume the order.")
+                ->with('alert-type', 'danger');
+        }
+
         $order = new Order();
         $total_price = 0;
 
+        // verifica que user tem os detalhes de pagamento preenchidos
+        try{
+            $order->status = 'pending';
+            $order->customer_id = $customer->id;
+            $order->date = Carbon::now()->format('Y-m-d');
+            $order->total_price = 0;
+            $order->notes = null;
+            $order->nif = $customer->nif;
+            $order->address = $customer->address;
+            $order->payment_type = $customer->default_payment_type;
+            $order->payment_ref = $customer->default_payment_ref;
+            $order->save();
+        }
+        catch(\Exception $e){
+            return redirect()->back()
+                ->with('alert-msg', "Update your account details in order to resume the order.")
+                ->with('alert-type', 'danger');
+        }
 
-        $order->status = 'pending';
-        $order->customer_id = $customer->id;
-        $order->date = Carbon::now()->format('Y-m-d');
-        $order->total_price = 0;
-        $order->notes = null;
-        $order->nif = $customer->nif;
-        $order->address = $customer->address;
-        $order->payment_type = $customer->default_payment_type;
-        $order->payment_ref = $customer->default_payment_ref;
-        $order->save();
 
         $order_id = Order::orderBy('id', 'desc')->pluck('id')->first();
         // Iterate over the cart items and create OrderItem records
