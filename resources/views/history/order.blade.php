@@ -80,7 +80,7 @@
                                         <a href="{{ route('receipt.view', $order->id) }}" target="_blank"
                                             class="btn btn-primary btn-lg">View
                                             Receipt</a>
-                                        <a href="{{ url('receipt/' . $order->id . '/generate') }}"
+                                        <a href="{{ route('receipt.download', $order->id) }}"
                                             class="btn btn-primary btn-lg">Download
                                             Receipt</a>
 

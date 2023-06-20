@@ -11,6 +11,7 @@ use App\Models\TshirtImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
@@ -119,6 +120,35 @@ class OrderController extends Controller
         }
 
         return view('receipt.pdf', compact('order', 'orderItems', 'tshirts', 'colors', 'customer'));
+    }
 
+    public function downloadReceipt(int $orderId)
+    {
+        $order = Order::findOrFail($orderId);
+        $orderItems = OrderItem::where('order_id', $orderId)->get();
+        $customer = Customer::where('id', $order->customer_id)->first();
+
+        $tshirts = [];
+        $colors = [];
+
+        foreach ($orderItems as $orderItem) {
+            $tshirt = TshirtImage::find($orderItem->tshirt_image_id);
+            $tshirts[$orderItem->id] = [
+                'name'      => $tshirt ? $tshirt->name : '',
+                'image_url' => $tshirt ? $tshirt->image_url : '',
+            ];
+
+            $color = Color::where('code', $orderItem->color_code)->pluck('name')->first();
+            $colors[$orderItem->id] = $color ? $color : '';
+        }
+
+        $data = ['order' => $order,
+                'orderItems' => $orderItems,
+                'tshirts' => $tshirts,
+                'colors' => $colors,
+                'customer' => $customer,];
+                
+        $pdf = Pdf::loadView('receipt.pdf', $data);
+        return $pdf->download('ImagineShirt-Receipt' . $order->id . '.pdf');
     }
 }

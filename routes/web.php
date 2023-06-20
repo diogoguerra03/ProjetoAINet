@@ -88,4 +88,4 @@ Route::delete('/cart/{productId}/delete', [CartController::class, 'removeFromCar
 
 // pdf invoice
 Route::get('/receipt/{orderId}', [OrderController::class, 'viewReceipt'])->name('receipt.view');
-//Route::get('/receipt/{orderId}/generate', [OrderController::class, 'downloadReceipt']);
+Route::get('/receipt/{orderId}/download', [OrderController::class, 'downloadReceipt'])->name('receipt.download');

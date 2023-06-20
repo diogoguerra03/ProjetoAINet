@@ -180,7 +180,7 @@
                             <p>Order Total:</p>
                         </div>
                         <div class="total-right w-15 float-left text-bold" align="right">
-                            <p>{{ $order->total_price }}</p>
+                            <p>{{ $order->total_price }}€</p>
                         </div>
                         <div style="clear: both;"></div>
                     </div>
