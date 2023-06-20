@@ -85,3 +85,7 @@ Route::middleware('employee')->group(function () {
 Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
 Route::delete('/cart/{productId}/delete', [CartController::class, 'removeFromCart'])->name('cart.remove');
+
+// pdf invoice
+Route::get('/receipt/{orderId}', [OrderController::class, 'viewReceipt'])->name('receipt.view');
+//Route::get('/receipt/{orderId}/generate', [OrderController::class, 'downloadReceipt']);

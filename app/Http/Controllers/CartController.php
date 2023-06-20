@@ -89,4 +89,16 @@ class CartController extends Controller
             ->with('alert-msg', "$tshirtQuantity x \"$tshirtName\" ($tshirtSize - $tshirtColor) removed from cart.")
             ->with('alert-type', 'success');
     }
+
+    public function getfile(string $slug)
+    {
+        $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
+        $path = $tshirtImage->image_url;
+        $customerID = $tshirtImage->customer_id;
+        $user = auth()->user();
+        if ($customerID !== null && $user !== null && $user->id === $customerID) {
+            return response()->file(storage_path('app/tshirt_images_private/' . $path));
+        }
+        return response()->file(public_path('storage/tshirt_images/' . $path));
+    }
 }
