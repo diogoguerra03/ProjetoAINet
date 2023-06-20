@@ -43,10 +43,10 @@ Route::get('catalog/{slug}', [TshirtImageController::class, 'show'])->name('cata
 Route::get('catalog/{slug}/image', [TshirtImageController::class, 'getfile'])->name('photo');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [UserController::class, 'profile'])->name('profile')->middleware('verified');
-    Route::get('/profile/edit', [UserController::class, 'edit'])->name('profile.edit')->middleware('verified');
-    Route::put('/profile', [UserController::class, 'update'])->name('profile.update')->middleware('verified');
-    Route::delete('/profile/deletephoto', [UserController::class, 'deletePhoto'])
+    Route::get('/profile/{user}', [UserController::class, 'profile'])->name('profile')->middleware('verified');
+    Route::get('/profile/{user}/edit', [UserController::class, 'edit'])->name('profile.edit')->middleware('verified');
+    Route::put('/profile/{user}/update', [UserController::class, 'update'])->name('profile.update')->middleware('verified');
+    Route::delete('/profile/{user}/deletephoto', [UserController::class, 'deletePhoto'])
         ->name('profile.deletephoto')
         ->middleware('verified');
 

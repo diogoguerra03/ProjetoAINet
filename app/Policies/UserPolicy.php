@@ -39,9 +39,8 @@ class userPolicy
      */
     public function update(User $user, User $model): bool
     {
-        return true;
+        return $user->user_type === 'C' || $user->user_type === 'A';
     }
-
 
     /**
      * Determine whether the user can delete the model.
@@ -49,5 +48,10 @@ class userPolicy
     public function delete(User $user, User $model): bool
     {
         return $user->user_type === 'A';
+    }
+
+    public function createMyTshirt(User $user): bool
+    {
+        return $user->user_type === 'C';
     }
 }

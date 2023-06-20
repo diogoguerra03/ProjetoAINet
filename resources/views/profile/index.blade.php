@@ -14,13 +14,19 @@
                     </div>
                 @endif
                 @include('profile.shared.fields', ['readonlyData' => true])
-                @can('update', $user)
-                    <div class="my-4 d-flex justify-content-end">
-                        <a href="{{ route('profile.edit', ['user' => $user]) }}" class="btn btn-primary">Edit</a>
-                        <button type="button" class="btn btn-primary ms-3"><a class="dropdown-item"
+                <div class="my-4 d-flex justify-content-end">
+
+                    @can('createMyTshirt', $user)
+                        <button type="button" class="btn btn-success">My Tshirts</button>
+                    @endcan
+
+                    @can('update', $user)
+                        <a href="{{ route('profile.edit', ['user' => $user]) }}" class="btn btn-primary ml-3">Edit</a>
+                        <button type="button" class="btn btn-primary ml-3"><a class="dropdown-item"
                                 href="{{ route('password.change.show') }}">Change password</a></button>
-                    </div>
-                @endcan
+                    @endcan
+                </div>
+
             </div>
         </div>
     </div>
