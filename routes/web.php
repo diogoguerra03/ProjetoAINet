@@ -81,3 +81,6 @@ Route::middleware('employee')->group(function () {
 Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
 Route::delete('/cart/{productId}/delete', [CartController::class, 'removeFromCart'])->name('cart.remove');
+
+// pdf invoice
+Route::get('generate-invoice-pdf', array('as' => 'generate.invoice.pdf', 'uses' => 'PDFController@generateInvoicePDF'));

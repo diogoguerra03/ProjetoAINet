@@ -5,7 +5,6 @@
 
 
 @section('content')
-
     @foreach ($orders as $order)
         <section class="h-100 h-custom">
             <div class="container py-5 h-100">
@@ -78,6 +77,11 @@
                                             <p class="h4 mb-2">{{ strtoupper($order->status) }}</p>
                                         </div>
                                         <hr class="my-4">
+                                        <a href="{{ url('receipt/' . $order->id) }}" target="_blank" class="btn btn-primary btn-lg">View
+                                            Receipt</a>
+                                        <a href="{{ url('receipt/' . $order->id . '/generate') }}"
+                                            class="btn btn-primary btn-lg">Download
+                                            Receipt</a>
 
                                     </div>
 
