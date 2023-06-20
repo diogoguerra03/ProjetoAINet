@@ -8,14 +8,15 @@
             <h1>Edit Profile</h1>
             <div class="col-md-12 mt-5">
                 @if ($user->photo_url)
-                    <form id="deleteUserForm_{{ $user->id }}" method="POST" action="{{ route('profile.deletephoto') }}">
+                    <form id="deleteUserForm_{{ $user->id }}" method="POST"
+                        action="{{ route('profile.deletephoto', ['user' => $user]) }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger flex-fill">Delete photo</button>
                     </form>
                 @endif
 
-                <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('profile.update', ['user' => $user]) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     @include('profile.shared.fields')

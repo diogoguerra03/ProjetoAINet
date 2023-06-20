@@ -15,6 +15,12 @@ use App\Models\Customer;
 class UserController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->authorizeResource(User::class, 'user');
+    }
+
+
     public function profile(): View
     {
         $user = Auth::user();
@@ -29,7 +35,6 @@ class UserController extends Controller
 
     public function edit(User $user): View
     {
-        $this->authorize('update', $user);
         $user = Auth::user();
         $customer = null;
 
@@ -40,13 +45,9 @@ class UserController extends Controller
         return view('profile.edit', compact('user', 'customer'));
     }
 
-    public function update(UpdateUserRequest $request): RedirectResponse
+    public function update(UpdateUserRequest $request, User $user): RedirectResponse
     {
-        $user = Auth::user();
-        $this->authorize('update', $user);
-
         $data = $request->validated();
-
         if ($request->hasFile('image')) {
             if ($user->photo_url) {
                 Storage::delete('public/photos/' . $user->photo_url);
@@ -74,7 +75,7 @@ class UserController extends Controller
         }
 
         $htmlMessage = "$user->name was successfully updated!";
-        return redirect()->route('profile')
+        return redirect()->route('profile', $user)
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
     }
@@ -89,7 +90,7 @@ class UserController extends Controller
         }
 
         $htmlMessage = "Photo deleted successfully.";
-        return redirect()->route('profile')->with('success', $htmlMessage);
+        return redirect()->route('profile', $user)->with('success', $htmlMessage);
     }
 
 }
