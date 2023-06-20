@@ -28,7 +28,7 @@
                             </button>
                         @elseif($order->status == "paid")
                             <button type="button" class="btn btn-primary mb-2">
-                                <a href="" class="text-white">Declare closed</a>
+                                <a href="{{route('dashboard.orders.update')}}" class="text-white">Declare closed</a>
                             </button>
                         @endif
 

@@ -45,4 +45,12 @@ class DashboardController extends Controller
         $orders = Order::all()->sortByDesc('created_at');
         return view('dashboard.orders', compact('orders'));
     }
+
+    public function updateOrder(Request $request, Order $order)
+    {
+        $order->status = $request->status;
+        $order->save();
+
+        return redirect()->route('dashboard.orders');
+    }
 }
