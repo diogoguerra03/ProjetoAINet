@@ -77,7 +77,8 @@
                                             <p class="h4 mb-2">{{ strtoupper($order->status) }}</p>
                                         </div>
                                         <hr class="my-4">
-                                        <a href="{{ url('receipt/' . $order->id) }}" target="_blank" class="btn btn-primary btn-lg">View
+                                        <a href="{{ route('receipt.view', $order->id) }}" target="_blank"
+                                            class="btn btn-primary btn-lg">View
                                             Receipt</a>
                                         <a href="{{ url('receipt/' . $order->id . '/generate') }}"
                                             class="btn btn-primary btn-lg">Download

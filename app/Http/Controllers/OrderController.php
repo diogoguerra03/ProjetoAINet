@@ -85,7 +85,7 @@ class OrderController extends Controller
             foreach ($orderItems[$order_id] as $orderItem) {
                 $tshirt = TshirtImage::find($orderItem->tshirt_image_id);
                 $tshirts[$orderItem->id] = [
-                    'name' => $tshirt ? $tshirt->name : '',
+                    'name'      => $tshirt ? $tshirt->name : '',
                     'image_url' => $tshirt ? $tshirt->image_url : '',
                 ];
 
@@ -97,4 +97,27 @@ class OrderController extends Controller
         return view('history.order', compact('orders', 'orderItems', 'tshirts', 'colors'));
     }
 
+    public function viewReceipt(int $orderId)
+    {
+
+        $order = Order::findOrFail($orderId);
+        $orderItems = OrderItem::where('order_id', $orderId)->get();
+
+        $tshirts = [];
+        $colors = [];
+
+        foreach ($orderItems as $orderItem) {
+            $tshirt = TshirtImage::find($orderItem->tshirt_image_id);
+            $tshirts[$orderItem->id] = [
+                'name'      => $tshirt ? $tshirt->name : '',
+                'image_url' => $tshirt ? $tshirt->image_url : '',
+            ];
+
+            $color = Color::where('code', $orderItem->color_code)->pluck('name')->first();
+            $colors[$orderItem->id] = $color ? $color : '';
+        }
+
+        return view('receipt.pdf', compact('order', 'orderItems', 'tshirts', 'colors'));
+
+    }
 }

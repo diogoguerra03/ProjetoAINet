@@ -117,8 +117,8 @@
     <div class="add-detail mt-10">
         <div class="w-50 float-left mt-10">
             <p class="m-0 pt-5 text-bold w-100">Invoice Id - <span class="gray-color">#6</span></p>
-            <p class="m-0 pt-5 text-bold w-100">Order Id - <span class="gray-color">162695CDFS</span></p>
-            <p class="m-0 pt-5 text-bold w-100">Order Date - <span class="gray-color">03-06-2022</span></p>
+            <p class="m-0 pt-5 text-bold w-100">Order Id - <span class="gray-color">$order->id</span></p>
+            <p class="m-0 pt-5 text-bold w-100">Order Date - <span class="gray-color">$order->date</span></p>
         </div>
         <div class="w-50 float-left logo mt-10">
             <img src="https://www.nicesnippets.com/image/imgpsh_fullsize.png"> <span>Nicesnippets.com</span>
