@@ -105,7 +105,8 @@ class TshirtImageController extends Controller
         $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
         $path = $tshirtImage->image_url;
         $customerID = $tshirtImage->customer_id;
-        if ($customerID !== null) {
+        $user = auth()->user();
+        if ($customerID !== null && $user !== null && $user->id === $customerID) {
             return response()->file(storage_path('app/tshirt_images_private/' . $path));
         }
         return response()->file(public_path('storage/tshirt_images/' . $path));
