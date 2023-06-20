@@ -102,6 +102,7 @@ class OrderController extends Controller
 
         $order = Order::findOrFail($orderId);
         $orderItems = OrderItem::where('order_id', $orderId)->get();
+        $customer = Customer::where('id', $order->customer_id)->first();
 
         $tshirts = [];
         $colors = [];
@@ -117,7 +118,7 @@ class OrderController extends Controller
             $colors[$orderItem->id] = $color ? $color : '';
         }
 
-        return view('receipt.pdf', compact('order', 'orderItems', 'tshirts', 'colors'));
+        return view('receipt.pdf', compact('order', 'orderItems', 'tshirts', 'colors', 'customer'));
 
     }
 }

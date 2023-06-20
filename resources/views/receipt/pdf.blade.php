@@ -2,7 +2,8 @@
 <html>
 
 <head>
-    <title>Larave Generate Invoice PDF - Nicesnippest.com</title>
+    <title> Imagine Shirt - Receipt Order no. {{ $order->id }} </title>
+    <link rel="icon" href="{{ asset('assets/images/logos/imagineshirt.png') }}" type="image/x-icon" />
 </head>
 <style type="text/css">
     body {
@@ -46,17 +47,8 @@
     }
 
     .logo img {
-        width: 45px;
-        height: 45px;
-        padding-top: 30px;
-    }
-
-    .logo span {
-        margin-left: 8px;
-        top: 19px;
-        position: absolute;
-        font-weight: bold;
-        font-size: 25px;
+        width: 75px;
+        height: 75px;
     }
 
     .gray-color {
@@ -112,16 +104,15 @@
 
 <body>
     <div class="head-title">
-        <h1 class="text-center m-0 p-0">Invoice</h1>
+        <h1 class="text-center m-0 p-0">Receipt</h1>
     </div>
     <div class="add-detail mt-10">
         <div class="w-50 float-left mt-10">
-            <p class="m-0 pt-5 text-bold w-100">Invoice Id - <span class="gray-color">#6</span></p>
-            <p class="m-0 pt-5 text-bold w-100">Order Id - <span class="gray-color">$order->id</span></p>
-            <p class="m-0 pt-5 text-bold w-100">Order Date - <span class="gray-color">$order->date</span></p>
+            <p class="m-0 pt-5 text-bold w-100">Order Id - <span class="gray-color">{{ $order->id }}</span></p>
+            <p class="m-0 pt-5 text-bold w-100">Order Date - <span class="gray-color">{{ $order->date }}</span></p>
         </div>
         <div class="w-50 float-left logo mt-10">
-            <img src="https://www.nicesnippets.com/image/imgpsh_fullsize.png"> <span>Nicesnippets.com</span>
+            <img src="{{ asset('assets/images/logos/imagineshirt.png') }}">
         </div>
         <div style="clear: both;"></div>
     </div>
@@ -134,22 +125,14 @@
             <tr>
                 <td>
                     <div class="box-text">
-                        <p>Gujarat</p>
-                        <p>360004</p>
-                        <p>Near Haveli Road,</p>
-                        <p>Lal Darvaja,</p>
-                        <p>India</p>
-                        <p>Contact : 1234567890</p>
+                        <p>ESTG - Escola Superior de Tecnologia e Gestão</p>
+                        <p>Contact : 915 164 693</p>
                     </div>
                 </td>
                 <td>
                     <div class="box-text">
-                        <p>Rajkot</p>
-                        <p>360012</p>
-                        <p>Hanumanji Temple,</p>
-                        <p>Lati Ploat</p>
-                        <p>Gujarat</p>
-                        <p>Contact : 1234567890</p>
+                        <p>{{ $customer->address }}</p>
+                        <p>NIF: {{ $customer->nif }}</p>
                     </div>
                 </td>
             </tr>
@@ -161,62 +144,43 @@
                 <th class="w-50">Payment Method</th>
                 <th class="w-50">Shipping Method</th>
             </tr>
-            <tr>
-                <td>Cash On Delivery</td>
-                <td>Free Shipping - Free Shipping</td>
+            <tr align="center">
+                <td>{{ $customer->default_payment_type }}</td>
+                <td>Free Shipping</td>
             </tr>
         </table>
     </div>
     <div class="table-section bill-tbl w-100 mt-10">
         <table class="table w-100 mt-10">
             <tr>
-                <th class="w-50">SKU</th>
-                <th class="w-50">Product Name</th>
-                <th class="w-50">Price</th>
-                <th class="w-50">Qty</th>
-                <th class="w-50">Subtotal</th>
-                <th class="w-50">Tax Amount</th>
-                <th class="w-50">Grand Total</th>
+                <th class="w-20">Image</th>
+                <th class="w-20">Product Name</th>
+                <th class="w-20">Color</th>
+                <th class="w-20">Size</th>
+                <th class="w-20">Price</th>
+                <th class="w-20">Qty</th>
+                <th class="w-20">Subtotal</th>
             </tr>
-            <tr align="center">
-                <td>$656</td>
-                <td>Mobile</td>
-                <td>$204.2</td>
-                <td>3</td>
-                <td>$500</td>
-                <td>$50</td>
-                <td>$100.60</td>
-            </tr>
-            <tr align="center">
-                <td>$656</td>
-                <td>Mobile</td>
-                <td>$254.2</td>
-                <td>2</td>
-                <td>$500</td>
-                <td>$50</td>
-                <td>$120.00</td>
-            </tr>
-            <tr align="center">
-                <td>$656</td>
-                <td>Mobile</td>
-                <td>$554.2</td>
-                <td>5</td>
-                <td>$500</td>
-                <td>$50</td>
-                <td>$100.00</td>
-            </tr>
+            @foreach ($orderItems as $orderItem)
+                <tr align="center">
+                    <td><img src=" {{ asset('storage/tshirt_images/' . $tshirts[$orderItem->id]['image_url']) }}"
+                            alt="T-Shirt Image" class="img-fluid rounded-3" style="height: 75px;"></td>
+                    <td>{{ $tshirts[$orderItem->id]['name'] }}</td>
+                    <td>{{ $colors[$orderItem->id] }}</td>
+                    <td>{{ $orderItem->size }}</td>
+                    <td>{{ $orderItem->unit_price }}€</td>
+                    <td>{{ $orderItem->qty }}</td>
+                    <td>{{ $orderItem->sub_total }}€</td>
+                </tr>
+            @endforeach
             <tr>
                 <td colspan="7">
                     <div class="total-part">
                         <div class="total-left w-85 float-left" align="right">
-                            <p>Sub Total</p>
-                            <p>Tax (18%)</p>
-                            <p>Total Payable</p>
+                            <p>Order Total:</p>
                         </div>
                         <div class="total-right w-15 float-left text-bold" align="right">
-                            <p>$20</p>
-                            <p>$20</p>
-                            <p>$330.00</p>
+                            <p>{{ $order->total_price }}</p>
                         </div>
                         <div style="clear: both;"></div>
                     </div>
