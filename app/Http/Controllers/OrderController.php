@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Color;
 use App\Models\Order;
 use App\Models\Customer;
 use App\Models\OrderItem;
 use App\Models\TshirtImage;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
@@ -104,9 +105,11 @@ class OrderController extends Controller
         $order = Order::findOrFail($orderId);
         $orderItems = OrderItem::where('order_id', $orderId)->get();
         $customer = Customer::where('id', $order->customer_id)->first();
+        $user = User::where('id', $customer->id)->first();
 
         $tshirts = [];
         $colors = [];
+        $showImage = true;
 
         foreach ($orderItems as $orderItem) {
             $tshirt = TshirtImage::find($orderItem->tshirt_image_id);
@@ -119,7 +122,7 @@ class OrderController extends Controller
             $colors[$orderItem->id] = $color ? $color : '';
         }
 
-        return view('receipt.pdf', compact('order', 'orderItems', 'tshirts', 'colors', 'customer'));
+        return view('receipt.pdf', compact('user', 'showImage', 'order', 'orderItems', 'tshirts', 'colors', 'customer'));
     }
 
     public function downloadReceipt(int $orderId)
@@ -127,9 +130,11 @@ class OrderController extends Controller
         $order = Order::findOrFail($orderId);
         $orderItems = OrderItem::where('order_id', $orderId)->get();
         $customer = Customer::where('id', $order->customer_id)->first();
+        $user = User::where('id', $customer->id)->first();
 
         $tshirts = [];
         $colors = [];
+        $showImage = false;
 
         foreach ($orderItems as $orderItem) {
             $tshirt = TshirtImage::find($orderItem->tshirt_image_id);
@@ -142,12 +147,16 @@ class OrderController extends Controller
             $colors[$orderItem->id] = $color ? $color : '';
         }
 
-        $data = ['order' => $order,
-                'orderItems' => $orderItems,
-                'tshirts' => $tshirts,
-                'colors' => $colors,
-                'customer' => $customer,];
-                
+        $data = [
+            'order'      => $order,
+            'orderItems' => $orderItems,
+            'tshirts'    => $tshirts,
+            'colors'     => $colors,
+            'customer'   => $customer,
+            'showImage'  => $showImage,
+            'user'       => $user,
+        ];
+
         $pdf = Pdf::loadView('receipt.pdf', $data);
         return $pdf->download('ImagineShirt-Receipt' . $order->id . '.pdf');
     }

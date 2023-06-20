@@ -77,12 +77,14 @@
                                             <p class="h4 mb-2">{{ strtoupper($order->status) }}</p>
                                         </div>
                                         <hr class="my-4">
-                                        <a href="{{ route('receipt.view', $order->id) }}" target="_blank"
-                                            class="btn btn-primary btn-lg">View
-                                            Receipt</a>
-                                        <a href="{{ route('receipt.download', $order->id) }}"
-                                            class="btn btn-primary btn-lg">Download
-                                            Receipt</a>
+                                        @if ($order->status === 'closed')
+                                            <a href="{{ route('receipt.view', $order->id) }}" target="_blank"
+                                                class="btn btn-primary btn-lg">View
+                                                Receipt</a>
+                                            <a href="{{ route('receipt.download', $order->id) }}"
+                                                class="btn btn-primary btn-lg">Download
+                                                Receipt</a>
+                                        @endif
 
                                     </div>
 

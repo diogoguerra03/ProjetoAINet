@@ -125,13 +125,15 @@
             <tr>
                 <td>
                     <div class="box-text">
-                        <p>ESTG - Escola Superior de Tecnologia e Gestão</p>
-                        <p>Contact : 915 164 693</p>
+                        <p>Address: ESTG - Escola Superior de Tecnologia e Gestão</p>
+                        <p>Contact: +351 915 164 693</p>
                     </div>
                 </td>
                 <td>
                     <div class="box-text">
-                        <p>{{ $customer->address }}</p>
+                        <p>Name: {{ $user->name }}</p>
+                        <p>Email: {{ $user->email }}</p>
+                        <p>Address: {{ $customer->address }}</p>
                         <p>NIF: {{ $customer->nif }}</p>
                     </div>
                 </td>
@@ -153,7 +155,9 @@
     <div class="table-section bill-tbl w-100 mt-10">
         <table class="table w-100 mt-10">
             <tr>
-                <th class="w-20">Image</th>
+                @if ($showImage)
+                    <th class="w-20">Image</th>
+                @endif
                 <th class="w-20">Product Name</th>
                 <th class="w-20">Color</th>
                 <th class="w-20">Size</th>
@@ -163,8 +167,10 @@
             </tr>
             @foreach ($orderItems as $orderItem)
                 <tr align="center">
-                    <td><img src=" {{ asset('storage/tshirt_images/' . $tshirts[$orderItem->id]['image_url']) }}"
-                            alt="T-Shirt Image" class="img-fluid rounded-3" style="height: 75px;"></td>
+                    @if ($showImage)
+                        <td><img src=" {{ asset('storage/tshirt_images/' . $tshirts[$orderItem->id]['image_url']) }}"
+                                alt="T-Shirt Image" class="img-fluid rounded-3" style="height: 75px;"></td>
+                    @endif
                     <td>{{ $tshirts[$orderItem->id]['name'] }}</td>
                     <td>{{ $colors[$orderItem->id] }}</td>
                     <td>{{ $orderItem->size }}</td>
