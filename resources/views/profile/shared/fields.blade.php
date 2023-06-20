@@ -22,9 +22,9 @@
                 @if ($user->user_type === 'A')
                     <p class="text-muted mt-4 mb-1">Administrator</p>
                 @endif
-                    @if ($user->user_type === 'E')
-                        <p class="text-muted mt-4 mb-1">Employee</p>
-                    @endif
+                @if ($user->user_type === 'E')
+                    <p class="text-muted mt-4 mb-1">Employee</p>
+                @endif
 
             </div>
         </div>
@@ -118,6 +118,10 @@
                         <div class="col-sm-9">
                             <select class="form-control @error('default_payment_type') is-invalid @enderror"
                                 name="default_payment_type" id="inputName" {{ $disabledStr }}>
+                                <option value=""
+                                    {{ old('default_payment_type', $customer->default_payment_type) === null ? 'selected' : '' }}>
+                                    None
+                                </option>
                                 <option value="PAYPAL"
                                     {{ old('default_payment_type', $customer->default_payment_type) === 'PAYPAL' ? 'selected' : '' }}>
                                     PAYPAL</option>

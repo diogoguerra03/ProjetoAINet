@@ -21,8 +21,8 @@
                     @method('PUT')
                     @include('profile.shared.fields')
                     <div class="my-4 d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary" name="ok">Guardar Alterações</button>
-                        <a href="{{ route('profile', ['user' => $user]) }}" class="btn btn-secondary ms-3">Cancelar</a>
+                        <button type="submit" class="btn btn-primary" name="ok">Save</button>
+                        <a href="{{ route('profile', ['user' => $user]) }}" class="btn btn-secondary ms-3">Cancel</a>
                     </div>
                 </form>
 
