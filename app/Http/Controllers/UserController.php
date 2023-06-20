@@ -11,6 +11,7 @@ use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Customer;
+use App\Models\TshirtImage;
 
 class UserController extends Controller
 {
@@ -20,11 +21,14 @@ class UserController extends Controller
         $this->authorizeResource(User::class, 'user');
     }
 
-
-    public function profile(): View
+    public function profile(User $user): View
     {
-        $user = Auth::user();
         $customer = null;
+        $currentUser = auth()->user();
+
+        if ($currentUser->id !== $user->id) {
+            $user = $currentUser;
+        }
 
         if ($user->user_type === 'C') {
             $customer = Customer::find($user->id); // Obtém uma instância de Customer com o ID 1
@@ -35,7 +39,6 @@ class UserController extends Controller
 
     public function edit(User $user): View
     {
-        $user = Auth::user();
         $customer = null;
 
         if ($user->user_type === 'C') {
@@ -43,6 +46,46 @@ class UserController extends Controller
         }
 
         return view('profile.edit', compact('user', 'customer'));
+    }
+
+    public function myTshirts(User $user): View
+    {
+        $customer = null;
+        $currentUser = auth()->user();
+
+        if ($currentUser->id !== $user->id) {
+            $user = $currentUser;
+        }
+
+        if ($user->user_type !== 'C') {
+            abort(403); // Retorna uma resposta de acesso negado
+        }
+
+        if ($user->user_type === 'C') {
+            $customer = Customer::find($user->id); // Obtém uma instância de Customer com o ID 1
+        }
+
+        $tshirts = TshirtImage::where('customer_id', $user->id)->get();
+
+        return view('profile.mytshirts', compact('user', 'customer', 'tshirts'));
+    }
+
+    public function myTshirtsEdit(User $user, string $slug): View
+    {
+        $currentUser = auth()->user();
+
+        if ($currentUser->id !== $user->id) {
+            $user = $currentUser;
+        }
+
+        if ($user->user_type !== 'C') {
+            abort(403); // Retorna uma resposta de acesso negado
+        }
+
+        $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
+
+
+        return view('tshirts.edit', compact('user', 'tshirtImage'));
     }
 
     public function update(UpdateUserRequest $request, User $user): RedirectResponse

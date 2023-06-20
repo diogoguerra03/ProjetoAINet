@@ -17,7 +17,9 @@
                 <div class="my-4 d-flex justify-content-end">
 
                     @can('createMyTshirt', $user)
-                        <button type="button" class="btn btn-success">My Tshirts</button>
+                        <button type="button" class="btn btn-success"><a
+                                href="{{ route('profile.mytshirts', ['user' => $user]) }}" class="dropdown-item">My
+                                Tshirts</a></button>
                     @endcan
 
                     @can('update', $user)
