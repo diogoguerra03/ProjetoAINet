@@ -3,6 +3,7 @@
 @extends('layouts.header')
 @extends('layouts.app')
 
+@section('content')
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
@@ -25,7 +26,6 @@
     });
 </script>
 
-@section('content')
 
     @if (session('alert-msg'))
         <div class="alert alert-{{ session('alert-type') }} alert-dismissible">
