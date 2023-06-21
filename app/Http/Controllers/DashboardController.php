@@ -46,24 +46,13 @@ class DashboardController extends Controller
     public function showOrders()
     {
         $orders = Order::all()->sortByDesc('created_at');
-        // $userIds = $orders->pluck('customer_id')->toArray();
-        // $users = User::whereIn('id', $userIds)->get();
-
-        // $orders->each(function ($order) use ($users) {
-        //     $order->user = $users->firstWhere('id', $order->customer_id);
-        // });
 
         return view('dashboard.orders', compact('orders'));
     }
 
-    public function updateOrder(Order $order)
+    public function updateOrder(Request $request, Order $order)
     {
-        if ($order->status == "pending") {
-            $order->status = "paid";
-        } elseif ($order->status == "paid") {
-            $order->status = "closed";
-        }
-
+        $order->status = $request->status;
         $order->save();
 
         return redirect()->back()
@@ -94,4 +83,9 @@ class DashboardController extends Controller
 
         return view('dashboard.orderDetails', compact('order', 'user', 'tshirts', 'colors', 'orderItems'));
     }
+
+    public function filterOrders(){
+        return view('dashboard.orders');
+    }
+
 }
