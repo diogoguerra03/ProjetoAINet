@@ -118,6 +118,48 @@ class TshirtImageController extends Controller
         return view('profile.mytshirts', compact('user', 'tshirts'));
     }
 
+    public function createMyTshirt(User $user): View
+    {
+        $currentUser = auth()->user();
+
+        if ($currentUser->id !== $user->id) {
+            $user = $currentUser;
+        }
+
+        if ($user->user_type !== 'C') {
+            abort(403); // Retorna uma resposta de acesso negado
+        }
+
+        return view('tshirts.create', compact('user'));
+    }
+
+    public function storeMyTshirt(TshirtImageRequest $request, TshirtImage $catalog): RedirectResponse
+    {
+        $formData = $request->validated();
+        $catalog = DB::transaction(function () use ($formData, $request) {
+            $catalog = new TshirtImage();
+            $catalog->name = $formData['name'];
+            $catalog->description = $formData['description'];
+            $catalog->category_id = $formData['category_id'];
+            $catalog->customer_id = $formData['customer_id'];
+
+            if ($request->hasFile('image')) {
+                $path = Storage::putFile('tshirt_images_private', $request->file('image'));
+                $filename = basename($path);
+                $catalog->image_url = $filename;
+            }
+
+            $catalog->save();
+
+            return $catalog;
+        });
+
+        $htmlMessage = "Product $catalog->name was successfully stored!";
+        return redirect()->route('profile.mytshirts', auth()->user())
+            ->with('alert-msg', $htmlMessage)
+            ->with('alert-type', 'success');
+    }
+
     public function editMyTshirt(User $user, string $slug): View
     {
         $currentUser = auth()->user();
@@ -133,6 +175,37 @@ class TshirtImageController extends Controller
         $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
 
         return view('tshirts.edit', compact('user', 'tshirtImage'));
+    }
+
+    public function updateMyTshirt(TshirtImageRequest $request, TshirtImage $catalog): RedirectResponse
+    {
+        $formData = $request->validated();
+        $catalog = DB::transaction(function () use ($formData, $catalog, $request) {
+            $catalog->name = $formData['name'];
+            $catalog->description = $formData['description'];
+            $catalog->category_id = $formData['category_id'];
+            $catalog->customer_id = $formData['customer_id'];
+
+            if ($request->hasFile('image')) {
+                if ($catalog->image_url) {
+                    Storage::delete('tshirt_images_private/' . $catalog->image_url);
+                }
+
+                $path = $request->file('image')->store('tshirt_images_private');
+                $filename = basename($path);
+                $catalog->image_url = $filename;
+            }
+
+            $catalog->save();
+
+            return $catalog;
+        });
+
+        $htmlMessage = "Product $catalog->name was successfully updated!";
+
+        return redirect()->route('profile.mytshirts', auth()->user())
+            ->with('alert-msg', $htmlMessage)
+            ->with('alert-type', 'success');
     }
 
     public function destroyMyTshirt(User $user, string $slug): RedirectResponse
@@ -152,7 +225,7 @@ class TshirtImageController extends Controller
         if ($tshirtImage->orderItems()->exists()) {
             $tshirtImage->delete();
         } else {
-            Storage::delete('public/tshirt_images/' . $tshirtImage->image_url);
+            Storage::delete('tshirt_images/' . $tshirtImage->image_url);
             $tshirtImage->forceDelete();
         }
 
@@ -195,30 +268,29 @@ class TshirtImageController extends Controller
 
     public function update(TshirtImageRequest $request, TshirtImage $catalog): RedirectResponse
     {
-        $tshirtImage = $catalog;
 
         $formData = $request->validated();
-        $tshirtImage = DB::transaction(function () use ($formData, $tshirtImage, $request) {
-            $tshirtImage->name = $formData['name'];
-            $tshirtImage->description = $formData['description'];
-            $tshirtImage->category_id = $formData['category_id'];
+        $catalog = DB::transaction(function () use ($formData, $catalog, $request) {
+            $catalog->name = $formData['name'];
+            $catalog->description = $formData['description'];
+            $catalog->category_id = $formData['category_id'];
 
             if ($request->hasFile('image')) {
-                if ($tshirtImage->image_url) {
-                    Storage::delete('public/tshirt_images/' . $tshirtImage->image_url);
+                if ($catalog->image_url) {
+                    Storage::delete('public/tshirt_images/' . $catalog->image_url);
                 }
 
                 $path = $request->file('image')->store('public/tshirt_images');
                 $filename = basename($path);
-                $tshirtImage->image_url = $filename;
+                $catalog->image_url = $filename;
             }
 
-            $tshirtImage->save();
+            $catalog->save();
 
-            return $tshirtImage;
+            return $catalog;
         });
 
-        $htmlMessage = "Product $tshirtImage->name was successfully updated!";
+        $htmlMessage = "Product $catalog->name was successfully updated!";
 
         return redirect()->route('catalog.index')
             ->with('alert-msg', $htmlMessage)

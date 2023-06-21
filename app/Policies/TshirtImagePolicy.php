@@ -29,6 +29,16 @@ class TshirtImagePolicy
         return $user->user_type === 'C';
     }
 
+    public function destroyMyTshirt(User $user): bool
+    {
+        return $user->user_type === 'C';
+    }
+
+    public function editMyTshirt(User $user): bool
+    {
+        return $user->user_type === 'C';
+    }
+
     /**
      * Determine whether the user can create models.
      */

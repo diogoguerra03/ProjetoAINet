@@ -58,6 +58,9 @@ Route::middleware('auth')->group(function () {
     Route::middleware('customer')->group(function () {
         Route::get('/profile/{user}/my-tshirts', [TshirtImageController::class, 'myTshirts'])->name('profile.mytshirts');
         Route::get('profile/{user}/{slug}/edit', [TshirtImageController::class, 'editMyTshirt'])->name('tshirt.edit');
+        Route::put('/profile/{user}/{slug}/update', [TshirtImageController::class, 'updateMyTshirt'])->name('tshirt.update');
+        Route::get('/profile/{user}/createTshirt', [TshirtImageController::class, 'createMyTshirt'])->name('tshirt.create');
+        Route::post('/profile/{user}/createTshirt', [TshirtImageController::class, 'storeMyTshirt'])->name('tshirt.store');
         Route::delete('profile/{user}/{slug}/delete', [TshirtImageController::class, 'destroyMyTshirt'])->name('tshirt.destroy');
         Route::get('/password/change', [ChangePasswordController::class, 'show'])
             ->name('password.change.show');

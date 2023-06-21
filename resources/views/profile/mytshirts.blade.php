@@ -12,6 +12,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <a href="{{ route('tshirt.create', $user) }}" class="btn btn-primary">Create New Tshirt</a>
+                </div>
+            </div>
             @include('tshirts.shared.table', ['allowEdit' => true])
         </div>
     </div>
