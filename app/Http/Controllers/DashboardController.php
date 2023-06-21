@@ -111,6 +111,21 @@ class DashboardController extends Controller
             ->with('alert-type', 'success');
     }
 
+    public function deleteEmployee(User $employee)
+    {
+        if ($employee->user_type != 'E') {
+            return redirect()->back()
+                ->with('alert-msg', "User no. $employee->id is not an employee.")
+                ->with('alert-type', 'danger');
+        } else {
+            $employee->delete();
+        }
+
+        return redirect()->back()
+            ->with('alert-msg', "Employee no. $employee->id deleted successfully.")
+            ->with('alert-type', 'success');
+    }
+
     public function filterOrders()
     {
         return view('dashboard.orders');
