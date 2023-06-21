@@ -75,6 +75,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard/admins', [DashboardController::class, 'admins'])->name('dashboard.admins');
         Route::get('catalog/{slug}/edit', [TshirtImageController::class, 'edit'])->name('catalog.edit');
         Route::delete('catalog/{slug}/delete', [TshirtImageController::class, 'destroy'])->name('catalog.destroy');
+        Route::get('/dashboard/orders/filter', [DashboardController::class, 'filterOrders'])->name('dashboard.filterOrders');
     });
 
     Route::middleware('employee')->group(function () {
