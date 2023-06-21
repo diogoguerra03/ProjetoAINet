@@ -111,36 +111,10 @@
                                                 </button>
                                             </form>
                                         @endif
-                                    @elseif(Auth::user()->user_type === 'A')
-                                        <form action="{{ route('dashboard.orders.update', $order) }}" method="POST">
-                                            @csrf
-                                            @method('PUT')
-                                            <input type="hidden" name="status" value="pending">
-                                            <button type="submit" class="btn btn-success mb-2">
-                                                Order pending
-                                            </button>
-                                        </form>
-                                        <form action="{{ route('dashboard.orders.update', $order) }}" method="POST">
-                                            @csrf
-                                            @method('PUT')
-                                            <input type="hidden" name="status" value="paid">
-                                            <button type="submit" class="btn btn-success mb-2">
-                                                Order paid
-                                            </button>
-                                        </form>
-                                        <form action="{{ route('dashboard.orders.update', $order) }}" method="POST">
-                                            @csrf
-                                            @method('PUT')
-                                            <input type="hidden" name="status" value="closed">
-                                            <button type="submit" class="btn btn-warning mb-2">
-                                                Order closed
-                                            </button>
-                                        </form>
                                     @endif
                                 </div>
                             </div>
                         </td>
-
                         <td>
                             <div class="row">
                                 <div class="col">
@@ -148,13 +122,12 @@
                                         <form action="{{ route('dashboard.orders.update', $order) }}" method="POST">
                                             @csrf
                                             @method('PUT')
-                                            <input type="hidden" name="status" value="paid">
-                                            <button type="submit" class="btn btn-danger mb-2">
-                                                Cancel order
+                                            <input type="hidden" name="status" value="canceled">
+                                            <button type="submit" class="btn btn-success mb-2">
+                                                Edit status
                                             </button>
                                         </form>
                                     @endif
-
                                 </div>
                             </div>
                         </td>
@@ -180,17 +153,14 @@
                         <td>
                             <div class="row">
                                 <div class="col">
-                                    @if ($order->status == 'closed')
-                                        <form action="{{ route('dashboard.orders.update', $order) }}" method="POST">
-                                            @csrf
-                                            @method('PUT')
-                                            <input type="hidden" name="status" value="canceled">
-                                            <button type="submit" class="btn btn-danger mb-2">
-                                                Cancel order
-                                            </button>
-                                        </form>
-                                    @endif
-
+                                    <form action="{{ route('dashboard.orders.update', $order) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="status" value="canceled">
+                                        <button type="submit" class="btn btn-success mb-2">
+                                            Edit status
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </td>
