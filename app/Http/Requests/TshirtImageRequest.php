@@ -22,10 +22,12 @@ class TshirtImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category_id' => 'required|exists:categories,id',
+            'category_id' => 'nullable|exists:categories,id',
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'image_url' => 'sometimes|image|max:4096', // maxsize = 4Mb
+            'image_url' => 'sometimes|image|max:4096',
+            // maxsize = 4Mb
+            'customer_id' => 'nullable|exists:users,id',
         ];
     }
 
@@ -37,7 +39,6 @@ class TshirtImageRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'category_id.required' => 'O campo de categoria é obrigatório.',
             'category_id.exists' => 'A categoria selecionada não é válida.',
             'name.required' => 'O campo de nome é obrigatório.',
             'name.string' => 'O campo de nome deve ser uma string.',
@@ -47,6 +48,7 @@ class TshirtImageRequest extends FormRequest
             'description.max' => 'O campo de descrição não pode exceder 255 caracteres.',
             'image_url.image' => 'O ficheiro com a foto não é uma imagem',
             'image_url.size' => 'O tamanho do ficheiro com a foto tem que ser inferior a 4 Mb',
+            'customer_id.exists' => 'O cliente selecionado não é válido.',
         ];
     }
 }

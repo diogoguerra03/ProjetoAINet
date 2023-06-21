@@ -65,7 +65,7 @@
             @endif
             @if (isset($user) && $user->user_type === 'A')
                 @can('update', $tshirtImage)
-                    <a href="{{ route('catalog.edit', $tshirtImage->slug) }}"
+                    <a href="{{ route('catalog.edit', ['user' => $user, 'slug' => $tshirtImage->slug]) }}"
                         class="btn btn-success flex-fill mr-1">Edit</a>
                 @endcan
                 @can('delete', $tshirtImage)
