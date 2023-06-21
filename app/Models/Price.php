@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Price extends Model
 {
     use HasFactory;
+    public $timestamps = false;
 
     protected $fillable = [
         'unit_price_catalog',

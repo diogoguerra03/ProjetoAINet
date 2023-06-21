@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Color;
 use App\Models\Order;
+use App\Models\Price;
 use App\Models\Customer;
 use App\Models\OrderItem;
 use App\Models\TshirtImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -161,9 +163,31 @@ class DashboardController extends Controller
         return view('dashboard.employeeEdit', compact('employee'));
     }
 
-    public function updatePrices(Request $request){
-        
+    public function showPrices()
+    {
+        $price = Price::all()->first();
+        return view('dashboard.prices', compact('price'));
     }
+
+
+    public function updatePrices(Request $request)
+    {
+        DB::transaction(function () use ($request) {
+            $price = Price::all()->first();
+            $price->unit_price_catalog = $request->input('unit_price_catalog');
+            $price->unit_price_catalog_discount = $request->input('unit_price_catalog_discount');
+            $price->unit_price_own = $request->input('unit_price_own');
+            $price->unit_price_own_discount = $request->input('unit_price_own_discount');
+            $price->qty_discount = $request->input('qty_discount');
+
+            $price->save();
+        });
+
+        return redirect()->back()
+            ->with('alert-msg', "Price updated successfully.")
+            ->with('alert-type', 'success');
+    }
+
 
 
 }

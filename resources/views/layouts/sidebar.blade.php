@@ -21,10 +21,6 @@
                                 <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Orders</span></a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.prices') }}" class="nav-link px-0 align-middle text-white">
-                                <i class="fs-4 bi-cash"></i> <span class="ms-1 d-none d-sm-inline">Prices</span></a>
-                        </li>
-                        <li>
                             <a href="{{ route('dashboard.admins') }}" class="nav-link px-0 align-middle text-white">
                                 <i class="fs-4 bi-server"></i> <span
                                     class="ms-1 d-none d-sm-inline">Administrators</span></a>
@@ -38,6 +34,10 @@
                             <a href="{{ route('dashboard.customers') }}" class="nav-link px-0 align-middle text-white">
                                 <i class="fs-4 bi-people"></i> <span
                                     class="ms-1 d-none d-sm-inline">Customers</span></a>
+                        </li>
+                        <li>
+                            <a href="{{ route('dashboard.showPrices') }}" class="nav-link px-0 align-middle text-white">
+                                <i class="fs-4 bi-cash"></i> <span class="ms-1 d-none d-sm-inline">Prices</span></a>
                         </li>
                     </ul>
                     <hr>

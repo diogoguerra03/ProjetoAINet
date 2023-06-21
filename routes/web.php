@@ -84,7 +84,8 @@ Route::middleware('auth')->group(function () {
         Route::put('/dashboard/employee/update/{employee}', [DashboardController::class, 'employeeUpdate'])->name('dashboard.employees.update');
 
         // change prices
-        Route::get('/dashboard/prices', [DashboardController::class, 'updatePrices'])->name('dashboard.prices');
+        Route::get('/dashboard/prices', [DashboardController::class, 'showPrices'])->name('dashboard.showPrices');
+        Route::post('/dashboard/prices/update', [DashboardController::class, 'updatePrices'])->name('dashboard.updatePrices');
 
         // catalog
         Route::get('catalog/{slug}/edit', [TshirtImageController::class, 'edit'])->name('catalog.edit');
