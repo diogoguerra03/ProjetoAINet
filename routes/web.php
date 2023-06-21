@@ -44,29 +44,31 @@ Route::get('catalog/{slug}/image', [TshirtImageController::class, 'getfile'])->n
 
 Route::middleware('auth')->group(function () {
 
+    Route::middleware('verified')->group(function () {
+        // Perfil
+        Route::get('/profile/{user}', [UserController::class, 'profile'])->name('profile');
+        Route::get('/profile/{user}/edit', [UserController::class, 'edit'])->name('profile.edit');
+        Route::put('/profile/{user}/update', [UserController::class, 'update'])->name('profile.update');
+        Route::delete('/profile/{user}/deletephoto', [UserController::class, 'deletePhoto'])
+            ->name('profile.deletephoto');
+    });
+
     Route::middleware('customer')->group(function () {
-        Route::middleware('verified')->group(function () {
-            Route::get('/profile/{user}', [UserController::class, 'profile'])->name('profile');
-            Route::get('/profile/{user}/edit', [UserController::class, 'edit'])->name('profile.edit');
-            Route::put('/profile/{user}/update', [UserController::class, 'update'])->name('profile.update');
-            Route::get('/profile/{user}/my-tshirts', [TshirtImageController::class, 'myTshirts'])->name('profile.mytshirts');
-            Route::get('profile/{user}/{slug}/edit', [TshirtImageController::class, 'editMyTshirt'])->name('tshirt.edit');
-            Route::delete('profile/{user}/{slug}/delete', [TshirtImageController::class, 'destroyMyTshirt'])->name('tshirt.destroy');
-            Route::delete('/profile/{user}/deletephoto', [UserController::class, 'deletePhoto'])
-                ->name('profile.deletephoto');
+        Route::get('/profile/{user}/my-tshirts', [TshirtImageController::class, 'myTshirts'])->name('profile.mytshirts');
+        Route::get('profile/{user}/{slug}/edit', [TshirtImageController::class, 'editMyTshirt'])->name('tshirt.edit');
+        Route::delete('profile/{user}/{slug}/delete', [TshirtImageController::class, 'destroyMyTshirt'])->name('tshirt.destroy');
+        Route::get('/password/change', [ChangePasswordController::class, 'show'])
+            ->name('password.change.show');
+        Route::post('/password/change', [ChangePasswordController::class, 'store'])
+            ->name('password.change.store');
 
-            Route::get('/password/change', [ChangePasswordController::class, 'show'])
-                ->name('password.change.show');
-            Route::post('/password/change', [ChangePasswordController::class, 'store'])
-                ->name('password.change.store');
-
-            // Encomenda
-            Route::post('/cart/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
-            Route::get('/order-history', [OrderController::class, 'showOrderHistory'])->name('order.history');
-        });
+        // Encomenda
+        Route::post('/cart/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
+        Route::get('/order-history', [OrderController::class, 'showOrderHistory'])->name('order.history');
     });
 
     Route::middleware('admin')->group(function () {
+        // Dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/dashboard/customers', [DashboardController::class, 'customers'])->name('dashboard.customers');
         Route::get('/dashboard/employees', [DashboardController::class, 'employees'])->name('dashboard.employees');

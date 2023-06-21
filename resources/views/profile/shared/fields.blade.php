@@ -9,7 +9,7 @@
 
                 @if ($user->photo_url)
                     <img src="{{ asset('storage/photos/' . $user->photo_url) }}" alt="avatar"
-                        class="rounded-circle img-fluid" style="width: 150px;">
+                        class="rounded-circle img-fluid" style="width: 150px; height: 150px">
                 @else
                     <i class="fa fa-user icon icon-lg rounded-circle border"></i>
                 @endif
