@@ -118,6 +118,48 @@ class TshirtImageController extends Controller
         return view('profile.mytshirts', compact('user', 'tshirts'));
     }
 
+    public function createMyTshirt(User $user): View
+    {
+        $currentUser = auth()->user();
+
+        if ($currentUser->id !== $user->id) {
+            $user = $currentUser;
+        }
+
+        if ($user->user_type !== 'C') {
+            abort(403); // Retorna uma resposta de acesso negado
+        }
+
+        return view('tshirts.create', compact('user'));
+    }
+
+    public function storeMyTshirt(TshirtImageRequest $request, TshirtImage $catalog): RedirectResponse
+    {
+        $formData = $request->validated();
+        $catalog = DB::transaction(function () use ($formData, $request) {
+            $catalog = new TshirtImage();
+            $catalog->name = $formData['name'];
+            $catalog->description = $formData['description'];
+            $catalog->category_id = $formData['category_id'];
+            $catalog->customer_id = $formData['customer_id'];
+
+            if ($request->hasFile('image')) {
+                $path = Storage::putFile('tshirt_images_private', $request->file('image'));
+                $filename = basename($path);
+                $catalog->image_url = $filename;
+            }
+
+            $catalog->save();
+
+            return $catalog;
+        });
+
+        $htmlMessage = "Product $catalog->name was successfully stored!";
+        return redirect()->route('profile.mytshirts', auth()->user())
+            ->with('alert-msg', $htmlMessage)
+            ->with('alert-type', 'success');
+    }
+
     public function editMyTshirt(User $user, string $slug): View
     {
         $currentUser = auth()->user();
@@ -141,12 +183,11 @@ class TshirtImageController extends Controller
         $catalog = DB::transaction(function () use ($formData, $catalog, $request) {
             $catalog->name = $formData['name'];
             $catalog->description = $formData['description'];
-            $catalog->category_id = $formData['category_id'];
-            $catalog->customer_id = $formData['customer_id'];
 
             if ($request->hasFile('image')) {
                 if ($catalog->image_url) {
-                    Storage::delete('app/tshirt_images_private/' . $catalog->image_url);
+                    // Deleta a imagem antiga, que está não está no diretório público, mas sim no privado
+                    Storage::delete("tshirt_images_private/$catalog->image_url");
                 }
 
                 $path = Storage::putFile('tshirt_images_private', $request->file('image'));

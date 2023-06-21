@@ -54,9 +54,7 @@
                 @endforeach
             </select>
         </div>
-    @else
-        <input type="hidden" name="category_id" value="">
-        <input type="hidden" name="customer_id" value="{{ $user->id }}">
+
     @endif
     <div class="form-group">
         <label for="image">{{ __('Image') }}</label>
