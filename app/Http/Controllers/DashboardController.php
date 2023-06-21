@@ -46,7 +46,6 @@ class DashboardController extends Controller
     public function showOrders()
     {
         $orders = Order::all()->sortByDesc('created_at');
-        $orders = $orders->paginate(50);
 
         return view('dashboard.orders', compact('orders'));
     }
