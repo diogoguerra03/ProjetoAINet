@@ -45,22 +45,24 @@ class DashboardController extends Controller
 
     public function showOrders(Request $request)
     {
-        $filterByStatus = $request->status ?? '';
-        $filterByCustID = $request->customer_id ?? '';
         $filterByOrderID = $request->order_id ?? '';
+        $filterByCustID = $request->customer_id ?? '';
+        $filterByStatus = $request->status ?? '';
+
 
         $ordersQuery = Order::query()->orderByDesc('created_at');
 
+
         if ($filterByStatus !== '') {
-            $orderQuery = $ordersQuery->where('status', $filterByStatus);
+            $ordersQuery = $ordersQuery->where('status', $filterByStatus);
         }
+
         if ($filterByCustID !== '') {
-            $orders = Order::where('customer_id', 'like', '%' . $filterByCustID . '%');
-            $ordersQuery->where('customer_id', $orders);
+            $ordersQuery = $ordersQuery->where('customer_id', $filterByCustID);
         }
+
         if ($filterByOrderID !== '') {
-            $orders = Order::where('id', 'like', '%' . $filterByOrderID . '%');
-            $ordersQuery->where('id', $orders);
+            $ordersQuery = $ordersQuery->where('id', $filterByOrderID);
         }
 
         $orders = $ordersQuery->paginate(50);
@@ -90,7 +92,7 @@ class DashboardController extends Controller
         foreach ($orderItems as $orderItem) {
             $tshirt = TshirtImage::find($orderItem->tshirt_image_id);
             $tshirts[$orderItem->id] = [
-                'name' => $tshirt ? $tshirt->name : '',
+                'name'      => $tshirt ? $tshirt->name : '',
                 'image_url' => $tshirt ? $tshirt->image_url : '',
             ];
 

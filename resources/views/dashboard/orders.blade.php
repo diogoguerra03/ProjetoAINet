@@ -5,26 +5,26 @@
 
 @section('content')
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('button[data-status]').click(function() {
-            var status = $(this).data('status');
-            $('#statusInput').val(status);
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('button[data-status]').click(function() {
+                var status = $(this).data('status');
+                $('#statusInput').val(status);
+            });
         });
-    });
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const orderButton = document.querySelector('button[data-bs-target="#myModal"]');
-        const popupTitle = document.getElementById('popupTitle');
+        document.addEventListener('DOMContentLoaded', function() {
+            const orderButton = document.querySelector('button[data-bs-target="#myModal"]');
+            const popupTitle = document.getElementById('popupTitle');
 
-        orderButton.addEventListener('click', function() {
-            const orderID = this.dataset.orderId;
-            popupTitle.innerText = 'Order ID: ' + orderID;
-            document.getElementById('statusInput').value = orderID;
+            orderButton.addEventListener('click', function() {
+                const orderID = this.dataset.orderId;
+                popupTitle.innerText = 'Order ID: ' + orderID;
+                document.getElementById('statusInput').value = orderID;
+            });
         });
-    });
-</script>
+    </script>
 
 
     @if (session('alert-msg'))
@@ -41,37 +41,39 @@
             <div class="flex-grow-1 pe-2">
                 <div class="d-flex justify-content-between">
                     <div class="col-md-3 mb-3">
-                        <label for="inputOrderId" class="form-label">Order ID</label>
-                        <input type="text" class="form-control" name="orderId" id="inputOrderID"
-                            value="{{ old('orderId', $filterByOrderID) }}" placeholder="Enter the order ID">
+                        <label for="inputOrderID" class="form-label">Order ID</label>
+                        <input type="text" class="form-control" name="order_id" id="inputOrderID"
+                            value="{{ old('order_id', $filterByOrderID) }}" placeholder="Enter the order ID">
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="inputCustID" class="form-label">Customer ID</label>
-                        <input type="text" class="form-control" name="custId" id="inputCustID"
-                            value="{{ old('custId', $filterByCustID) }}" placeholder="Enter the customer ID">
+                        <input type="text" class="form-control" name="customer_id" id="inputCustID"
+                            value="{{ old('customer_id', $filterByCustID) }}" placeholder="Enter the customer ID">
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="inputStatus" class="form-label">Order Status</label>
                         <select class="form-select" name="status" id="inputStatus">
-                            <option {{ old('status', $filterByStatus) === 'pending' ? 'selected' : '' }} value="pending">
-                                ------</option>
+                            <option {{ old('status', $filterByStatus) === '' ? 'selected' : '' }} value="">All states
+                            </option>
                             <option {{ old('status', $filterByStatus) === 'pending' ? 'selected' : '' }} value="pending">
                                 Pending</option>
-                            <option {{ old('status', $filterByStatus) === 'paid' ? 'selected' : '' }} value="paid">
-                                Paid</option>
-                            <option {{ old('status', $filterByStatus) === 'closed' ? 'selected' : '' }} value="closed">
-                                Closed</option>
-                            <option {{ old('status', $filterByStatus) === 'canceled' ? 'selected' : '' }} value="canceled">
-                                Canceled
+                            <option {{ old('status', $filterByStatus) === 'paid' ? 'selected' : '' }} value="paid">Paid
                             </option>
+                            @if (Auth::user()->user_type === 'A')
+                                <option {{ old('status', $filterByStatus) === 'closed' ? 'selected' : '' }} value="closed">
+                                    Closed</option>
+                                <option {{ old('status', $filterByStatus) === 'canceled' ? 'selected' : '' }}
+                                    value="canceled">
+                                    Canceled</option>
+                            @endif
                         </select>
                     </div>
                     <div class="d-flex">
                         <button type="submit" class="btn btn-primary mb-3 px-4 me-2 flex-grow-1 mx-auto"
                             name="filtrar">Filter</button>
-                        <button class="btn btn-secondary mb-3 px-4 me-2 flex-grow-1 mx-auto">
-                        <a href="{{ route('dashboard.orders') }}" class=" text-white" style="text-decoration: none">Clear</a>
-                        </button>
+                        <a class="btn btn-secondary mb-3 px-4 me-2 flex-grow-1 mx-auto"
+                            href="{{ route('dashboard.orders') }}" class="text-white"
+                            style="text-decoration: none">Clear</a>
                     </div>
                 </div>
             </div>
@@ -163,8 +165,8 @@
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title" id="popupTitle"> </h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <p>Edit order status to: </p>
