@@ -12,7 +12,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-            @include('tshirts.shared.fields', ['allowEdit' => true])
+            @include('tshirts.shared.table', ['allowEdit' => true])
         </div>
     </div>
 @endsection

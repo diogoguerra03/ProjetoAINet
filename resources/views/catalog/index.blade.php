@@ -70,10 +70,10 @@
             </div>
         </form>
 
-        @if ($user->user_type === 'A')
-            @include('tshirts.shared.fields', ['allowEdit' => true])
+        @if (isset($user) && $user->user_type === 'A')
+            @include('tshirts.shared.table', ['allowEdit' => true])
         @else
-            @include('tshirts.shared.fields', ['allowEdit' => false])
+            @include('tshirts.shared.table', ['allowEdit' => false])
         @endif
 
         <div class="justify-content-center mt-5 ">
