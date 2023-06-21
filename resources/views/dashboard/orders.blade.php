@@ -71,9 +71,10 @@
                     <div class="d-flex">
                         <button type="submit" class="btn btn-primary mb-3 px-4 me-2 flex-grow-1 mx-auto"
                             name="filtrar">Filter</button>
-                        <a class="btn btn-secondary mb-3 px-4 me-2 flex-grow-1 mx-auto"
-                            href="{{ route('dashboard.orders') }}" class="text-white"
+                        <button class="btn btn-secondary mb-3 px-4 me-2 flex-grow-1 mx-auto">
+                        <a href="{{ route('dashboard.orders') }}" class="text-white"
                             style="text-decoration: none">Clear</a>
+                        </button>
                     </div>
                 </div>
             </div>
