@@ -73,8 +73,9 @@
                 </tr>
                 @foreach ($orderItems as $orderItem)
                     <tr align="center">
-                        <td><img src=" {{ route('getImage', $tshirts[$orderItem->id]['image_url'] ) }}"
-                                alt="T-Shirt Image" class="img-fluid rounded-3" style="height: 75px;"></td>
+                        <td style="background-color:lightcyan"><img
+                                src=" {{ route('getImage', $tshirts[$orderItem->id]['image_url']) }}" alt="T-Shirt Image"
+                                class="img-fluid rounded-3" style="height: 75px;"></td>
                         <td>{{ $tshirts[$orderItem->id]['name'] }}</td>
                         <td>{{ $colors[$orderItem->id] }}</td>
                         <td>{{ $orderItem->size }}</td>

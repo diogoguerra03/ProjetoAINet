@@ -34,8 +34,8 @@
                                             <div class="card-body">
                                                 <div class="d-flex justify-content-between">
                                                     <div class="d-flex flex-row align-items-center">
-                                                        <div>
-                                                            <img src="{{ asset('storage/tshirt_images/' . $item['tshirt_image']) }}" alt="T-Shirt Image"
+                                                        <div style="background-color:lightcyan">
+                                                            <img src="{{ route('getImage', $item['tshirt_image'])  }}" alt="T-Shirt Image"
                                                                 class="img-fluid rounded-3" style="height: 150px;">
                                                         </div>
                                                         <div class="ms-3">
