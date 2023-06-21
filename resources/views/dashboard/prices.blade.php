@@ -6,6 +6,12 @@
 @section('content')
     <form action="{{ route('dashboard.updatePrices') }}" method="POST">
         @csrf
+        @if (session('alert-msg'))
+            <div class="alert alert-{{ session('alert-type') }} alert-dismissible">
+                {{ session('alert-msg') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <div class="form-row" style="margin: 5%;">
             <div class="col-6">
                 <label for="inputZip" style="font-size: 1.2em;">Catalog price</label>
