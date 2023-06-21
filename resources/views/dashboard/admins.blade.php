@@ -4,6 +4,12 @@
 @extends('layouts.app')
 
 @section('content')
+    @if (session('alert-msg'))
+        <div class="alert alert-{{ session('alert-type') }} alert-dismissible">
+            {{ session('alert-msg') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <h1 class="text-center mb-3 mt-0">Administrators</h1>
     <button type="button" class="btn btn-outline-dark mb-2">
         <div class="d-inline-flex align-items-center">
@@ -27,17 +33,27 @@
                     <th scope="row">{{ $user->id }}</th>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    @if ($user->blocked == 0)
-                        <td><input class="form-check-input ms-3" type="checkbox" value="" id="flexCheckDisabled"
-                                disabled></td>
-                    @else
-                        <td><input class="form-check-input ms-3" type="checkbox" value=""
-                                id="flexCheckCheckedDisabled" checked disabled></td>
-                    @endif
+                    <td>
+                        <form action="{{ route('dashboard.admins.update', $user->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="blocked" value="{{ $user->blocked ? '0' : '1' }}">
+                            <input type="checkbox" class="form-check-input ms-3" onchange="this.form.submit()"
+                                {{ $user->blocked ? 'checked' : '' }}>
+                        </form>
+                    </td>
                     <td>
                         <div class="d-inline-flex align-content-center">
-                            <i class="bi bi-pencil ml-4 mr-3"></i>
-                            <i class="bi bi-trash "></i>
+                            <button type="submit" class="btn btn-warning mb-2 ml-4 mr-3">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <form action="{{ route('dashboard.admins.delete', $user->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger mb-2">
+                                    <i class="bi bi-trash "></i>
+                                </button>
+                            </form>
                         </div>
                     </td>
                 </tr>
