@@ -46,16 +46,26 @@ class DashboardController extends Controller
     public function showOrders(Request $request)
     {
         $filterByStatus = $request->status ?? '';
+        $filterByCustID = $request->customer_id ?? '';
+        $filterByOrderID = $request->order_id ?? '';
 
         $ordersQuery = Order::query()->orderByDesc('created_at');
 
         if ($filterByStatus !== '') {
-            $ordersQuery->where('status', $filterByStatus);
+            $orderQuery = $ordersQuery->where('status', $filterByStatus);
+        }
+        if ($filterByCustID !== '') {
+            $orders = Order::where('customer_id', 'like', '%' . $filterByCustID . '%');
+            $ordersQuery->where('customer_id', $orders);
+        }
+        if ($filterByOrderID !== '') {
+            $orders = Order::where('id', 'like', '%' . $filterByOrderID . '%');
+            $ordersQuery->where('id', $orders);
         }
 
         $orders = $ordersQuery->paginate(50);
 
-        return view('dashboard.orders', compact('orders', 'filterByStatus'));
+        return view('dashboard.orders', compact('orders', 'filterByStatus', 'filterByCustID', 'filterByOrderID'));
     }
 
     public function updateOrder(Request $request, Order $order)
