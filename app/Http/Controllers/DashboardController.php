@@ -46,12 +46,7 @@ class DashboardController extends Controller
     public function showOrders()
     {
         $orders = Order::all()->sortByDesc('created_at');
-        // $userIds = $orders->pluck('customer_id')->toArray();
-        // $users = User::whereIn('id', $userIds)->get();
-
-        // $orders->each(function ($order) use ($users) {
-        //     $order->user = $users->firstWhere('id', $order->customer_id);
-        // });
+        $orders = $orders->paginate(50);
 
         return view('dashboard.orders', compact('orders'));
     }
