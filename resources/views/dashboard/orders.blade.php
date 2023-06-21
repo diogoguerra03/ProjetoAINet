@@ -54,6 +54,8 @@
                         <label for="inputStatus" class="form-label">Order Status</label>
                         <select class="form-select" name="status" id="inputStatus">
                             <option {{ old('status', $filterByStatus) === 'pending' ? 'selected' : '' }} value="pending">
+                                ------</option>
+                            <option {{ old('status', $filterByStatus) === 'pending' ? 'selected' : '' }} value="pending">
                                 Pending</option>
                             <option {{ old('status', $filterByStatus) === 'paid' ? 'selected' : '' }} value="paid">
                                 Paid</option>
@@ -82,7 +84,8 @@
     <table class="table table-striped">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">ID</th>
+                <th scope="col">Order ID</th>
+                <th scope="col">Customer ID</th>
                 <th scope="col">Date</th>
                 <th scope="col"></th>
                 <th scope="col">Price</th>
@@ -98,6 +101,7 @@
                 <tr>
                     @if ($order->status != 'canceled' && $order->status != 'closed')
                         <th scope="row">{{ $order->id }}</th>
+                        <th scope="row">{{ $order->customer_id }}</th>
                         <td>{{ $order->date }}</td>
                         <td>
                             <div class="row">
@@ -201,6 +205,7 @@
                         </td>
                     @elseif(Auth::user()->user_type === 'A' && ($order->status == 'canceled' || $order->status == 'closed'))
                         <th scope="row">{{ $order->id }}</th>
+                        <th scope="row">{{ $order->customer_id }}</th>
                         <td>{{ $order->date }}</td>
                         <td>
                             <div class="row">

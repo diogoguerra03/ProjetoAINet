@@ -83,7 +83,6 @@ class DashboardController extends Controller
         $user = User::where('id', $order->customer_id)->first();
         $orderItems = OrderItem::where('order_id', $order->id)->get();
         $customer = Customer::where('id', $order->customer_id)->first();
-        $user = User::where('id', $customer->id)->first();
 
         $tshirts = [];
         $colors = [];

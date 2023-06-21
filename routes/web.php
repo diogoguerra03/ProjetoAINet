@@ -51,6 +51,8 @@ Route::middleware('auth')->group(function () {
         Route::put('/profile/{user}/update', [UserController::class, 'update'])->name('profile.update');
         Route::delete('/profile/{user}/deletephoto', [UserController::class, 'deletePhoto'])
             ->name('profile.deletephoto');
+        Route::get('/tshirtImage/{tshirtImage}', [TshirtImageController::class, 'getImage'])
+            ->name('getImage');
     });
 
     Route::middleware('customer')->group(function () {

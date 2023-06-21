@@ -240,4 +240,14 @@ class TshirtImageController extends Controller
             ->with('alert-msg', 'Image deleted successfully.')
             ->with('alert-type', 'success');
     }
+
+    public function getImage(string $tshirtUrl){
+        $tshirtImage = TshirtImage::where('image_url', $tshirtUrl)->first();
+        $path = $tshirtImage->image_url;
+        $customerID = $tshirtImage->customer_id;
+        if ($customerID !== null) {
+            return response()->file(storage_path('app/tshirt_images_private/' . $path));
+        }
+        return response()->file(public_path('storage/tshirt_images/' . $path));
+    }
 }
