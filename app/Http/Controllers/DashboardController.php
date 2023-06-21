@@ -119,11 +119,12 @@ class DashboardController extends Controller
                 ->with('alert-type', 'danger');
         } else {
             $employee->delete();
-        }
 
-        return redirect()->back()
-            ->with('alert-msg', "Employee no. $employee->id deleted successfully.")
-            ->with('alert-type', 'success');
+
+            return redirect()->back()
+                ->with('alert-msg', "Employee no. $employee->id deleted successfully.")
+                ->with('alert-type', 'success');
+        }
     }
 
     public function filterOrders()
