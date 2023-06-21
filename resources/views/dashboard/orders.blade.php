@@ -20,15 +20,24 @@
             <div class="flex-grow-1 pe-2">
                 <div class="d-flex justify-content-between">
                     <div class="col-md-4 mb-3">
-                        <label for="inputStatus" class="form-label">Order Status</label>
-                        <input type="text" class="form-control" name="status" id="inputStatus"
-                            value="{{ old('status', $filterByStatus) }}" placeholder="Enter the order status">
-                    </div>
-                    {{-- <div class="col-md-4 mb-3">
                         <label for="inputStatus" class="form-label">Customer ID</label>
                         <input type="text" class="form-control" name="status" id="inputStatus"
                             value="{{ old('status', $filterByStatus) }}" placeholder="Enter the order status">
-                    </div> --}}
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="inputStatus" class="form-label">Order Status</label>
+                        <select class="form-select" name="status" id="inputStatus">
+                            <option {{ old('status', $filterByStatus) === 'canceled' ? 'selected' : '' }} value="pending">
+                                Pending</option>
+                            <option {{ old('status', $filterByStatus) === 'canceled' ? 'selected' : '' }} value="paid">
+                                Paid</option>
+                            <option {{ old('status', $filterByStatus) === 'delivered' ? 'selected' : '' }} value="closed">
+                                Closed</option>
+                            <option {{ old('status', $filterByStatus) === 'paid' ? 'selected' : '' }} value="canceled">
+                                Canceled
+                            </option>
+                        </select>
+                    </div>
                     <div class="d-flex">
                         <button type="submit" class="btn btn-primary mb-3 px-4 me-2 flex-grow-1"
                             name="filtrar">Filter</button>
@@ -106,9 +115,9 @@
                                         <form action="{{ route('dashboard.orders.update', $order) }}" method="POST">
                                             @csrf
                                             @method('PUT')
-                                            <input type="hidden" name="status" value="paid">
+                                            <input type="hidden" name="status" value="pending">
                                             <button type="submit" class="btn btn-success mb-2">
-                                                Order paid
+                                                Order pending
                                             </button>
                                         </form>
                                         <form action="{{ route('dashboard.orders.update', $order) }}" method="POST">
