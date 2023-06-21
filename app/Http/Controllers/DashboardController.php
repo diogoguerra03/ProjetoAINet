@@ -73,7 +73,7 @@ class DashboardController extends Controller
         foreach ($orderItems as $orderItem) {
             $tshirt = TshirtImage::find($orderItem->tshirt_image_id);
             $tshirts[$orderItem->id] = [
-                'name'      => $tshirt ? $tshirt->name : '',
+                'name' => $tshirt ? $tshirt->name : '',
                 'image_url' => $tshirt ? $tshirt->image_url : '',
             ];
 
@@ -88,4 +88,11 @@ class DashboardController extends Controller
         return view('dashboard.orders');
     }
 
+    public function filterOrdersByStatus(Request $request)
+    {
+        $status = $request->status;
+        $orders = Order::where('status', $status)->get();
+
+        return view('dashboard.orders', compact('orders'));
+    }
 }

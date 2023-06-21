@@ -4,6 +4,12 @@
 @extends('layouts.app')
 
 @section('content')
+    @if (session('alert-msg'))
+        <div class="alert alert-{{ session('alert-type') }} alert-dismissible">
+            {{ session('alert-msg') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <h1 class="text-center mb-3 mt-0">Customers</h1>
     <table class="table table-striped">
         <thead class="thead-dark">
@@ -23,15 +29,19 @@
                     <td>{{ $user->email }}</td>
                     @if ($user->blocked == 0)
                         <td><input class="form-check-input ms-3" type="checkbox" value="" id="flexCheckDisabled"
-                                disabled></td>
+                                ></td>
                     @else
                         <td><input class="form-check-input ms-3" type="checkbox" value=""
-                                id="flexCheckCheckedDisabled" checked disabled></td>
+                                id="flexCheckCheckedDisabled" checked ></td>
                     @endif
                     <td>
-                        <div class="d-inline-flex align-content-center">
-                            <i class="bi bi-trash "></i>
-                        </div>
+                        <form action="{{ route('dashboard.customers.delete', $user->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger mb-2">
+                                <i class="bi bi-trash "></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
             @endforeach
