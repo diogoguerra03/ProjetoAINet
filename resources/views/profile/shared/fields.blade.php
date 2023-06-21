@@ -96,23 +96,6 @@
                     <hr>
                     <div class="row">
                         <div class="col-sm-3">
-                            <p class="mb-0">Payment reference</p>
-                        </div>
-                        <div class="col-sm-9">
-                            <input type="text"
-                                class="form-control @error('default_payment_ref') is-invalid @enderror"
-                                name="default_payment_ref" id="inputName" {{ $disabledStr }}
-                                value="{{ old('default_payment_ref', $customer->default_payment_ref) }}">
-                            @error('default_payment_ref')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-sm-3">
                             <p class="mb-0">Payment type</p>
                         </div>
                         <div class="col-sm-9">
@@ -133,6 +116,23 @@
                                     VISA</option>
                             </select>
                             @error('default_payment_type')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Payment reference</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <input type="text"
+                                class="form-control @error('default_payment_ref') is-invalid @enderror"
+                                name="default_payment_ref" id="inputName" {{ $disabledStr }}
+                                value="{{ old('default_payment_ref', $customer->default_payment_ref) }}">
+                            @error('default_payment_ref')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>

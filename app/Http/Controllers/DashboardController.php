@@ -46,11 +46,18 @@ class DashboardController extends Controller
         return view('dashboard.orders', compact('orders'));
     }
 
-    public function updateOrder(Request $request, Order $order)
+    public function updateOrder(Order $order)
     {
-        $order->status = $request->status;
+        if ($order->status == "pending"){
+            $order->status = "paid";
+        } elseif ($order->status == "paid"){
+            $order->status = "closed";
+        }
+
         $order->save();
 
-        return redirect()->route('dashboard.orders');
+        return redirect()->back()
+            ->with('alert-msg', "Order status updated successfully.")
+            ->with('alert-type', 'success');
     }
 }
