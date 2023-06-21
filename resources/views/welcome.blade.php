@@ -10,7 +10,12 @@
     <!-- ========================= SECTION INTRO ========================= -->
     <section class="section-intro padding-y-sm">
         <div class="container">
-
+            @if (session('alert-msg'))
+                <div class="alert alert-{{ session('alert-type') }} alert-dismissible">
+                    {{ session('alert-msg') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <div class="intro-banner-wrap">
                 <div class="jumbotron jumbotron-fluid text-center"
                     style="background-image:url(assets/images/backgroundDiscount.png);">
