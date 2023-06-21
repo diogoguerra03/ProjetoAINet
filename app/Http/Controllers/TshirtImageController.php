@@ -183,14 +183,15 @@ class TshirtImageController extends Controller
         $catalog = DB::transaction(function () use ($formData, $catalog, $request) {
             $catalog->name = $formData['name'];
             $catalog->description = $formData['description'];
+            $catalog->category_id = $formData['category_id'];
+            $catalog->customer_id = $formData['customer_id'];
 
             if ($request->hasFile('image')) {
                 if ($catalog->image_url) {
-                    // Deleta a imagem antiga, que está não está no diretório público, mas sim no privado
-                    Storage::delete("tshirt_images_private/$catalog->image_url");
+                    Storage::delete('tshirt_images_private/' . $catalog->image_url);
                 }
 
-                $path = Storage::putFile('tshirt_images_private', $request->file('image'));
+                $path = $request->file('image')->store('tshirt_images_private');
                 $filename = basename($path);
                 $catalog->image_url = $filename;
             }
