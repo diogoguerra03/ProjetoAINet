@@ -57,6 +57,12 @@ class TshirtImagePolicy
         return $user->user_type === 'A';
     }
 
+    // edit
+    public function edit(User $user, TshirtImage $tshirtImage): bool
+    {
+        return $user->user_type === 'A';
+    }
+
     /**
      * Determine whether the user can restore the model.
      */

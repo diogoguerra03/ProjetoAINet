@@ -81,14 +81,14 @@ class TshirtImageController extends Controller
                 ->orderBy('total_quantity', 'desc');
         }
 
-        $tshirtImages = $tshirtQuery->paginate(18); // Paginação
+        $tshirts = $tshirtQuery->paginate(18); // Paginação
 
         $prices = Price::all(); // Busca todos os preços
 
         return view(
             'catalog.index',
             compact(
-                'tshirtImages',
+                'tshirts',
                 'categories',
                 'filterByCategory',
                 'filterByName',
@@ -184,9 +184,9 @@ class TshirtImageController extends Controller
 
     }
 
-    public function edit(string $slug): View
+    public function edit(TshirtImage $catalog): View
     {
-        $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
+        $tshirtImage = $catalog;
         $categories = Category::all()->whereNull('deleted_at')->sortBy('name');
 
         return view('catalog.edit', compact('tshirtImage', 'categories'));
