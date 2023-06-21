@@ -46,9 +46,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/{user}', [UserController::class, 'profile'])->name('profile')->middleware('verified');
     Route::get('/profile/{user}/edit', [UserController::class, 'edit'])->name('profile.edit')->middleware('verified');
     Route::put('/profile/{user}/update', [UserController::class, 'update'])->name('profile.update')->middleware('verified');
-    Route::get('/profile/{user}/my-tshirts', [UserController::class, 'myTshirts'])->name('profile.mytshirts')->middleware('verified');
-    Route::get('profile/{user}/{slug}/edit', [UserController::class, 'myTshirtsEdit'])->name('tshirt.edit');
-    Route::delete('profile/{user}/{tshirt}/delete', [UserController::class, 'destroy'])->name('tshirt.destroy');
+    Route::get('/profile/{user}/my-tshirts', [TshirtImageController::class, 'myTshirts'])->name('profile.mytshirts')->middleware('verified');
+    Route::get('profile/{user}/{slug}/edit', [TshirtImageController::class, 'editMyTshirt'])->name('tshirt.edit');
+    Route::delete('profile/{user}/{slug}/delete', [TshirtImageController::class, 'destroyMyTshirt'])->name('tshirt.destroy');
 
     Route::delete('/profile/{user}/deletephoto', [UserController::class, 'deletePhoto'])
         ->name('profile.deletephoto')
