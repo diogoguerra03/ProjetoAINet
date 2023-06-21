@@ -161,5 +161,9 @@ class DashboardController extends Controller
         return view('dashboard.employeeEdit', compact('employee'));
     }
 
+    public function updatePrices(Request $request){
+        
+    }
+
 
 }
