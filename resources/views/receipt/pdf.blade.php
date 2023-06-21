@@ -168,7 +168,7 @@
             @foreach ($orderItems as $orderItem)
                 <tr align="center">
                     @if ($showImage)
-                        <td><img src="
+                        <td style="background-color:rgba(120, 120, 120, 0.1)"><img src="
                             {{ route('getImage', $tshirts[$orderItem->id]['image_url']) }}"
                                 alt="T-Shirt Image" class="img-fluid rounded-3" style="height: 75px;"></td>
                     @endif
