@@ -79,8 +79,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard/employees', [DashboardController::class, 'employees'])->name('dashboard.employees');
         Route::get('/dashboard/admins', [DashboardController::class, 'admins'])->name('dashboard.admins');
         Route::delete('/dashboard/customer/delete/{customer}', [DashboardController::class, 'deleteCustomer'])->name('dashboard.customers.delete');
-        Route::put('/dashboard/{customer}/update', [DashboardController::class, 'customerUpdate'])->name('dashboard.customers.update');
+        Route::put('/dashboard/customer/update/{customer}', [DashboardController::class, 'customerUpdate'])->name('dashboard.customers.update');
         Route::delete('/dashboard/employee/delete/{employee}', [DashboardController::class, 'deleteEmployee'])->name('dashboard.employees.delete');
+        Route::put('/dashboard/employee/update/{employee}', [DashboardController::class, 'employeeUpdate'])->name('dashboard.employees.update');
 
         // catalog
         Route::get('catalog/{slug}/edit', [TshirtImageController::class, 'edit'])->name('catalog.edit');
