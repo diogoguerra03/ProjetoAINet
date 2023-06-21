@@ -76,8 +76,9 @@ Route::middleware('admin')->group(function () {
 });
 
 Route::middleware('employee')->group(function () {
-    Route::get('/dashboard/orders', [DashboardController::class, 'orders'])->name('dashboard.orders');
+    Route::get('/dashboard/orders', [DashboardController::class, 'showOrders'])->name('dashboard.orders');
     Route::put('/dashboard/orders/{order}/update', [DashboardController::class, 'updateOrder'])->name('dashboard.orders.update');
+    Route::get('/dashboard/orders/{order}/details', [DashboardController::class, 'showDetails'])->name('dashboard.orders.details');
 });
 
 

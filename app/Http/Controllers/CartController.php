@@ -90,5 +90,5 @@ class CartController extends Controller
             ->with('alert-msg', "$tshirtQuantity x \"$tshirtName\" ($tshirtSize - $tshirtColor) removed from cart.")
             ->with('alert-type', 'success');
     }
-    
+
 }

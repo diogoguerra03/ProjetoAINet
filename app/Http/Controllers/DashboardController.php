@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Color;
 use App\Models\Order;
+use App\Models\Customer;
+use App\Models\OrderItem;
 use App\Models\TshirtImage;
 use Illuminate\Http\Request;
 
@@ -40,7 +43,7 @@ class DashboardController extends Controller
         return view('dashboard.admins', compact('admins'));
     }
 
-    public function orders()
+    public function showOrders()
     {
         $orders = Order::all()->sortByDesc('created_at');
         return view('dashboard.orders', compact('orders'));
@@ -48,16 +51,40 @@ class DashboardController extends Controller
 
     public function updateOrder(Order $order)
     {
-        if ($order->status == "pending"){
+        if ($order->status == "pending") {
             $order->status = "paid";
-        } elseif ($order->status == "paid"){
+        } elseif ($order->status == "paid") {
             $order->status = "closed";
         }
 
         $order->save();
 
         return redirect()->back()
-            ->with('alert-msg', "Order status updated successfully.")
+            ->with('alert-msg', "Order no. $order->id updated to \"$order->status\" successfully.")
             ->with('alert-type', 'success');
+    }
+
+    public function showDetails(Order $order)
+    {
+        $user = User::where('id', $order->customer_id)->first();
+        $orderItems = OrderItem::where('order_id', $order->id)->get();
+        $customer = Customer::where('id', $order->customer_id)->first();
+        $user = User::where('id', $customer->id)->first();
+
+        $tshirts = [];
+        $colors = [];
+
+        foreach ($orderItems as $orderItem) {
+            $tshirt = TshirtImage::find($orderItem->tshirt_image_id);
+            $tshirts[$orderItem->id] = [
+                'name'      => $tshirt ? $tshirt->name : '',
+                'image_url' => $tshirt ? $tshirt->image_url : '',
+            ];
+
+            $color = Color::where('code', $orderItem->color_code)->pluck('name')->first();
+            $colors[$orderItem->id] = $color ? $color : '';
+        }
+
+        return view('dashboard.orderDetails', compact('order', 'user', 'tshirts', 'colors', 'orderItems'));
     }
 }

@@ -3,6 +3,7 @@
 @extends('layouts.header')
 @extends('layouts.app')
 
+
 @section('content')
     @if (session('alert-msg'))
         <div class="alert alert-{{ session('alert-type') }} alert-dismissible">
@@ -32,7 +33,7 @@
                         <td>
                             <div class="row">
                                 <div class="col">
-                                    <form action="">
+                                    <form action="{{ route('dashboard.orders.details', $order) }}">
                                         @csrf
                                         @method('PUT')
                                         <button type="submit" class="btn btn-primary mb-2">
