@@ -67,10 +67,11 @@
                         </select>
                     </div>
                     <div class="d-flex">
-                        <button type="submit" class="btn btn-primary mb-3 px-4 me-2 flex-grow-1"
+                        <button type="submit" class="btn btn-primary mb-3 px-4 me-2 flex-grow-1 mx-auto"
                             name="filtrar">Filter</button>
-                        <a href="{{ route('dashboard.orders') }}"
-                            class="btn btn-secondary mb-3 py-3 px-4 flex-shrink-1">Clear</a>
+                        <button class="btn btn-secondary mb-3 px-4 me-2 flex-grow-1 mx-auto">
+                        <a href="{{ route('dashboard.orders') }}" class=" text-white" style="text-decoration: none">Clear</a>
+                        </button>
                     </div>
                 </div>
             </div>
