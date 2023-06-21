@@ -6,6 +6,9 @@
 
 @section('content')
     <form style="margin:5%">
+        <div style="margin-bottom:20px">
+            <a href="{{ route('dashboard.orders') }}" class="btn btn-primary">Go back</a>
+        </div>
         <h3> Order no. {{ $order->id }} details</h3>
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -54,10 +57,7 @@
                 <input type="text" class="form-control" id="inputCity" value="{{ $order->payment_ref }}" readonly>
             </div>
         </div>
-        <div class="form-group">
-            <label for="inputAddress2">Order notes</label>
-            <input type="text" class="form-control" id="inputAddress2" value="{{ $order->notes }}" readonly>
-        </div>
+
 
         <div class="table-section bill-tbl w-100 mt-10">
             <h4> Order products: </h4>
@@ -95,6 +95,12 @@
                 </tr>
             </table>
         </div>
+
+        <div class="form-group">
+            <label for="inputAddress2">Order notes</label>
+            <input type="text" class="form-control" id="inputAddress2" value="{{ $order->notes }}" readonly>
+        </div>
+
         <div style="margin-top:20px">
             <a href="{{ route('dashboard.orders') }}" class="btn btn-primary">Go back</a>
         </div>

@@ -17,6 +17,7 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Date</th>
+                {{-- <th scope="col">Customer</th> --}}
                 <th scope="col"></th>
                 <th scope="col">Price</th>
                 <th scope="col">Status</th>
@@ -28,8 +29,13 @@
                 <tr>
                     @if ($order->status != 'canceled' && $order->status != 'closed')
                         <th scope="row">{{ $order->id }}</th>
-
                         <td>{{ $order->date }}</td>
+                        {{-- <td>
+                            <div>
+                                <div>{{ $order->user->name }}</div>
+                                <div>{{ $order->user->email }}</div>
+                            </div>
+                        </td> --}}
                         <td>
                             <div class="row">
                                 <div class="col">
