@@ -43,11 +43,19 @@ class DashboardController extends Controller
         return view('dashboard.admins', compact('admins'));
     }
 
-    public function showOrders()
+    public function showOrders(Request $request)
     {
-        $orders = Order::all()->sortByDesc('created_at');
+        $filterByStatus = $request->status ?? '';
 
-        return view('dashboard.orders', compact('orders'));
+        $ordersQuery = Order::query()->orderByDesc('created_at');
+
+        if ($filterByStatus !== '') {
+            $ordersQuery->where('status', $filterByStatus);
+        }
+
+        $orders = $ordersQuery->paginate(50);
+
+        return view('dashboard.orders', compact('orders', 'filterByStatus'));
     }
 
     public function updateOrder(Request $request, Order $order)
@@ -84,8 +92,5 @@ class DashboardController extends Controller
         return view('dashboard.orderDetails', compact('order', 'user', 'tshirts', 'colors', 'orderItems'));
     }
 
-    public function filterOrders(){
-        return view('dashboard.orders');
-    }
 
 }
