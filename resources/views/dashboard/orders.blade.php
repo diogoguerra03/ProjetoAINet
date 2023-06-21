@@ -12,6 +12,17 @@
             $('#statusInput').val(status);
         });
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const orderButton = document.querySelector('button[data-bs-target="#myModal"]');
+        const popupTitle = document.getElementById('popupTitle');
+
+        orderButton.addEventListener('click', function() {
+            const orderID = this.dataset.orderId;
+            popupTitle.innerText = 'Order ID: ' + orderID;
+            document.getElementById('statusInput').value = orderID;
+        });
+    });
 </script>
 
 @section('content')
@@ -138,7 +149,7 @@
                                             @csrf
                                             @method('PUT')
                                             <button type="button" class="btn btn-success mb-2" data-bs-toggle="modal"
-                                                data-bs-target="#myModal">
+                                                data-bs-target="#myModal" data-order-id="{{ $order->id }}">
                                                 Edit order status
                                             </button>
                                             <div class="modal fade" id="myModal" tabindex="-1"
@@ -146,12 +157,12 @@
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Popup Title</h5>
+                                                            <h5 class="modal-title" id="popupTitle"> </h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <p>Popup Content</p>
+                                                            <p>Edit order status to: </p>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <form action="{{ route('dashboard.orders.update', $order) }}"
@@ -214,7 +225,7 @@
                                         @csrf
                                         @method('PUT')
                                         <button type="button" class="btn btn-success mb-2" data-bs-toggle="modal"
-                                            data-bs-target="#myModal">
+                                            data-bs-target="#myModal" data-order-id="{{ $order->id }}">
                                             Edit order status
                                         </button>
                                         <div class="modal fade" id="myModal" tabindex="-1"
@@ -222,12 +233,12 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Popup Title</h5>
+                                                        <h5 class="modal-title" id="popupTitle"> </h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <p>Popup Content</p>
+                                                        <p>Edit order status to: </p>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <form action="{{ route('dashboard.orders.update', $order) }}"
