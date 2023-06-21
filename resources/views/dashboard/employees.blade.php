@@ -33,16 +33,20 @@
                     <th scope="row">{{ $user->id }}</th>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    @if ($user->blocked == 0)
-                        <td><input class="form-check-input ms-3" type="checkbox" value="" id="flexCheckDisabled"
-                                disabled></td>
-                    @else
-                        <td><input class="form-check-input ms-3" type="checkbox" value=""
-                                id="flexCheckCheckedDisabled" checked disabled></td>
-                    @endif
+                    <td>
+                        <form action="{{ route('dashboard.employees.update', $user->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="blocked" value="{{ $user->blocked ? '0' : '1' }}">
+                            <input type="checkbox" class="form-check-input ms-3" onchange="this.form.submit()"
+                                {{ $user->blocked ? 'checked' : '' }}>
+                        </form>
+                    </td>
                     <td>
                         <div class="d-inline-flex align-content-center">
-                            <i class="bi bi-pencil ml-4 mr-3"></i>
+                            <button type="submit" class="btn btn-warning mb-2 ml-4 mr-3">
+                            <i class="bi bi-pencil"></i>
+                            </button>
                             <form action="{{ route('dashboard.employees.delete', $user->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')

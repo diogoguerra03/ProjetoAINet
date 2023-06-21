@@ -146,5 +146,20 @@ class DashboardController extends Controller
         }
     }
 
+    public function employeeUpdate(Request $request, User $employee)
+    {
+        $employee->blocked = $request->blocked ? 1 : 0;
+        $employee->save();
+
+        return redirect()->back()
+            ->with('alert-msg', "Employee no. $employee->id updated successfully.")
+            ->with('alert-type', 'success');
+    }
+
+    public function employeeEdit(User $employee)
+    {
+        return view('dashboard.employeeEdit', compact('employee'));
+    }
+
 
 }

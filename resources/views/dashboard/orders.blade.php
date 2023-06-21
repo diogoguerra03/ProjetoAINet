@@ -155,7 +155,7 @@
                                         <form action="{{ route('dashboard.orders.update', $order) }}" method="POST">
                                             @csrf
                                             @method('PUT')
-                                            <button type="button" class="btn btn-success mb-2" data-bs-toggle="modal"
+                                            <button type="button" class="btn btn-warning mb-2" data-bs-toggle="modal"
                                                 data-bs-target="#myModal" data-order-id="{{ $order->id }}">
                                                 Edit order status
                                             </button>
@@ -232,7 +232,7 @@
                                     <form action="{{ route('dashboard.orders.update', $order) }}" method="POST">
                                         @csrf
                                         @method('PUT')
-                                        <button type="button" class="btn btn-success mb-2" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-warning mb-2" data-bs-toggle="modal"
                                             data-bs-target="#myModal" data-order-id="{{ $order->id }}">
                                             Edit order status
                                         </button>
