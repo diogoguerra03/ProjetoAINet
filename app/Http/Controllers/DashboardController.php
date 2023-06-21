@@ -101,19 +101,30 @@ class DashboardController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function customerUpdate(User $customer)
+    public function customerUpdate(Request $request, User $customer)
     {
-        if ($customer->blocked == 0) {
-            $customer->blocked = 1;
-        } elseif ($customer->blocked == 1) {
-            $customer->blocked = 0;
-        }
+        $customer->blocked = $request->blocked ? 1 : 0;
         $customer->save();
 
-
         return redirect()->back()
-            ->with('alert-msg', "Customer no. $customer->id updated to \"$customer->blocked\" successfully.")
+            ->with('alert-msg', "Customer no. $customer->id updated successfully.")
             ->with('alert-type', 'success');
+    }
+
+    public function deleteEmployee(User $employee)
+    {
+        if ($employee->user_type != 'E') {
+            return redirect()->back()
+                ->with('alert-msg', "User no. $employee->id is not an employee.")
+                ->with('alert-type', 'danger');
+        } else {
+            $employee->delete();
+
+
+            return redirect()->back()
+                ->with('alert-msg', "Employee no. $employee->id deleted successfully.")
+                ->with('alert-type', 'success');
+        }
     }
 
     public function filterOrders()
