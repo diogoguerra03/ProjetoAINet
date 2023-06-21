@@ -84,7 +84,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/dashboard/employee/update/{employee}', [DashboardController::class, 'employeeUpdate'])->name('dashboard.employees.update');
         Route::delete('/dashboard/admin/delete/{admin}', [DashboardController::class, 'deleteAdmin'])->name('dashboard.admins.delete');
         Route::put('/dashboard/admin/update/{admin}', [DashboardController::class, 'adminUpdate'])->name('dashboard.admins.update');
-
+        Route::get('/dashboard/{user}/edit', [DashboardController::class, 'edit'])->name('dashboard.edit');
 
         // change prices
         Route::get('/dashboard/prices', [DashboardController::class, 'showPrices'])->name('dashboard.showPrices');

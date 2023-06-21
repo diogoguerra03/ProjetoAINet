@@ -158,9 +158,9 @@ class DashboardController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function employeeEdit(User $employee)
+    public function edit(User $employee)
     {
-        return view('dashboard.employeeEdit', compact('employee'));
+        return view('dashboard.edit', compact('employee'));
     }
 
     public function showPrices()
@@ -168,7 +168,6 @@ class DashboardController extends Controller
         $price = Price::all()->first();
         return view('dashboard.prices', compact('price'));
     }
-
 
     public function updatePrices(Request $request)
     {
@@ -193,7 +192,7 @@ class DashboardController extends Controller
     {
         return view('dashboard.addEmployee');
     }
-
+    
     public function deleteAdmin(User $admin)
     {
         if ($admin->user_type != 'A') {
