@@ -6,6 +6,12 @@
     <div class="container">
         <div class="row">
             <h1>My Tshirts</h1>
+            @if (session('alert-msg'))
+                <div class="alert alert-{{ session('alert-type') }} alert-dismissible">
+                    {{ session('alert-msg') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <div class="row mt-5">
                 @forelse($tshirts as $index => $tshirtImage)
                     <div class="col-md-4 mb-4">
@@ -28,7 +34,8 @@
                                     <a href="{{ route('tshirt.edit', ['user' => $user, 'slug' => $tshirtImage->slug]) }}"
                                         class="btn btn-success flex-fill mr-1">Edit</a>
                                     <div class="flex-fill ml-1">
-                                        <form method="POST" action="{{ route('catalog.destroy', $tshirtImage->slug) }}"
+                                        <form method="POST"
+                                            action="{{ route('tshirt.destroy', ['user' => $user, 'slug' => $tshirtImage->slug]) }}"
                                             id="deleteForm_{{ $tshirtImage->id }}">
                                             @csrf
                                             @method('DELETE')

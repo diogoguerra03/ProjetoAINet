@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Color;
 use App\Models\Price;
 use App\Models\Category;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\View\View;
 use App\Models\TshirtImage;
 use Illuminate\Support\Str;
@@ -100,6 +101,66 @@ class TshirtImageController extends Controller
 
     }
 
+    public function myTshirts(Request $request, User $user): View
+    {
+        $currentUser = auth()->user();
+
+        if ($currentUser->id !== $user->id) {
+            $user = $currentUser;
+        }
+
+        if ($user->user_type !== 'C') {
+            abort(403); // Retorna uma resposta de acesso negado
+        }
+
+        $tshirts = TshirtImage::where('customer_id', $user->id)->get();
+
+        return view('profile.mytshirts', compact('user', 'tshirts'));
+    }
+
+    public function editMyTshirt(User $user, string $slug): View
+    {
+        $currentUser = auth()->user();
+
+        if ($currentUser->id !== $user->id) {
+            $user = $currentUser;
+        }
+
+        if ($user->user_type !== 'C') {
+            abort(403); // Retorna uma resposta de acesso negado
+        }
+
+        $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
+
+        return view('tshirts.edit', compact('user', 'tshirtImage'));
+    }
+
+    public function destroyMyTshirt(User $user, string $slug): RedirectResponse
+    {
+        $currentUser = auth()->user();
+
+        if ($currentUser->id !== $user->id) {
+            $user = $currentUser;
+        }
+
+        if ($user->user_type !== 'C') {
+            abort(403); // Retorna uma resposta de acesso negado
+        }
+
+        $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
+
+        if ($tshirtImage->orderItems()->exists()) {
+            $tshirtImage->delete();
+        } else {
+            Storage::delete('public/tshirt_images/' . $tshirtImage->image_url);
+            $tshirtImage->forceDelete();
+        }
+
+        return redirect()->route('profile.mytshirts', $user)
+            ->with('alert-msg', 'Image deleted successfully.')
+            ->with('alert-type', 'success');
+    }
+
     public function getfile(string $slug)
     {
         $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
@@ -126,7 +187,6 @@ class TshirtImageController extends Controller
     public function edit(string $slug): View
     {
         $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
-        $this->authorize('update', $tshirtImage);
         $categories = Category::all()->whereNull('deleted_at')->sortBy('name');
 
         return view('catalog.edit', compact('tshirtImage', 'categories'));
@@ -172,7 +232,7 @@ class TshirtImageController extends Controller
         if ($tshirtImage->orderItems()->exists()) {
             $tshirtImage->delete();
         } else {
-            Storage::delete('public/tshirt_images/' . $tshirtImage->image_url);
+            Storage::delete('tshirt_images_private/' . $tshirtImage->image_url); // Excluir a imagem privada
             $tshirtImage->forceDelete();
         }
 
