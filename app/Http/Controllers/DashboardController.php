@@ -84,15 +84,41 @@ class DashboardController extends Controller
         return view('dashboard.orderDetails', compact('order', 'user', 'tshirts', 'colors', 'orderItems'));
     }
 
-    public function filterOrders(){
+
+    public function deleteCustomer(User $customer)
+    {
+        if ($customer->user_type != 'C') {
+            return redirect()->back()
+                ->with('alert-msg', "User no. $customer->id is not a customer.")
+                ->with('alert-type', 'danger');
+        } else {
+            $customer->delete();
+        }
+
+
+        return redirect()->back()
+            ->with('alert-msg', "Customer no. $customer->id deleted successfully.")
+            ->with('alert-type', 'success');
+    }
+
+    public function customerUpdate(User $customer)
+    {
+        if ($customer->blocked == 0) {
+            $customer->blocked = 1;
+        } elseif ($customer->blocked == 1) {
+            $customer->blocked = 0;
+        }
+        $customer->save();
+
+
+        return redirect()->back()
+            ->with('alert-msg', "Customer no. $customer->id updated to \"$customer->blocked\" successfully.")
+            ->with('alert-type', 'success');
+    }
+
+    public function filterOrders()
+    {
         return view('dashboard.orders');
     }
 
-    public function filterOrdersByStatus(Request $request)
-    {
-        $status = $request->status;
-        $orders = Order::where('status', $status)->get();
-
-        return view('dashboard.orders', compact('orders'));
-    }
 }
