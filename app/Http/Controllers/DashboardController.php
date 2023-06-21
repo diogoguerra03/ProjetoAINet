@@ -163,14 +163,34 @@ class DashboardController extends Controller
         return view('dashboard.employeeEdit', compact('employee'));
     }
 
-    public function updatePrices(Request $request){
-
+    public function showPrices()
+    {
+        $price = Price::all()->first();
+        return view('dashboard.prices', compact('price'));
     }
 
 
+    public function updatePrices(Request $request)
+    {
+        DB::transaction(function () use ($request) {
+            $price = Price::all()->first();
+            $price->unit_price_catalog = $request->input('unit_price_catalog');
+            $price->unit_price_catalog_discount = $request->input('unit_price_catalog_discount');
+            $price->unit_price_own = $request->input('unit_price_own');
+            $price->unit_price_own_discount = $request->input('unit_price_own_discount');
+            $price->qty_discount = $request->input('qty_discount');
+
+            $price->save();
+        });
+
+        return redirect()->back()
+            ->with('alert-msg', "Price updated successfully.")
+            ->with('alert-type', 'success');
+    }
 
 
-    public function addEmployee(){
+    public function addEmployee()
+    {
         return view('dashboard.addEmployee');
     }
 
@@ -186,8 +206,8 @@ class DashboardController extends Controller
 
         }
         return redirect()->back()
-        ->with('alert-msg', "Admin no. $admin->id deleted successfully.")
-        ->with('alert-type', 'success');
+            ->with('alert-msg', "Admin no. $admin->id deleted successfully.")
+            ->with('alert-type', 'success');
     }
 
     public function adminUpdate(Request $request, User $admin)
