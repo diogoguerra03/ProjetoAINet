@@ -193,9 +193,9 @@ class TshirtImageController extends Controller
     }
 
 
-    public function update(TshirtImageRequest $request, string $slug): RedirectResponse
+    public function update(TshirtImageRequest $request, TshirtImage $catalog): RedirectResponse
     {
-        $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
+        $tshirtImage = $catalog;
 
         $formData = $request->validated();
         $tshirtImage = DB::transaction(function () use ($formData, $tshirtImage, $request) {

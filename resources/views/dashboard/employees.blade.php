@@ -4,6 +4,12 @@
 @extends('layouts.app')
 
 @section('content')
+    @if (session('alert-msg'))
+        <div class="alert alert-{{ session('alert-type') }} alert-dismissible">
+            {{ session('alert-msg') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <h1 class="text-center mb-3 mt-0">Employees</h1>
     <button type="button" class="btn btn-outline-dark mb-2">
         <div class="d-inline-flex align-items-center">
@@ -37,7 +43,13 @@
                     <td>
                         <div class="d-inline-flex align-content-center">
                             <i class="bi bi-pencil ml-4 mr-3"></i>
-                            <i class="bi bi-trash "></i>
+                            <form action="{{ route('dashboard.employees.delete', $user->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger mb-2">
+                                    <i class="bi bi-trash "></i>
+                                </button>
+                            </form>
                         </div>
                     </td>
                 </tr>

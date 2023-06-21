@@ -81,7 +81,7 @@ class DashboardController extends Controller
         foreach ($orderItems as $orderItem) {
             $tshirt = TshirtImage::find($orderItem->tshirt_image_id);
             $tshirts[$orderItem->id] = [
-                'name'      => $tshirt ? $tshirt->name : '',
+                'name' => $tshirt ? $tshirt->name : '',
                 'image_url' => $tshirt ? $tshirt->image_url : '',
             ];
 
@@ -90,6 +90,49 @@ class DashboardController extends Controller
         }
 
         return view('dashboard.orderDetails', compact('order', 'user', 'tshirts', 'colors', 'orderItems'));
+    }
+
+
+    public function deleteCustomer(User $customer)
+    {
+        if ($customer->user_type != 'C') {
+            return redirect()->back()
+                ->with('alert-msg', "User no. $customer->id is not a customer.")
+                ->with('alert-type', 'danger');
+        } else {
+            $customer->delete();
+        }
+
+
+        return redirect()->back()
+            ->with('alert-msg', "Customer no. $customer->id deleted successfully.")
+            ->with('alert-type', 'success');
+    }
+
+    public function customerUpdate(Request $request, User $customer)
+    {
+        $customer->blocked = $request->blocked ? 1 : 0;
+        $customer->save();
+
+        return redirect()->back()
+            ->with('alert-msg', "Customer no. $customer->id updated successfully.")
+            ->with('alert-type', 'success');
+    }
+
+    public function deleteEmployee(User $employee)
+    {
+        if ($employee->user_type != 'E') {
+            return redirect()->back()
+                ->with('alert-msg', "User no. $employee->id is not an employee.")
+                ->with('alert-type', 'danger');
+        } else {
+            $employee->delete();
+
+
+            return redirect()->back()
+                ->with('alert-msg', "Employee no. $employee->id deleted successfully.")
+                ->with('alert-type', 'success');
+        }
     }
 
 

@@ -11,8 +11,8 @@
             </div>
             <div class="col-md-6">
 
-                <form novalidate class="needs-validation" method="POST"
-                    action="{{ route('catalog.update', $tshirtImage->slug) }}" enctype="multipart/form-data">
+                <form novalidate class="needs-validation" method="POST" action="{{ route('catalog.update', $tshirtImage) }}"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
