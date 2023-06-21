@@ -11,6 +11,7 @@ use App\Models\OrderItem;
 use App\Models\TshirtImage;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -25,62 +26,55 @@ class OrderController extends Controller
         $user = Auth::user();
         $customer = Customer::where('id', $user->id)->first();
 
-        // verifica que user está logado
-        if ($user === null){
+        // apenas os clientes podem fazer encomendas
+        if ($user->user_type !== 'C') {
             return redirect()->back()
-                ->with('alert-msg', "You need to login in order to resume the order.")
+                ->with('alert-msg', "Only customers can resume the order.")
                 ->with('alert-type', 'danger');
         }
 
-        // verifica se o user tem email verificado
-        if ($user->email_verified_at === null){
-            return redirect()->back()
-                ->with('alert-msg', "You need to verify your email in order to resume the order.")
-                ->with('alert-type', 'danger');
-        }
-
-        $order = new Order();
-        $total_price = 0;
 
         // verifica que user tem os detalhes de pagamento preenchidos
-        try{
-            $order->status = 'pending';
-            $order->customer_id = $customer->id;
-            $order->date = Carbon::now()->format('Y-m-d');
-            $order->total_price = 0;
-            $order->notes = null;
-            $order->nif = $customer->nif;
-            $order->address = $customer->address;
-            $order->payment_type = $customer->default_payment_type;
-            $order->payment_ref = $customer->default_payment_ref;
-            $order->save();
-        }
-        catch(\Exception $e){
+        try {
+            DB::transaction(function () use ($cart, $customer) {
+                $order = new Order();
+                $total_price = 0;
+
+                $order->status = 'pending';
+                $order->customer_id = $customer->id;
+                $order->date = Carbon::now()->format('Y-m-d');
+                $order->total_price = 0;
+                $order->notes = null;
+                $order->nif = $customer->nif;
+                $order->address = $customer->address;
+                $order->payment_type = $customer->default_payment_type;
+                $order->payment_ref = $customer->default_payment_ref;
+                $order->save();
+
+                $order_id = Order::orderBy('id', 'desc')->pluck('id')->first();
+                $total_price = 0;
+
+                foreach ($cart as $item) {
+                    $orderItem = new OrderItem();
+                    $orderItem->order_id = $order_id;
+                    $orderItem->tshirt_image_id = $item['product_id'];
+                    $orderItem->color_code = $item['color_code'];
+                    $orderItem->size = $item['size'];
+                    $orderItem->qty = $item['quantity'];
+                    $orderItem->unit_price = $item['price'];
+                    $orderItem->sub_total = $item['price'] * $item['quantity'];
+                    $total_price += $orderItem->sub_total;
+                    $orderItem->save();
+                }
+
+                $order->total_price = $total_price;
+                $order->save();
+            });
+        } catch (\Exception $e) {
             return redirect()->back()
                 ->with('alert-msg', "Update your account details in order to resume the order.")
                 ->with('alert-type', 'danger');
         }
-
-
-        $order_id = Order::orderBy('id', 'desc')->pluck('id')->first();
-        // Iterate over the cart items and create OrderItem records
-        foreach ($cart as $item) {
-            $orderItem = new OrderItem();
-            $orderItem->order_id = $order_id;
-            $orderItem->tshirt_image_id = $item['product_id'];
-            $orderItem->color_code = $item['color_code'];
-            $orderItem->size = $item['size'];
-            $orderItem->qty = $item['quantity'];
-            $orderItem->unit_price = $item['price'];
-            $orderItem->sub_total = $item['price'] * $item['quantity'];
-            $total_price += $orderItem->sub_total;
-            $orderItem->save();
-        }
-
-        $order->total_price = $total_price;
-        $order->save();
-
-        // ver ficha 9 transaçao
 
         // Clear the cart
         $request->session()->forget('cart');

@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function () {
         ->name('password.change.store');
 
     // Encomenda
-    Route::post('/cart/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
+    Route::post('/cart/checkout', [OrderController::class, 'checkout'])->name('cart.checkout')->middleware('verified');
     Route::get('/order-history', [OrderController::class, 'showOrderHistory'])->name('order.history');
 
 
