@@ -56,11 +56,23 @@
         <div class="row d-flex justify-content-around mb-5">
             <div class="col-md-4">
                 <div class="d-flex justify-content-center">
+                    <img class="rounded-circle m-5 mx-auto" style="height: 250px" src="assets/images/rafael.jpeg"
+                         alt="Rafael">
+                </div>
+                <div class="d-flex justify-content-center">
+                    <h3>Rafeiro</h3>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <p>Co-founder and Head of Design</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="d-flex justify-content-center">
                     <img class="rounded-circle m-5 mx-auto" style="height: 250px" src="assets/images/diogo.jpeg"
                         class="img-fluid image-container" alt="Diogo">
                 </div>
                 <div class="d-flex justify-content-center">
-                    <h3>Diogo</h3>
+                    <h3>Boneco</h3>
                 </div>
                 <div class="d-flex justify-content-center">
                     <p>Co-founder and Creative Director</p>
@@ -76,18 +88,6 @@
                 </div>
                 <div class="d-flex justify-content-center">
                     <p>Co-founder and Marketing Strategist</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="d-flex justify-content-center">
-                    <img class="rounded-circle m-5 mx-auto" style="height: 250px" src="assets/images/rafael.jpeg"
-                        alt="Rafael">
-                </div>
-                <div class="d-flex justify-content-center">
-                    <h3>Rafeiro</h3>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <p>Co-founder and Head of Design</p>
                 </div>
             </div>
         </div>

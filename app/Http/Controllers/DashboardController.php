@@ -164,6 +164,37 @@ class DashboardController extends Controller
         return view('dashboard.edit', compact('employee'));
     }
 
+    public function addEmployee()
+    {
+        return view('dashboard.addEmployee');
+    }
+
+    public function deleteAdmin(User $admin)
+    {
+        if ($admin->user_type != 'A') {
+            return redirect()->back()
+                ->with('alert-msg', "User no. $admin->id is not an admin.")
+                ->with('alert-type', 'danger');
+        } else {
+            $admin->delete();
+
+
+        }
+        return redirect()->back()
+            ->with('alert-msg', "Admin no. $admin->id deleted successfully.")
+            ->with('alert-type', 'success');
+    }
+
+    public function adminUpdate(Request $request, User $admin)
+    {
+        $admin->blocked = $request->blocked ? 1 : 0;
+        $admin->save();
+
+        return redirect()->back()
+            ->with('alert-msg', "Admin no. $admin->id updated successfully.")
+            ->with('alert-type', 'success');
+    }
+
     public function showPrices()
     {
         $price = Price::all()->first();
@@ -193,38 +224,6 @@ class DashboardController extends Controller
                 ->with('alert-msg', "Failed to update price. Error: " . $e->getMessage())
                 ->with('alert-type', 'error');
         }
-    }
-
-
-    public function addEmployee()
-    {
-        return view('dashboard.addEmployee');
-    }
-    
-    public function deleteAdmin(User $admin)
-    {
-        if ($admin->user_type != 'A') {
-            return redirect()->back()
-                ->with('alert-msg', "User no. $admin->id is not an admin.")
-                ->with('alert-type', 'danger');
-        } else {
-            $admin->delete();
-
-
-        }
-        return redirect()->back()
-            ->with('alert-msg', "Admin no. $admin->id deleted successfully.")
-            ->with('alert-type', 'success');
-    }
-
-    public function adminUpdate(Request $request, User $admin)
-    {
-        $admin->blocked = $request->blocked ? 1 : 0;
-        $admin->save();
-
-        return redirect()->back()
-            ->with('alert-msg', "Admin no. $admin->id updated successfully.")
-            ->with('alert-type', 'success');
     }
 
 }
