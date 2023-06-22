@@ -60,7 +60,7 @@
                          alt="Rafael">
                 </div>
                 <div class="d-flex justify-content-center">
-                    <h3>Rafeiro</h3>
+                    <h3>Rafa Rei</h3>
                 </div>
                 <div class="d-flex justify-content-center">
                     <p>Co-founder and Head of Design</p>
