@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Color;
 use App\Models\Price;
 use App\Models\Category;
+use App\Models\TshirtImage;
+
 use Illuminate\Foundation\Auth\User;
 use Illuminate\View\View;
-use App\Models\TshirtImage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -224,7 +225,7 @@ class TshirtImageController extends Controller
         if ($tshirtImage->orderItems()->exists()) {
             $tshirtImage->delete();
         } else {
-            Storage::delete('tshirt_images/' . $tshirtImage->image_url);
+            Storage::delete('tshirt_images_private/' . $tshirtImage->image_url);
             $tshirtImage->forceDelete();
         }
 
@@ -303,7 +304,7 @@ class TshirtImageController extends Controller
         if ($tshirtImage->orderItems()->exists()) {
             $tshirtImage->delete();
         } else {
-            Storage::delete('tshirt_images_private/' . $tshirtImage->image_url); // Excluir a imagem privada
+            Storage::delete('public/tshirt_images/' . $tshirtImage->image_url); // Excluir a imagem privada
             $tshirtImage->forceDelete();
         }
 
