@@ -55,9 +55,6 @@
                 @endforeach
             </select>
         </div>
-    @else
-        <input type="hidden" name="category_id" value="">
-        <input type="hidden" name="customer_id" value="{{ $user->id }}">
     @endif
 
     @if (isset($user) && $isCustomer)

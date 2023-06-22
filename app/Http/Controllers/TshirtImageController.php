@@ -191,18 +191,16 @@ class TshirtImageController extends Controller
         $formData = $request->validated();
         $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
 
-        $catalog = DB::transaction(function () use ($formData, $tshirtImage) {
+        $tshirtImage = DB::transaction(function () use ($formData, $tshirtImage) {
             $tshirtImage->name = $formData['name'];
             $tshirtImage->description = $formData['description'];
-            $tshirtImage->category_id = $formData['category_id'];
-            $tshirtImage->customer_id = $formData['customer_id'];
 
             $tshirtImage->save();
 
             return $tshirtImage;
         });
 
-        $htmlMessage = "Product $catalog->name was successfully updated!";
+        $htmlMessage = "Product $tshirtImage->name was successfully updated!";
 
         return redirect()->route('profile.mytshirts', auth()->user())
             ->with('alert-msg', $htmlMessage)
