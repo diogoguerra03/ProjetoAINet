@@ -48,7 +48,7 @@ class UserController extends Controller
         return view('profile.edit', compact('user', 'customer'));
     }
 
-    public function update(UpdateUserRequest $request, User $user): RedirectResponse
+    public function updateData(UpdateUserRequest $request, User $user): RedirectResponse
     {
         $data = $request->validated();
         if ($request->hasFile('image')) {

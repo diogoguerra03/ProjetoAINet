@@ -20,11 +20,15 @@
                 </form>
                 @if ($user->photo_url)
                     <form id="deleteUserForm_{{ $user->id }}" method="POST"
-                          action="{{ route('profile.deletephoto', ['user' => $user]) }}" class="mb-3">
+                          action="{{ route('dashboard.deletephoto', ['user' => $user]) }}" class="mb-3">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete photo</button>
-                        <a href="{{ route('dashboard') }}" class="btn btn-secondary">Cancel</a>
+                        @if($user->user_type == 'A')
+                            <a href="{{ route('dashboard.admins') }}" class="btn btn-secondary">Cancel</a>
+                        @elseif($user->user_type == 'E')
+                            <a href="{{ route('dashboard.employees') }}" class="btn btn-secondary">Cancel</a>
+                        @endif
                     </form>
                 @endif
             </div>

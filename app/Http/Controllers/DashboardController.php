@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Models\Color;
 use App\Models\Order;
@@ -9,9 +10,12 @@ use App\Models\Price;
 use App\Models\Customer;
 use App\Models\OrderItem;
 use App\Models\TshirtImage;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -159,11 +163,6 @@ class DashboardController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function edit(User $user)
-    {
-        return view('dashboard.edit', compact('user'));
-    }
-
     public function addEmployee()
     {
         return view('dashboard.addEmployee');
@@ -195,6 +194,51 @@ class DashboardController extends Controller
             ->with('alert-type', 'success');
     }
 
+    public function edit(User $user)
+    {
+        return view('dashboard.edit', compact('user'));
+    }
+
+    public function deletePhoto(User $user)
+    {
+
+        if ($user->photo_url) {
+            Storage::delete('public/photos/' . $user->photo_url);
+            $user->photo_url = null;
+            $user->save();
+        }
+
+        return view('dashboard.edit', compact('user'));
+    }
+
+    public function update(UpdateUserRequest $request, User $user): RedirectResponse
+    {
+        $data = $request->validated();
+        if ($request->hasFile('image')) {
+            if ($user->photo_url) {
+                Storage::delete('public/photos/' . $user->photo_url);
+            }
+
+            $path = $request->file('image')->store('public/photos');
+            $filename = basename($path);
+            $user->photo_url = $filename;
+        }
+
+        $user->update($data);
+
+        $htmlMessage = "$user->name was successfully updated!";
+        return redirect()->route('dashboard', $user)
+            ->with('alert-msg', $htmlMessage)
+            ->with('alert-type', 'success');
+    }
+
+
+
+
+
+
+
+    //Prices
     public function showPrices()
     {
         $price = Price::all()->first();
