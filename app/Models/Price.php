@@ -18,3 +18,4 @@ class Price extends Model
         'qty_discount'
     ];
 }
+

@@ -15,20 +15,17 @@
                 @endif
                 @include('profile.shared.fields', ['readonlyData' => true])
                 <div class="my-4 d-flex justify-content-end">
-
                     @can('createMyTshirt', $user)
                         <button type="button" class="btn btn-success"><a href="{{ route('profile.mytshirts', $user) }}"
                                 class="dropdown-item">My
                                 Tshirts</a></button>
                     @endcan
-
                     @can('update', $user)
                         <a href="{{ route('profile.edit', ['user' => $user]) }}" class="btn btn-primary ml-3">Edit</a>
                         <button type="button" class="btn btn-primary ml-3"><a class="dropdown-item"
                                 href="{{ route('password.change.show') }}">Change password</a></button>
                     @endcan
                 </div>
-
             </div>
         </div>
     </div>

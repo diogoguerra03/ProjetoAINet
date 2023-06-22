@@ -177,3 +177,4 @@ class OrderController extends Controller
         return $pdf->download('ImagineShirt-Receipt' . $order->id . '.pdf');
     }
 }
+
