@@ -211,7 +211,7 @@ class DashboardController extends Controller
         return view('dashboard.edit', compact('user'));
     }
 
-    public function update(UpdateUserRequest $request, User $user): RedirectResponse
+    public function updateData(UpdateUserRequest $request, User $user): RedirectResponse
     {
         $data = $request->validated();
         if ($request->hasFile('image')) {

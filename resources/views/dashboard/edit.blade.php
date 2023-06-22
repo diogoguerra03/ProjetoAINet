@@ -8,7 +8,7 @@
         <div class="row">
             <h1>Edit User</h1>
             <div class="col-md-12 mt-5">
-                <form method="POST"  enctype="multipart/form-data">
+                <form method="POST" action="{{ route('dashboard.updateData', ['user' => $user]) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     @include('dashboard.shared.fields')
