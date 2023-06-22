@@ -45,7 +45,7 @@
                     <td>
                         <div class="d-inline-flex align-content-center">
                             <button type="submit" class="btn btn-warning mb-2 ml-4 mr-3">
-                                <a href="{{ route('dashboard.edit', $user->id) }}" class="text-decoration-none text-white">
+                                <a href="{{ route('dashboard.edit', $user) }}" class="text-decoration-none text-white">
                                     <i class="bi bi-pencil"></i>
                                 </a>
                             </button>

@@ -6,7 +6,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <h1>Edit Profile</h1>
+            <h1>Edit User</h1>
             <div class="col-md-12 mt-5">
                 <form method="POST"  enctype="multipart/form-data">
                     @csrf
@@ -24,7 +24,7 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete photo</button>
-                        <a href="{{ route('profile', ['user' => $user]) }}" class="btn btn-secondary">Cancel</a>
+                        <a href="{{ route('dashboard') }}" class="btn btn-secondary">Cancel</a>
                     </form>
                 @endif
             </div>

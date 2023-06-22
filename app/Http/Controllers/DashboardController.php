@@ -159,9 +159,9 @@ class DashboardController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function edit(User $employee)
+    public function edit(User $user)
     {
-        return view('dashboard.edit', compact('employee'));
+        return view('dashboard.edit', compact('user'));
     }
 
     public function addEmployee()
