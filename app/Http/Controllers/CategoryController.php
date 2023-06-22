@@ -24,3 +24,4 @@ class CategoryController extends Controller
         return view('catalog.index', compact('allTshirtImages', 'categories'));
     }
 }
+
