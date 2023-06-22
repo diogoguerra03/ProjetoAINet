@@ -69,6 +69,18 @@
             </div>
             <div class="col-md-4">
                 <div class="d-flex justify-content-center">
+                    <img class="rounded-circle m-5 mx-auto" style="height: 250px" src="assets/images/rafael.jpeg"
+                         alt="Rafael">
+                </div>
+                <div class="d-flex justify-content-center">
+                    <h3>Rafael</h3>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <p>Co-founder and Head of Design</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="d-flex justify-content-center">
                     <img class="rounded-circle m-5 mx-auto" style="height: 250px" src="assets/images/lucas.jpeg"
                         class="img-fluid image-container" alt="Lucas">
                 </div>
@@ -77,18 +89,6 @@
                 </div>
                 <div class="d-flex justify-content-center">
                     <p>Co-founder and Marketing Strategist</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="d-flex justify-content-center">
-                    <img class="rounded-circle m-5 mx-auto" style="height: 250px" src="assets/images/rafael.jpeg"
-                        alt="Rafael">
-                </div>
-                <div class="d-flex justify-content-center">
-                    <h3>Rafael</h3>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <p>Co-founder and Head of Design</p>
                 </div>
             </div>
         </div>
