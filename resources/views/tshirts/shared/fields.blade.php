@@ -11,15 +11,12 @@
         <form novalidate class="needs-validation" method="POST"
             action="{{ route('tshirt.update', ['user' => $user, 'slug' => $tshirtImage->slug]) }}"
             enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
         @else
             <form novalidate class="needs-validation" method="POST"
                 action="{{ route('catalog.update', $tshirtImage->slug) }}" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
     @endif
-
+    @csrf
+    @method('PUT')
     <div class="form-group">
         <label for="name">{{ __('Name') }}</label>
         <input type="text" class="form-control" id="name" name="name" value="{{ $tshirtImage->name }}"
