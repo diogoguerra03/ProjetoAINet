@@ -297,15 +297,14 @@ class TshirtImageController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function destroy(string $slug): RedirectResponse
+    public function destroy(TshirtImage $catalog): RedirectResponse
     {
-        $tshirtImage = TshirtImage::findOrFail(strtok($slug, '-'));
-
-        if ($tshirtImage->orderItems()->exists()) {
-            $tshirtImage->delete();
+        // $this->authorize('delete', TshirtImage::class);
+        if ($catalog->orderItems()->exists()) {
+            $catalog->delete();
         } else {
-            Storage::delete('public/tshirt_images/' . $tshirtImage->image_url); // Excluir a imagem privada
-            $tshirtImage->forceDelete();
+            Storage::delete('public/tshirt_images/' . $catalog->image_url); // Excluir a imagem privada
+            $catalog->forceDelete();
         }
 
         return redirect()->route('catalog.index')

@@ -21,14 +21,23 @@ class TshirtImageRequest extends FormRequest
      */
     public function rules(): array
     {
+        $isCreating = $this->method() === 'POST';
+
+        if ($isCreating) {
+            $rules['image_url'] = 'required|image|max:4096';
+        } else {
+            $rules['image_url'] = 'sometimes|image|max:4096';
+        }
+
         return [
             'category_id' => 'nullable|exists:categories,id',
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'image_url' => 'sometimes|image|max:4096',
             // maxsize = 4Mb
+            'image_url' => $rules['image_url'],
             'customer_id' => 'nullable|exists:users,id',
         ];
+
     }
 
     /**
@@ -39,16 +48,17 @@ class TshirtImageRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'category_id.exists' => 'A categoria selecionada não é válida.',
-            'name.required' => 'O campo de nome é obrigatório.',
-            'name.string' => 'O campo de nome deve ser uma string.',
-            'name.max' => 'O campo de nome não pode exceder 255 caracteres.',
-            'description.required' => 'O campo de descrição é obrigatório.',
-            'description.string' => 'O campo de descrição deve ser uma string.',
-            'description.max' => 'O campo de descrição não pode exceder 255 caracteres.',
-            'image_url.image' => 'O ficheiro com a foto não é uma imagem',
-            'image_url.size' => 'O tamanho do ficheiro com a foto tem que ser inferior a 4 Mb',
-            'customer_id.exists' => 'O cliente selecionado não é válido.',
+            'category_id.exists' => 'The selected category does not exist.',
+            'image_url.required' => 'The image is required.',
+            'image_url.image' => 'The image must be an image.',
+            'image_url.max' => 'The image must be less than 4Mb.',
+            'name.required' => 'The name is required.',
+            'name.string' => 'The name must be a string.',
+            'name.max' => 'The name must be less than 255 characters.',
+            'description.required' => 'The description is required.',
+            'description.string' => 'The description must be a string.',
+            'description.max' => 'The description must be less than 255 characters.',
+            'customer_id.exists' => 'The selected customer does not exist.',
         ];
     }
 }
