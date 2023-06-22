@@ -11,13 +11,14 @@
         <form novalidate class="needs-validation" method="POST"
             action="{{ route('tshirt.update', ['user' => $user, 'slug' => $tshirtImage->slug]) }}"
             enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
         @else
             <form novalidate class="needs-validation" method="POST"
                 action="{{ route('catalog.update', $tshirtImage->slug) }}" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
     @endif
-
-    @csrf
-    @method('PUT')
 
     <div class="form-group">
         <label for="name">{{ __('Name') }}</label>
@@ -58,10 +59,6 @@
         <input type="hidden" name="category_id" value="">
         <input type="hidden" name="customer_id" value="{{ $user->id }}">
     @endif
-    <div class="form-group">
-        <label for="image">{{ __('Image') }}</label>
-        <input type="file" class="form-control" id="image" name="image" accept="image/*">
-    </div>
 
     @if (isset($user) && $isCustomer)
         <div class="form-group mb-0">
@@ -69,6 +66,10 @@
             <a href="{{ route('profile.mytshirts', $user) }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
         </div>
     @else
+        <div class="form-group">
+            <label for="image">{{ __('Image') }}</label>
+            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+        </div>
         <div class="form-group mb-0">
             <button type="submit" class="btn btn-primary" name="ok">{{ __('Update') }}</button>
             <a href="{{ route('catalog.index') }}" class="btn btn-secondary">{{ __('Cancel') }}</a>

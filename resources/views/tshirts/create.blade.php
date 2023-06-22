@@ -13,7 +13,8 @@
 
                     <div class="form-group">
                         <label for="name">{{ __('Name') }}</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                            name="name" required>
                         @error('name')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -23,7 +24,8 @@
 
                     <div class="form-group">
                         <label for="description">{{ __('Description') }}</label>
-                        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                        <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
+                            rows="3" required></textarea>
                         @error('description')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -36,7 +38,13 @@
                     <input type="hidden" name="customer_id" value="{{ $user->id }}">
                     <div class="form-group">
                         <label for="image">{{ __('Image') }}</label>
-                        <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                        <input type="file" class="form-control @error('image_url') is-invalid @enderror" id="image_url"
+                            name="image_url" accept="image/*" required>
+                        @error('image_url')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
 
                     <div class="form-group mb-0">
