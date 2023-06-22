@@ -147,7 +147,14 @@
                 <th class="w-50">Shipping Method</th>
             </tr>
             <tr align="center">
-                <td>{{ $customer->default_payment_type }}</td>
+                <td>
+                    @if ($customer->default_payment_type == 'MC')
+                        MasterCard
+                    @else
+                        {{ $customer->default_payment_type }}
+                    @endif -
+                    {{ $customer->default_payment_ref }}
+                </td>
                 <td>Free Shipping</td>
             </tr>
         </table>
@@ -168,7 +175,8 @@
             @foreach ($orderItems as $orderItem)
                 <tr align="center">
                     @if ($showImage)
-                        <td style="background-color:rgba(120, 120, 120, 0.1)"><img src="
+                        <td style="background-color:rgba(120, 120, 120, 0.1)"><img
+                                src="
                             {{ route('getImage', $tshirts[$orderItem->id]['image_url']) }}"
                                 alt="T-Shirt Image" class="img-fluid rounded-3" style="height: 75px;"></td>
                     @endif
