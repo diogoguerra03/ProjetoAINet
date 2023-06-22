@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Category;
 use App\Models\User;
 use App\Models\Color;
 use App\Models\Order;
@@ -268,6 +269,44 @@ class DashboardController extends Controller
                 ->with('alert-msg', "Failed to update price. Error: " . $e->getMessage())
                 ->with('alert-type', 'error');
         }
+    }
+
+
+    //Colors
+    public function showColors()
+    {
+        $colors = Color::all();
+        return view('dashboard.colors', compact('colors'));
+    }
+
+    public function addColor(Request $request)
+    {
+        $color = new Color();
+        $color->name = $request->input('name');
+        $color->code = $request->input('code');
+        $color->save();
+
+        return redirect()->back()
+            ->with('alert-msg', "Color added successfully.")
+            ->with('alert-type', 'success');
+    }
+
+    //categories
+    public function showCategories()
+    {
+        $categories = Category::all();
+        return view('dashboard.categories', compact('categories'));
+    }
+
+    public function addCategory(Request $request)
+    {
+        $category = new Category();
+        $category->name = $request->input('name');
+        $category->save();
+
+        return redirect()->back()
+            ->with('alert-msg', "Category added successfully.")
+            ->with('alert-type', 'success');
     }
 
 }

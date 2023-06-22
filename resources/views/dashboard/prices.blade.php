@@ -12,6 +12,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
+
+        <h1 class="text-center mb-3 mt-0">Prices</h1>
         <div class="form-row" style="margin: 5%;">
             <div class="col-6">
                 <label for="inputZip" style="font-size: 1.2em;">Catalog price</label>
