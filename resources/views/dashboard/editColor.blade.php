@@ -8,7 +8,8 @@
         <div class="row">
             <h1>Edit Color</h1>
             <div class="col-md-12 mt-5">
-                <form method="POST" action="{{ route('dashboard.updateColor', ['color' => $color]) }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('dashboard.updateColor', ['color' => $color]) }}"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="col-lg-8">
@@ -17,15 +18,20 @@
                                 <p class="mb-0">Category Name</p>
                             </div>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('code') is-invalid @enderror" name="code"
-                                       id="inputCode" value="{{ old('code', $color->code) }}">
+                                <input type="text" class="form-control @error('code') is-invalid @enderror"
+                                    name="code" id="inputCode" value="{{ old('code', $color->code) }}">
                                 @error('code')
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                                       id="inputNome" value="{{ old('nome', $color->name) }}">
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+
+                                <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                    name="name" id="inputNome" value="{{ old('nome', $color->name) }}">
                                 @error('name')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
                                 @enderror
                             </div>
                         </div>

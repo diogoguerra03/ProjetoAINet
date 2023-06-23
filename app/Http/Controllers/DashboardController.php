@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ColorRequest;
 use App\Models\Order;
 use App\Models\TshirtImage;
 use App\Models\User;
@@ -330,7 +331,7 @@ class DashboardController extends Controller
         return view('dashboard.colors', compact('colors'));
     }
 
-    public function addColor(Request $request)
+    public function addColor(ColorRequest $request)
     {
         $color = new Color();
         $color->name = $request->input('name');
@@ -364,7 +365,7 @@ class DashboardController extends Controller
         return view('dashboard.editColor', compact('color'));
     }
 
-    public function updateColor(Request $request, Color $color)
+    public function updateColor(ColorRequest $request, Color $color)
     {
         $color = Color::where('code', $color->code)->firstOrFail();
         $color->name = $request->input('name');
