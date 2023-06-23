@@ -55,6 +55,7 @@ class DashboardController extends Controller
         foreach ($months as $month) {
             $orders[] = Order::whereMonth('created_at', '=', date('m', strtotime($month)))
                 ->whereYear('created_at', '=', date('Y'))
+                ->where('orders.status', 'closed')
                 ->count();
         }
 
