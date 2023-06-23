@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddAdminEmployee;
 use App\Http\Requests\AddEmployee;
 use App\Http\Requests\ColorRequest;
 use App\Http\Requests\UpdateAdminEmployee;
@@ -13,6 +14,7 @@ use App\Models\Color;
 use App\Models\Price;
 use App\Models\Customer;
 use App\Models\OrderItem;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 use App\Http\Requests\UpdateUserRequest;
@@ -210,14 +212,18 @@ class DashboardController extends Controller
         return view('dashboard.addEmployee');
     }
 
-    public function storeEmployee(AddEmployee $request): RedirectResponse
+    public function storeEmployee(AddAdminEmployee $request): RedirectResponse
     {
-        $employee = new User();
-        $employee->name = $request->name;
-        $employee->email = $request->email;
-        $employee->user_type = 'E';
-        $employee->password = Hash::make($request->password);
-        $employee->save();
+        $data = $request->validated();
+        $employee = DB::transaction(function () use ($data, $request) {
+            $employee = new User();
+            $employee->name = $data['name'];
+            $employee->email = $data['email'];
+            $employee->password = Hash::make($data['password']);
+            $employee->user_type = 'E';
+            $employee->save();
+        });
+
 
         return redirect()->back()
             ->with('alert-msg', "Employee no. $employee->id added successfully.")

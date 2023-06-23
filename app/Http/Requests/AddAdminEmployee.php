@@ -26,7 +26,7 @@ class AddAdminEmployee extends FormRequest
             'name' => ['required', 'string', 'max:255', 'min:3'],
             'email' => ['required', 'email', Rule::unique('users', 'email')],
             'role' => ['required'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8'],
         ];
     }
 }
