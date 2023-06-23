@@ -11,14 +11,14 @@
         </div>
     @endif
     <h1 class="text-center mb-3 mt-0">Employees</h1>
+    <a href="{{ route('dashboard.addEmployee') }}" class="text-decoration-none">
     <button type="button" class="btn btn-outline-dark mb-2">
-        <a href="{{ route('dashboard.addEmployee') }}" class="text-decoration-none">
         <div class="d-inline-flex align-items-center text-black">
             <i class="bi bi-plus-circle mr-2 d-inline-flex align-items-center"></i>
             Add Employee
         </div>
-        </a>
     </button>
+    </a>
     <table class="table table-striped">
         <thead class="thead-dark">
             <tr>

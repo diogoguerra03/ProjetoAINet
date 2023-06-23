@@ -82,6 +82,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard/employees', [DashboardController::class, 'employees'])->name('dashboard.employees');
         Route::get('/dashboard/admins', [DashboardController::class, 'admins'])->name('dashboard.admins');
         Route::get('/dashboard/{user}/edit', [DashboardController::class, 'edit'])->name('dashboard.edit');
+        Route::get('/dashboard/employee/add', [DashboardController::class, 'addEmployee'])->name('dashboard.addEmployee');
+        Route::put('/dashboard/employee/store', [DashboardController::class, 'storeEmployee'])->name('dashboard.storeEmployee');
         Route::delete('/dashboard/{user}/deletephoto', [DashboardController::class, 'deletePhoto'])->name('dashboard.deletephoto');
         Route::put('/dashboard/{user}/updateData', [DashboardController::class, 'updateData'])->name('dashboard.updateData');
         Route::get('/dashboard/chart-data', [DashboardController::class, 'chartData']);

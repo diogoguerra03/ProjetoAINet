@@ -210,7 +210,7 @@ class DashboardController extends Controller
         return view('dashboard.addEmployee');
     }
 
-    public function updateEmployee(AddEmployee $request): RedirectResponse
+    public function storeEmployee(AddEmployee $request): RedirectResponse
     {
         $employee = new User();
         $employee->name = $request->name;

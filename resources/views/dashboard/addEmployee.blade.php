@@ -14,7 +14,7 @@
                 </div>
             @endif
             <div class="col-md-12 mt-5">
-                <form method="POST" action="{{ route('dashboard.updateEmployee', ['user' => $user]) }}"
+                <form method="POST" action="{{ route('dashboard.storeEmployee') }}"
                       enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
@@ -22,27 +22,10 @@
                     <div class="d-flex justify-content-end">
                         <div class="mr-1">
                             <button type="submit" class="btn btn-primary" name="ok">Save</button>
-
+                                <a href="{{ route('dashboard.employees') }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
                         </div>
                     </div>
                 </form>
-                @if ($user->photo_url)
-                    <form id="deleteForm_{{ $user->id }}" method="POST"
-                          action="{{ route('dashboard.deletephoto', ['user' => $user]) }}" class="mb-3">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete photo</button>
-
-                    </form>
-                @endif
-                <div class="ml-1">
-                    @if ($user->user_type == 'A')
-                        <a href="{{ route('dashboard.admins') }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
-                    @elseif($user->user_type == 'E')
-                        <a href="{{ route('dashboard.employees') }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
-                    @endif
-                </div>
-
             </div>
 
         </div>
