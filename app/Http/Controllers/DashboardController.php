@@ -234,7 +234,6 @@ class DashboardController extends Controller
         } else {
             $admin->delete();
 
-
         }
         return redirect()->back()
             ->with('alert-msg', "Admin no. $admin->id deleted successfully.")
@@ -345,7 +344,6 @@ class DashboardController extends Controller
     public function deleteColor(string $code)
     {
         $color = Color::find($code);
-        // dd($color);
         if ($color) {
             $color->delete();
 
@@ -397,12 +395,10 @@ class DashboardController extends Controller
 
     public function deleteCategory(Category $category)
     {
-        $date = Carbon::now();
-        $name = $category->name;
-        $category = DB::table('categories')->where('id', $category->id)->update(['deleted_at' => $date]);
+        $category->delete();
 
         return redirect()->back()
-            ->with('alert-msg', "Category $name deleted successfully.")
+            ->with('alert-msg', "Category $category->name deleted successfully.")
             ->with('alert-type', 'success');
     }
 
