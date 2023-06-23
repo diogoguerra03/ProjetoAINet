@@ -97,6 +97,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/dashboard/colors/update', [DashboardController::class, 'addColors'])->name('dashboard.addColors');
         Route::delete('/dashboard/colors/delete/{color}', [DashboardController::class, 'deleteColor'])->name('dashboard.deleteColor');
         Route::get('/dashboard/colors/edit/{color}', [DashboardController::class, 'editColor'])->name('dashboard.editColor');
+        Route::put('/dashboard/colors/update/{color}', [DashboardController::class, 'updateColor'])->name('dashboard.updateColor');
 
 
         //change categories

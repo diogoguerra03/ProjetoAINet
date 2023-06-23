@@ -308,6 +308,17 @@ class DashboardController extends Controller
         return view('dashboard.editColor', compact('color'));
     }
 
+    public function updateColor(Request $request, Color $color)
+    {
+        $color->name = $request->input('name');
+        $color->code = $request->input('code');
+        $color->save();
+
+        return redirect()->back()
+            ->with('alert-msg', "Color updated successfully.")
+            ->with('alert-type', 'success');
+    }
+
     //categories
     public function showCategories()
     {
