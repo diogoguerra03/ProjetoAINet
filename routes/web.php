@@ -6,11 +6,11 @@ use App\Mail\LaravelSMTPConfiguration;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TshirtImageController;
 use App\Http\Controllers\Auth\ChangePasswordController;
-use App\Http\Controllers\WelcomeController;
-use App\Http\Controllers\DashboardController;
 
 
 /*

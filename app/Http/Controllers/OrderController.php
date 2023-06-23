@@ -89,7 +89,7 @@ class OrderController extends Controller
     public function showOrderHistory()
     {
         try{
-            $user = auth()->user(); // Assuming you're using Laravel's authentication
+            $user = auth()->user(); 
             $orders = Order::where('customer_id', $user->id)
                 ->orderBy('created_at', 'desc')
                 ->get();
