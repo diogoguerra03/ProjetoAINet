@@ -98,11 +98,13 @@ Route::middleware('auth')->group(function () {
         Route::delete('/dashboard/colors/delete/{color}', [DashboardController::class, 'deleteColor'])->name('dashboard.deleteColor');
         Route::get('/dashboard/colors/edit/{color}', [DashboardController::class, 'editColor'])->name('dashboard.editColor');
 
+
         //change categories
         Route::get('/dashboard/categories', [DashboardController::class, 'showCategories'])->name('dashboard.showCategories');
         Route::post('/dashboard/categories/update', [DashboardController::class, 'addCategories'])->name('dashboard.addCategories');
         Route::delete('/dashboard/categories/delete/{category}', [DashboardController::class, 'deleteCategory'])->name('dashboard.deleteCategory');
         Route::get('/dashboard/categories/edit/{category}', [DashboardController::class, 'editCategory'])->name('dashboard.editCategory');
+        Route::put('/dashboard/categories/update/{category}', [DashboardController::class, 'updateCategory'])->name('dashboard.updateCategory');
 
         // catalog
         Route::get('catalog/{slug}/edit', [TshirtImageController::class, 'edit'])->name('catalog.edit');

@@ -342,5 +342,15 @@ class DashboardController extends Controller
         return view('dashboard.editCategory', compact('category'));
     }
 
+    public function updateCategory(Request $request, Category $category)
+    {
+        $category->name = $request->input('name');
+        $category = DB::table('categories')->where('id', $category->id)->update(['name' => $category->name]);
+
+        return redirect()->route('dashboard.showCategories', $category)
+            ->with('alert-msg', "Category successfully.")
+            ->with('alert-type', 'success');
+    }
+
 }
 
