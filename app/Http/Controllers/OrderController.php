@@ -88,31 +88,39 @@ class OrderController extends Controller
 
     public function showOrderHistory()
     {
-        $user = auth()->user(); // Assuming you're using Laravel's authentication
-        $orders = Order::where('customer_id', $user->id)
-            ->orderBy('created_at', 'desc')
-            ->get();
+        try{
+            $user = auth()->user(); // Assuming you're using Laravel's authentication
+            $orders = Order::where('customer_id', $user->id)
+                ->orderBy('created_at', 'desc')
+                ->get();
 
-        $orderItems = [];
+            $orderItems = [];
 
-        foreach ($orders as $order) {
-            $order_id = $order->id;
-            $orderItems[$order_id] = OrderItem::where('order_id', $order_id)->get();
+            foreach ($orders as $order) {
+                $order_id = $order->id;
+                $orderItems[$order_id] = OrderItem::where('order_id', $order_id)->get();
 
 
-            foreach ($orderItems[$order_id] as $orderItem) {
-                $tshirt = TshirtImage::find($orderItem->tshirt_image_id);
-                $tshirts[$orderItem->id] = [
-                    'name'      => $tshirt ? $tshirt->name : '',
-                    'image_url' => $tshirt ? $tshirt->image_url : '',
-                ];
+                foreach ($orderItems[$order_id] as $orderItem) {
+                    $tshirt = TshirtImage::find($orderItem->tshirt_image_id);
+                    $tshirts[$orderItem->id] = [
+                        'name'      => $tshirt ? $tshirt->name : '',
+                        'image_url' => $tshirt ? $tshirt->image_url : '',
+                    ];
 
-                $color = Color::where('code', $orderItem->color_code)->pluck('name')->first();
-                $colors[$orderItem->id] = $color ? $color : '';
+                    $color = Color::where('code', $orderItem->color_code)->pluck('name')->first();
+                    $colors[$orderItem->id] = $color ? $color : '';
+                }
             }
+
+            return view('history.order', compact('orders', 'orderItems', 'tshirts', 'colors'));
+        }
+        catch (\Exception $e) {
+            return redirect()->back()
+                ->with('alert-msg', "You don't have any orders yet.")
+                ->with('alert-type', 'danger');
         }
 
-        return view('history.order', compact('orders', 'orderItems', 'tshirts', 'colors'));
     }
 
     public function viewReceipt(int $orderId)
