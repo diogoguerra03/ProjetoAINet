@@ -49,7 +49,8 @@
                                     <i class="bi bi-pencil"></i>
                                 </a>
                             </button>
-                            <form action="{{ route('dashboard.employees.delete', $user->id) }}" method="POST">
+                            <form action="{{ route('dashboard.employees.delete', $user->id) }}" method="POST"
+                                id="deleteForm_{{ $user->id }}">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger mb-2">

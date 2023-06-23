@@ -101,7 +101,7 @@ class DashboardController extends Controller
         foreach ($orderItems as $orderItem) {
             $tshirt = TshirtImage::find($orderItem->tshirt_image_id);
             $tshirts[$orderItem->id] = [
-                'name'      => $tshirt ? $tshirt->name : '',
+                'name' => $tshirt ? $tshirt->name : '',
                 'image_url' => $tshirt ? $tshirt->image_url : '',
             ];
 
@@ -235,11 +235,6 @@ class DashboardController extends Controller
     }
 
 
-
-
-
-
-
     //Prices
     public function showPrices()
     {
@@ -292,15 +287,21 @@ class DashboardController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function deleteColor(Color $color)
+    public function deleteColor(string $code)
     {
-        $date = Carbon::now();
-        $name = $color->name;
-        $color = DB::select( DB::raw("select * from `colors` where `code` = $color->code set 'deleted_at' = $date") );
+        $color = Color::find($code);
+        // dd($color);
+        if ($color) {
+            $color->delete();
 
-        return redirect()->back()
-            ->with('alert-msg', "Color $name deleted successfully.")
-            ->with('alert-type', 'success');
+            return redirect()->back()
+                ->with('alert-msg', "Color deleted successfully.")
+                ->with('alert-type', 'success');
+        } else {
+            return redirect()->back()
+                ->with('alert-msg', "Color not found.")
+                ->with('alert-type', 'error');
+        }
     }
 
     public function editColor(Color $color)
@@ -366,4 +367,3 @@ class DashboardController extends Controller
     }
 
 }
-

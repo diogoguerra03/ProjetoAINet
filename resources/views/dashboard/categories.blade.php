@@ -19,35 +19,37 @@
     </button>
     <table class="table table-striped">
         <thead class="thead-dark">
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col"></th>
-        </tr>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col"></th>
+            </tr>
         </thead>
         <tbody>
-        @foreach ($categories as $category)
-            <tr>
-                <th scope="row">{{ $category->id }}</th>
-                <td>{{ $category->name }}</td>
-                <td>
-                    <div class="d-inline-flex align-content-center">
-                        <button type="submit" class="btn btn-warning mb-2 ml-4 mr-3">
-                            <a href="{{ route('dashboard.editCategory', $category) }}" class="text-decoration-none text-white">
-                                <i class="bi bi-pencil"></i>
-                            </a>
-                        </button>
-                        <form action="{{ route('dashboard.deleteCategory', $category->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger mb-2">
-                                <i class="bi bi-trash "></i>
+            @foreach ($categories as $category)
+                <tr>
+                    <th scope="row">{{ $category->id }}</th>
+                    <td>{{ $category->name }}</td>
+                    <td>
+                        <div class="d-inline-flex align-content-center">
+                            <button type="submit" class="btn btn-warning mb-2 ml-4 mr-3">
+                                <a href="{{ route('dashboard.editCategory', $category) }}"
+                                    class="text-decoration-none text-white">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
                             </button>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-        @endforeach
+                            <form action="{{ route('dashboard.deleteCategory', $category->id) }}" method="POST"
+                                id="deleteForm_{{ $category->id }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger mb-2">
+                                    <i class="bi bi-trash "></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 @endsection
