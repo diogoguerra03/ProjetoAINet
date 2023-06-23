@@ -226,7 +226,30 @@ class DashboardController extends Controller
 
 
         return redirect()->back()
-            ->with('alert-msg', "Employee no. $employee->id added successfully.")
+            ->with('alert-msg', "Employee added successfully.")
+            ->with('alert-type', 'success');
+    }
+
+    public function addAdmin(): View
+    {
+        return view('dashboard.addAdmin');
+    }
+
+    public function storeAdmin(AddAdminEmployee $request): RedirectResponse
+    {
+        $data = $request->validated();
+        $admin = DB::transaction(function () use ($data, $request) {
+            $admin = new User();
+            $admin->name = $data['name'];
+            $admin->email = $data['email'];
+            $admin->password = Hash::make($data['password']);
+            $admin->user_type = 'A';
+            $admin->save();
+        });
+
+
+        return redirect()->back()
+            ->with('alert-msg', "Admin added successfully.")
             ->with('alert-type', 'success');
     }
 

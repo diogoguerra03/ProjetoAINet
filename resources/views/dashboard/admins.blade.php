@@ -11,7 +11,7 @@
         </div>
     @endif
     <h1 class="text-center mb-3 mt-0">Administrators</h1>
-    <a href="{{ route('dashboard.add', $user) }}" class="text-decoration-none">
+    <a href="{{ route('dashboard.addAdmin') }}" class="text-decoration-none">
     <button type="button" class="btn btn-outline-dark mb-2">
         <div class="d-inline-flex align-items-center">
             <i class="bi bi-plus-circle mr-2 d-inline-flex align-items-center"></i>

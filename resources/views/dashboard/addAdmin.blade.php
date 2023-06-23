@@ -12,16 +12,16 @@
     @endif
     <div class="container">
         <div class="row">
-            <h1 class="text-center mb-3 mt-0">Add Employee</h1>
+            <h1 class="text-center mb-3 mt-0">Add Admin</h1>
             <div class="col-md-12 mt-5">
-                <form method="POST" action="{{ route('dashboard.storeEmployee') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('dashboard.storeAdmin') }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     @include('dashboard.shared.fields')
                     <div class="d-flex justify-content-end">
                         <div class="mr-1">
                             <button type="submit" class="btn btn-primary" name="save">Save</button>
-                                <a href="{{ route('dashboard.employees') }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
+                            <a href="{{ route('dashboard.admins') }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
                         </div>
                     </div>
                 </form>

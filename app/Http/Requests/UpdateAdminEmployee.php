@@ -27,7 +27,6 @@ class UpdateAdminEmployee extends FormRequest
                 'string',
                 'max:255',
                 'min:3',
-                //Rule::unique('users', 'name')->ignore($user->id),
             ],
             'email' => [
                 'required',

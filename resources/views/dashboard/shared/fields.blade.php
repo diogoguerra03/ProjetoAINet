@@ -9,7 +9,7 @@
                     </div>
                     <div class="col-sm-9">
                         <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                               id="inputNome" value="">
+                               id="inputNome">
                         @error('name')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -23,8 +23,7 @@
                         <p class="mb-0">Email</p>
                     </div>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control @error('email') is-invalid @enderror" name="email"
-                               id="inputName" value="">
+                        <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" id="inputEmail">
                         @error('email')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -38,8 +37,7 @@
                         <p class="mb-0">Password</p>
                     </div>
                     <div class="col-sm-9">
-                        <input type="password" class="form-control @error('email') is-invalid @enderror" name="email"
-                               id="inputName" value="">
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="inputName">
                         @error('password')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -49,6 +47,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
