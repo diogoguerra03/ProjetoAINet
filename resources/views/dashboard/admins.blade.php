@@ -29,6 +29,9 @@
         </thead>
         <tbody>
             @foreach ($admins as $user)
+                @if ($user->id == Auth::user()->id)
+                    @continue
+                @endif
                 <tr>
                     <th scope="row">{{ $user->id }}</th>
                     <td>{{ $user->name }}</td>
