@@ -12,10 +12,12 @@
     @endif
     <h1 class="text-center mb-3 mt-0">Administrators</h1>
     <button type="button" class="btn btn-outline-dark mb-2">
+        <a href="{{ route('dashboard.add', $user) }}" class="text-decoration-none">
         <div class="d-inline-flex align-items-center">
             <i class="bi bi-plus-circle mr-2 d-inline-flex align-items-center"></i>
             Add Administrator
         </div>
+        </a>
     </button>
     <table class="table table-striped">
         <thead class="thead-dark">

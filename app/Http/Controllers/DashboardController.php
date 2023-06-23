@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddEmployee;
 use App\Http\Requests\ColorRequest;
 use App\Http\Requests\UpdateAdminEmployee;
 use App\Models\Order;
@@ -209,6 +210,45 @@ class DashboardController extends Controller
         return view('dashboard.addEmployee');
     }
 
+    public function updateEmployee(AddEmployee $request): RedirectResponse
+    {
+        $employee = new User();
+        $employee->name = $request->name;
+        $employee->email = $request->email;
+        $employee->user_type = 'E';
+        $employee->password = Hash::make($request->password);
+        $employee->save();
+
+        return redirect()->back()
+            ->with('alert-msg', "Employee no. $employee->id added successfully.")
+            ->with('alert-type', 'success');
+    }
+
+    public function deleteAdmin(User $admin): RedirectResponse
+    {
+        if ($admin->user_type != 'A') {
+            return redirect()->back()
+                ->with('alert-msg', "User no. $admin->id is not an admin.")
+                ->with('alert-type', 'danger');
+        } else {
+            $admin->delete();
+
+        }
+        return redirect()->back()
+            ->with('alert-msg', "Admin no. $admin->id deleted successfully.")
+            ->with('alert-type', 'success');
+    }
+
+    public function adminUpdate(Request $request, User $admin): RedirectResponse
+    {
+        $admin->blocked = $request->blocked ? 1 : 0;
+        $admin->save();
+
+        return redirect()->back()
+            ->with('alert-msg', "Admin no. $admin->id updated successfully.")
+            ->with('alert-type', 'success');
+    }
+
     public function edit(User $user): View
     {
         return view('dashboard.edit', compact('user'));
@@ -248,4 +288,81 @@ class DashboardController extends Controller
             ->with('alert-type', 'success');
     }
 
+
+    //Prices
+    public function showPrices(): View
+    {
+        $price = Price::all()->first();
+        return view('dashboard.prices', compact('price'));
+    }
+
+    public function updatePrices(Request $request): RedirectResponse
+    {
+        try {
+            DB::transaction(function () use ($request) {
+                $price = Price::first();
+                $price->unit_price_catalog = $request->input('unit_price_catalog');
+                $price->unit_price_catalog_discount = $request->input('unit_price_catalog_discount');
+                $price->unit_price_own = $request->input('unit_price_own');
+                $price->unit_price_own_discount = $request->input('unit_price_own_discount');
+                $price->qty_discount = $request->input('qty_discount');
+
+                $price->save();
+            });
+
+            return redirect()->back()
+                ->with('alert-msg', "Price updated successfully.")
+                ->with('alert-type', 'success');
+        } catch (QueryException $e) {
+            // Handle the exception and return an error message
+            return redirect()->back()
+                ->with('alert-msg', "Failed to update price. Error: " . $e->getMessage())
+                ->with('alert-type', 'error');
+        }
+    }
+
+
+    //categories
+    public function showCategories(): View
+    {
+        $categories = Category::all();
+        return view('dashboard.categories', compact('categories'));
+    }
+
+    public function addCategory(Request $request): RedirectResponse
+    {
+        $category = new Category();
+        $category->name = $request->input('name');
+        $category->save();
+
+        return redirect()->back()
+            ->with('alert-msg', "Category added successfully.")
+            ->with('alert-type', 'success');
+    }
+
+    public function deleteCategory(Category $category): RedirectResponse
+    {
+        $category->delete();
+
+        return redirect()->back()
+            ->with('alert-msg', "Category $category->name deleted successfully.")
+            ->with('alert-type', 'success');
+    }
+
+    public function editCategory(Category $category): View
+    {
+        return view('dashboard.editCategory', compact('category'));
+    }
+
+    public function updateCategory(Request $request, Category $category): RedirectResponse
+    {
+        $category->name = $request->input('name');
+        $category = DB::table('categories')->where('id', $category->id)->update(['name' => $category->name]);
+
+        return redirect()->route('dashboard.showCategories', $category)
+            ->with('alert-msg', "Category successfully.")
+            ->with('alert-type', 'success');
+    }
+
 }
+
