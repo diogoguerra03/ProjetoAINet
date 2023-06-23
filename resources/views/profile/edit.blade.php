@@ -17,7 +17,7 @@
                         </div>
                 </form>
                 @if ($user->photo_url)
-                    <form id="deleteUserForm_{{ $user->id }}" method="POST"
+                    <form id="deleteForm_{{ $user->id }}" method="POST"
                         action="{{ route('profile.deletephoto', ['user' => $user]) }}" class="mb-3">
                         @csrf
                         @method('DELETE')

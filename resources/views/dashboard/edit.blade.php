@@ -8,7 +8,8 @@
         <div class="row">
             <h1>Edit User</h1>
             <div class="col-md-12 mt-5">
-                <form method="POST" action="{{ route('dashboard.updateData', ['user' => $user]) }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('dashboard.updateData', ['user' => $user]) }}"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     @include('dashboard.shared.fields')
@@ -19,12 +20,12 @@
                     </div>
                 </form>
                 @if ($user->photo_url)
-                    <form id="deleteUserForm_{{ $user->id }}" method="POST"
-                          action="{{ route('dashboard.deletephoto', ['user' => $user]) }}" class="mb-3">
+                    <form id="deleteForm_{{ $user->id }}" method="POST"
+                        action="{{ route('dashboard.deletephoto', ['user' => $user]) }}" class="mb-3">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete photo</button>
-                        @if($user->user_type == 'A')
+                        @if ($user->user_type == 'A')
                             <a href="{{ route('dashboard.admins') }}" class="btn btn-secondary">Cancel</a>
                         @elseif($user->user_type == 'E')
                             <a href="{{ route('dashboard.employees') }}" class="btn btn-secondary">Cancel</a>

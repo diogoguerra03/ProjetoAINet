@@ -68,33 +68,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-// -----------------Delete profilePhoto-----------------
-
-document.addEventListener("DOMContentLoaded", function () {
-    const deleteUserForm = document.querySelectorAll("[id^='deleteUserForm_']");
-    if (deleteUserForm) {
-        deleteUserForm.forEach(function (deleteForm) {
-            deleteForm.addEventListener("submit", function (event) {
-                event.preventDefault();
-
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to revert this!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Yes, delete it!",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        event.target.submit();
-                    }
-                });
-            });
-        });
-    }
-});
-
 // -----------------Delete Tshirt from cart-----------------
 
 document.addEventListener("DOMContentLoaded", function () {
