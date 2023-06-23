@@ -15,13 +15,15 @@
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-            const orderButton = document.querySelector('button[data-bs-target="#myModal"]');
+            const orderButtons = document.querySelectorAll('button[data-bs-target="#myModal"]');
             const popupTitle = document.getElementById('popupTitle');
 
-            orderButton.addEventListener('click', function() {
-                const orderID = this.dataset.orderId;
-                popupTitle.innerText = 'Order ID: ' + orderID;
-                document.getElementById('statusInput').value = orderID;
+            orderButtons.forEach(function(orderButton) {
+                orderButton.addEventListener('click', function() {
+                    const orderID = this.dataset.orderId;
+                    popupTitle.innerText = 'Order ID: ' + orderID;
+                    document.getElementById('statusInput').value = orderID;
+                });
             });
         });
     </script>
@@ -242,12 +244,12 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="popupTitle"> </h5>
+                                                        <h5 class="modal-title" id="popupTitle"></h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <p>Edit order status to: </p>
+                                                        <p>Edit order status to:</p>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <form action="{{ route('dashboard.orders.update', $order) }}"
@@ -259,21 +261,13 @@
                                                             <input type="hidden" name="status" id="statusInput"
                                                                 value="">
                                                             <button type="submit" class="btn btn-primary mb-2"
-                                                                data-status="pending">
-                                                                Pending
-                                                            </button>
+                                                                data-status="pending">Pending</button>
                                                             <button type="submit" class="btn btn-success mb-2"
-                                                                data-status="paid">
-                                                                Paid
-                                                            </button>
+                                                                data-status="paid">Paid</button>
                                                             <button type="submit" class="btn btn-warning mb-2"
-                                                                data-status="closed">
-                                                                Closed
-                                                            </button>
+                                                                data-status="closed">Closed</button>
                                                             <button type="submit" class="btn btn-danger mb-2"
-                                                                data-status="canceled">
-                                                                Canceled
-                                                            </button>
+                                                                data-status="canceled">Canceled</button>
                                                         </form>
                                                     </div>
                                                 </div>

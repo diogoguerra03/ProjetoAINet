@@ -26,6 +26,12 @@ use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(User::class, 'user');
+
+    }
+
     public function index(): View
     {
         $totalProducts = TshirtImage::count();
@@ -295,13 +301,13 @@ class DashboardController extends Controller
 
 
     //Prices
-    public function showPrices()
+    public function showPrices(): View
     {
         $price = Price::all()->first();
         return view('dashboard.prices', compact('price'));
     }
 
-    public function updatePrices(Request $request)
+    public function updatePrices(Request $request): RedirectResponse
     {
         try {
             DB::transaction(function () use ($request) {
@@ -327,74 +333,14 @@ class DashboardController extends Controller
     }
 
 
-    //Colors
-    public function showColors()
-    {
-        $colors = Color::all('code', 'name');
-        return view('dashboard.colors', compact('colors'));
-    }
-
-    public function addColor(ColorRequest $request)
-    {
-        $color = new Color();
-        $color->name = $request->input('name');
-        $color->code = $request->input('code');
-        $color->save();
-
-        return redirect()->back()
-            ->with('alert-msg', "Color added successfully.")
-            ->with('alert-type', 'success');
-    }
-
-    public function deleteColor(string $code)
-    {
-        $color = Color::find($code);
-        if ($color) {
-            $color->delete();
-
-            return redirect()->back()
-                ->with('alert-msg', "Color deleted successfully.")
-                ->with('alert-type', 'success');
-        } else {
-            return redirect()->back()
-                ->with('alert-msg', "Color not found.")
-                ->with('alert-type', 'error');
-        }
-    }
-
-    public function editColor(Color $color): View
-    {
-        return view('dashboard.editColor', compact('color'));
-    }
-
-    public function updateColor(ColorRequest $request, Color $color): RedirectResponse
-    {
-        $formData = $request->validated();
-
-        $color = DB::transaction(function () use ($formData, $color) {
-            $color->name = $formData['name'];
-            $color->code = $formData['code'];
-
-            $color->save();
-
-            return $color;
-        });
-
-        $htmlMessage = "Color $color->name was successfully updated!";
-
-        return redirect()->route('dashboard.showColors')
-            ->with('alert-msg', $htmlMessage)
-            ->with('alert-type', 'success');
-    }
-
     //categories
-    public function showCategories()
+    public function showCategories(): View
     {
         $categories = Category::all();
         return view('dashboard.categories', compact('categories'));
     }
 
-    public function addCategory(Request $request)
+    public function addCategory(Request $request): RedirectResponse
     {
         $category = new Category();
         $category->name = $request->input('name');
@@ -405,7 +351,7 @@ class DashboardController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function deleteCategory(Category $category)
+    public function deleteCategory(Category $category): RedirectResponse
     {
         $category->delete();
 
@@ -414,12 +360,12 @@ class DashboardController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function editCategory(Category $category)
+    public function editCategory(Category $category): View
     {
         return view('dashboard.editCategory', compact('category'));
     }
 
-    public function updateCategory(Request $request, Category $category)
+    public function updateCategory(Request $request, Category $category): RedirectResponse
     {
         $category->name = $request->input('name');
         $category = DB::table('categories')->where('id', $category->id)->update(['name' => $category->name]);

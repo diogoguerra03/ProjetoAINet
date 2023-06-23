@@ -17,6 +17,13 @@ use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Order::class, 'order');
+
+    }
+
     public function checkout(Request $request)
     {
 
@@ -88,8 +95,8 @@ class OrderController extends Controller
 
     public function showOrderHistory()
     {
-        try{
-            $user = auth()->user(); 
+        try {
+            $user = auth()->user();
             $orders = Order::where('customer_id', $user->id)
                 ->orderBy('created_at', 'desc')
                 ->get();
@@ -104,7 +111,7 @@ class OrderController extends Controller
                 foreach ($orderItems[$order_id] as $orderItem) {
                     $tshirt = TshirtImage::find($orderItem->tshirt_image_id);
                     $tshirts[$orderItem->id] = [
-                        'name'      => $tshirt ? $tshirt->name : '',
+                        'name' => $tshirt ? $tshirt->name : '',
                         'image_url' => $tshirt ? $tshirt->image_url : '',
                     ];
 
@@ -114,8 +121,7 @@ class OrderController extends Controller
             }
 
             return view('history.order', compact('orders', 'orderItems', 'tshirts', 'colors'));
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return redirect()->back()
                 ->with('alert-msg', "You don't have any orders yet.")
                 ->with('alert-type', 'danger');
@@ -138,7 +144,7 @@ class OrderController extends Controller
         foreach ($orderItems as $orderItem) {
             $tshirt = TshirtImage::find($orderItem->tshirt_image_id);
             $tshirts[$orderItem->id] = [
-                'name'      => $tshirt ? $tshirt->name : '',
+                'name' => $tshirt ? $tshirt->name : '',
                 'image_url' => $tshirt ? $tshirt->image_url : '',
             ];
 
@@ -163,7 +169,7 @@ class OrderController extends Controller
         foreach ($orderItems as $orderItem) {
             $tshirt = TshirtImage::find($orderItem->tshirt_image_id);
             $tshirts[$orderItem->id] = [
-                'name'      => $tshirt ? $tshirt->name : '',
+                'name' => $tshirt ? $tshirt->name : '',
                 'image_url' => $tshirt ? $tshirt->image_url : '',
             ];
 
@@ -172,17 +178,16 @@ class OrderController extends Controller
         }
 
         $data = [
-            'order'      => $order,
+            'order' => $order,
             'orderItems' => $orderItems,
-            'tshirts'    => $tshirts,
-            'colors'     => $colors,
-            'customer'   => $customer,
-            'showImage'  => $showImage,
-            'user'       => $user,
+            'tshirts' => $tshirts,
+            'colors' => $colors,
+            'customer' => $customer,
+            'showImage' => $showImage,
+            'user' => $user,
         ];
 
         $pdf = Pdf::loadView('receipt.pdf', $data);
         return $pdf->download('ImagineShirt-Receipt' . $order->id . '.pdf');
     }
 }
-

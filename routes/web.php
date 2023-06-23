@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ColorController;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Mail\LaravelSMTPConfiguration;
@@ -95,11 +96,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/dashboard/prices/update', [DashboardController::class, 'updatePrices'])->name('dashboard.updatePrices');
 
         //change color
-        Route::get('/dashboard/colors', [DashboardController::class, 'showColors'])->name('dashboard.showColors');
-        Route::post('/dashboard/colors/update', [DashboardController::class, 'addColors'])->name('dashboard.addColors');
-        Route::delete('/dashboard/colors/delete/{color}', [DashboardController::class, 'deleteColor'])->name('dashboard.deleteColor');
-        Route::get('/dashboard/colors/edit/{color}', [DashboardController::class, 'editColor'])->name('dashboard.editColor');
-        Route::put('/dashboard/colors/update/{color}', [DashboardController::class, 'updateColor'])->name('dashboard.updateColor');
+        Route::get('/dashboard/colors', [ColorController::class, 'showColors'])->name('dashboard.showColors');
+        Route::post('/dashboard/colors/update', [ColorController::class, 'addColors'])->name('dashboard.addColors');
+        Route::delete('/dashboard/colors/delete/{color}', [ColorController::class, 'deleteColor'])->name('dashboard.deleteColor');
+        Route::get('/dashboard/colors/edit/{color}', [ColorController::class, 'editColor'])->name('dashboard.editColor');
+        Route::put('/dashboard/colors/update/{color}', [ColorController::class, 'updateColor'])->name('dashboard.updateColor');
 
 
         //change categories
