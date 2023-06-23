@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ColorRequest;
+use App\Http\Requests\UpdateAdminEmployee;
 use App\Models\Order;
 use App\Models\TshirtImage;
 use App\Models\User;
@@ -269,7 +270,7 @@ class DashboardController extends Controller
         return view('dashboard.edit', compact('user'));
     }
 
-    public function updateData(UpdateUserRequest $request, User $user): RedirectResponse
+    public function updateData(UpdateAdminEmployee $request, User $user): RedirectResponse
     {
         $data = $request->validated();
         if ($request->hasFile('image')) {
