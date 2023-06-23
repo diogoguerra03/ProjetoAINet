@@ -178,86 +178,35 @@ class DashboardController extends Controller
         return view('dashboard.orderDetails', compact('order', 'user', 'tshirts', 'colors', 'orderItems'));
     }
 
-    public function deleteCustomer(User $customer): RedirectResponse
+    public function deleteUser(User $user): RedirectResponse
     {
-        if ($customer->user_type != 'C') {
+        // user auth() is not A (admin)
+        if (auth()->user()->user_type !== 'A') {
             return redirect()->back()
-                ->with('alert-msg', "User no. $customer->id is not a customer.")
+                ->with('alert-msg', 'You are not authorized to delete users.')
                 ->with('alert-type', 'danger');
-        } else {
-            $customer->delete();
         }
 
+        $user->delete();
 
         return redirect()->back()
-            ->with('alert-msg', "Customer no. $customer->id deleted successfully.")
+            ->with('alert-msg', "User no. $user->id deleted successfully.")
             ->with('alert-type', 'success');
     }
 
-    public function customerUpdate(Request $request, User $customer): RedirectResponse
+    public function changeUserStatus(Request $request, User $user): RedirectResponse
     {
-        $customer->blocked = $request->blocked ? 1 : 0;
-        $customer->save();
+        $user->blocked = $request->blocked ? 1 : 0;
+        $user->save();
 
         return redirect()->back()
-            ->with('alert-msg', "Customer no. $customer->id updated successfully.")
-            ->with('alert-type', 'success');
-    }
-
-    public function deleteEmployee(User $employee): RedirectResponse
-    {
-        if ($employee->user_type != 'E') {
-            return redirect()->back()
-                ->with('alert-msg', "User no. $employee->id is not an employee.")
-                ->with('alert-type', 'danger');
-        } else {
-            $employee->delete();
-
-
-            return redirect()->back()
-                ->with('alert-msg', "Employee no. $employee->id deleted successfully.")
-                ->with('alert-type', 'success');
-        }
-    }
-
-    public function employeeUpdate(Request $request, User $employee): RedirectResponse
-    {
-        $employee->blocked = $request->blocked ? 1 : 0;
-        $employee->save();
-
-        return redirect()->back()
-            ->with('alert-msg', "Employee no. $employee->id updated successfully.")
+            ->with('alert-msg', "User no. $user->id block status update successfully.")
             ->with('alert-type', 'success');
     }
 
     public function addEmployee(): View
     {
         return view('dashboard.addEmployee');
-    }
-
-    public function deleteAdmin(User $admin): RedirectResponse
-    {
-        if ($admin->user_type != 'A') {
-            return redirect()->back()
-                ->with('alert-msg', "User no. $admin->id is not an admin.")
-                ->with('alert-type', 'danger');
-        } else {
-            $admin->delete();
-
-        }
-        return redirect()->back()
-            ->with('alert-msg', "Admin no. $admin->id deleted successfully.")
-            ->with('alert-type', 'success');
-    }
-
-    public function adminUpdate(Request $request, User $admin): RedirectResponse
-    {
-        $admin->blocked = $request->blocked ? 1 : 0;
-        $admin->save();
-
-        return redirect()->back()
-            ->with('alert-msg', "Admin no. $admin->id updated successfully.")
-            ->with('alert-type', 'success');
     }
 
     public function edit(User $user): View
@@ -296,82 +245,6 @@ class DashboardController extends Controller
 
         return redirect()->back()
             ->with('alert-msg', "User $user->name updated successfully.")
-            ->with('alert-type', 'success');
-    }
-
-
-    //Prices
-    public function showPrices(): View
-    {
-        $price = Price::all()->first();
-        return view('dashboard.prices', compact('price'));
-    }
-
-    public function updatePrices(Request $request): RedirectResponse
-    {
-        try {
-            DB::transaction(function () use ($request) {
-                $price = Price::first();
-                $price->unit_price_catalog = $request->input('unit_price_catalog');
-                $price->unit_price_catalog_discount = $request->input('unit_price_catalog_discount');
-                $price->unit_price_own = $request->input('unit_price_own');
-                $price->unit_price_own_discount = $request->input('unit_price_own_discount');
-                $price->qty_discount = $request->input('qty_discount');
-
-                $price->save();
-            });
-
-            return redirect()->back()
-                ->with('alert-msg', "Price updated successfully.")
-                ->with('alert-type', 'success');
-        } catch (QueryException $e) {
-            // Handle the exception and return an error message
-            return redirect()->back()
-                ->with('alert-msg', "Failed to update price. Error: " . $e->getMessage())
-                ->with('alert-type', 'error');
-        }
-    }
-
-
-    //categories
-    public function showCategories(): View
-    {
-        $categories = Category::all();
-        return view('dashboard.categories', compact('categories'));
-    }
-
-    public function addCategory(Request $request): RedirectResponse
-    {
-        $category = new Category();
-        $category->name = $request->input('name');
-        $category->save();
-
-        return redirect()->back()
-            ->with('alert-msg', "Category added successfully.")
-            ->with('alert-type', 'success');
-    }
-
-    public function deleteCategory(Category $category): RedirectResponse
-    {
-        $category->delete();
-
-        return redirect()->back()
-            ->with('alert-msg', "Category $category->name deleted successfully.")
-            ->with('alert-type', 'success');
-    }
-
-    public function editCategory(Category $category): View
-    {
-        return view('dashboard.editCategory', compact('category'));
-    }
-
-    public function updateCategory(Request $request, Category $category): RedirectResponse
-    {
-        $category->name = $request->input('name');
-        $category = DB::table('categories')->where('id', $category->id)->update(['name' => $category->name]);
-
-        return redirect()->route('dashboard.showCategories', $category)
-            ->with('alert-msg', "Category successfully.")
             ->with('alert-type', 'success');
     }
 

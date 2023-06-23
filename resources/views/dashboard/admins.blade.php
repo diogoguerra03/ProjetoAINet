@@ -37,7 +37,7 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <form action="{{ route('dashboard.admins.update', $user->id) }}" method="POST">
+                        <form action="{{ route('dashboard.user.block', $user->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <input type="hidden" name="blocked" value="{{ $user->blocked ? '0' : '1' }}">
@@ -48,11 +48,11 @@
                     <td>
                         <div class="d-inline-flex align-content-center">
                             <a href="{{ route('dashboard.edit', $user) }}" class="text-decoration-none">
-                            <button type="submit" class="btn btn-warning mb-2 ml-4 mr-3 text-white">
+                                <button type="submit" class="btn btn-warning mb-2 ml-4 mr-3 text-white">
                                     <i class="bi bi-pencil"></i>
-                            </button>
+                                </button>
                             </a>
-                            <form action="{{ route('dashboard.admins.delete', $user->id) }}" method="POST"
+                            <form action="{{ route('dashboard.user.delete', $user->id) }}" method="POST"
                                 id="deleteForm_{{ $user->id }}">
                                 @csrf
                                 @method('DELETE')

@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\PriceController;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Mail\LaravelSMTPConfiguration;
@@ -79,21 +81,18 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard/customers', [DashboardController::class, 'customers'])->name('dashboard.customers');
         Route::get('/dashboard/employees', [DashboardController::class, 'employees'])->name('dashboard.employees');
         Route::get('/dashboard/admins', [DashboardController::class, 'admins'])->name('dashboard.admins');
-        Route::delete('/dashboard/customer/delete/{customer}', [DashboardController::class, 'deleteCustomer'])->name('dashboard.customers.delete');
-        Route::put('/dashboard/customer/update/{customer}', [DashboardController::class, 'customerUpdate'])->name('dashboard.customers.update');
-        Route::delete('/dashboard/employee/delete/{employee}', [DashboardController::class, 'deleteEmployee'])->name('dashboard.employees.delete');
-        Route::put('/dashboard/employee/update/{employee}', [DashboardController::class, 'employeeUpdate'])->name('dashboard.employees.update');
-        Route::delete('/dashboard/admin/delete/{admin}', [DashboardController::class, 'deleteAdmin'])->name('dashboard.admins.delete');
-        Route::put('/dashboard/admin/update/{admin}', [DashboardController::class, 'adminUpdate'])->name('dashboard.admins.update');
         Route::get('/dashboard/{user}/edit', [DashboardController::class, 'edit'])->name('dashboard.edit');
         Route::delete('/dashboard/{user}/deletephoto', [DashboardController::class, 'deletePhoto'])->name('dashboard.deletephoto');
         Route::put('/dashboard/{user}/updateData', [DashboardController::class, 'updateData'])->name('dashboard.updateData');
         Route::get('/dashboard/chart-data', [DashboardController::class, 'chartData']);
         Route::get('/dashboard/pie-chart-data', [DashboardController::class, 'pieChartData']);
 
+        Route::delete('/dashboard/user/delete/{user}', [DashboardController::class, 'deleteUser'])->name('dashboard.user.delete');
+        Route::put('/dashboard/user/block/{user}', [DashboardController::class, 'changeUserStatus'])->name('dashboard.user.block');
+
         // change prices
-        Route::get('/dashboard/prices', [DashboardController::class, 'showPrices'])->name('dashboard.showPrices');
-        Route::post('/dashboard/prices/update', [DashboardController::class, 'updatePrices'])->name('dashboard.updatePrices');
+        Route::get('/dashboard/prices', [PriceController::class, 'showPrices'])->name('dashboard.showPrices');
+        Route::post('/dashboard/prices/update', [PriceController::class, 'updatePrices'])->name('dashboard.updatePrices');
 
         //change color
         Route::get('/dashboard/colors', [ColorController::class, 'showColors'])->name('dashboard.showColors');
@@ -104,11 +103,11 @@ Route::middleware('auth')->group(function () {
 
 
         //change categories
-        Route::get('/dashboard/categories', [DashboardController::class, 'showCategories'])->name('dashboard.showCategories');
-        Route::post('/dashboard/categories/update', [DashboardController::class, 'addCategories'])->name('dashboard.addCategories');
-        Route::delete('/dashboard/categories/delete/{category}', [DashboardController::class, 'deleteCategory'])->name('dashboard.deleteCategory');
-        Route::get('/dashboard/categories/edit/{category}', [DashboardController::class, 'editCategory'])->name('dashboard.editCategory');
-        Route::put('/dashboard/categories/update/{category}', [DashboardController::class, 'updateCategory'])->name('dashboard.updateCategory');
+        Route::get('/dashboard/categories', [CategoryController::class, 'showCategories'])->name('dashboard.showCategories');
+        Route::post('/dashboard/categories/update', [CategoryController::class, 'addCategories'])->name('dashboard.addCategories');
+        Route::delete('/dashboard/categories/delete/{category}', [CategoryController::class, 'deleteCategory'])->name('dashboard.deleteCategory');
+        Route::get('/dashboard/categories/edit/{category}', [CategoryController::class, 'editCategory'])->name('dashboard.editCategory');
+        Route::put('/dashboard/categories/update/{category}', [CategoryController::class, 'updateCategory'])->name('dashboard.updateCategory');
 
         // catalog
         Route::get('catalog/{slug}/edit', [TshirtImageController::class, 'edit'])->name('catalog.edit');

@@ -28,7 +28,7 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <form action="{{ route('dashboard.customers.update', $user->id) }}" method="POST">
+                        <form action="{{ route('dashboard.user.block', $user->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <input type="hidden" name="blocked" value="{{ $user->blocked ? '0' : '1' }}">
@@ -37,7 +37,7 @@
                         </form>
                     </td>
                     <td>
-                        <form action="{{ route('dashboard.customers.delete', $user->id) }}" method="POST"
+                        <form action="{{ route('dashboard.user.delete', $user->id) }}" method="POST"
                             id="deleteForm_{{ $user->id }}">
                             @csrf
                             @method('DELETE')
