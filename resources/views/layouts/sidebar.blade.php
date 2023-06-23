@@ -44,6 +44,11 @@
                                 <i class="fs-4 bi-briefcase"></i> <span
                                     class="ms-1 d-none d-sm-inline">Employees</span></a>
                         </li>
+                        <li>
+                            <a href="{{ route('dashboard.customers') }}" class="nav-link px-0 align-middle text-white">
+                                <i class="fs-4 bi-people"></i> <span
+                                    class="ms-1 d-none d-sm-inline">Customers</span></a>
+                        </li>
                     </ul>
                     <hr>
                 </div>

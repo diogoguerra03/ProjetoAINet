@@ -11,6 +11,7 @@ use App\Models\Price;
 use App\Models\Customer;
 use App\Models\OrderItem;
 use App\Models\TshirtImage;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -291,6 +292,22 @@ class DashboardController extends Controller
             ->with('alert-type', 'success');
     }
 
+    public function deleteColor(Color $color)
+    {
+        $date = Carbon::now();
+        $name = $color->name;
+        $color = DB::table('colors')->where('code', $color->code)->update(['deleted_at' => $date]);
+
+        return redirect()->back()
+            ->with('alert-msg', "Color $name deleted successfully.")
+            ->with('alert-type', 'success');
+    }
+
+    public function editColor(Color $color)
+    {
+        return view('dashboard.editColor', compact('color'));
+    }
+
     //categories
     public function showCategories()
     {
@@ -307,6 +324,22 @@ class DashboardController extends Controller
         return redirect()->back()
             ->with('alert-msg', "Category added successfully.")
             ->with('alert-type', 'success');
+    }
+
+    public function deleteCategory(Category $category)
+    {
+        $date = Carbon::now();
+        $name = $category->name;
+        $category = DB::table('categories')->where('id', $category->id)->update(['deleted_at' => $date]);
+
+        return redirect()->back()
+            ->with('alert-msg', "Category $name deleted successfully.")
+            ->with('alert-type', 'success');
+    }
+
+    public function editCategory(Category $category)
+    {
+        return view('dashboard.editCategory', compact('category'));
     }
 
 }
