@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddAdminEmployee;
+use App\Http\Requests\AddCategory;
 use App\Http\Requests\AddEmployee;
 use App\Http\Requests\ColorRequest;
 use App\Http\Requests\UpdateAdminEmployee;
@@ -250,6 +251,25 @@ class DashboardController extends Controller
 
         return redirect()->back()
             ->with('alert-msg', "Admin added successfully.")
+            ->with('alert-type', 'success');
+    }
+
+    public function addCategory(): View
+    {
+        return view('dashboard.addCategory');
+    }
+
+    public function storeCategory(AddCategory $request): RedirectResponse
+    {
+        $data = $request->validated();
+        $category = DB::transaction(function () use ($data, $request) {
+            $category = new Category();
+            $category->name = $data['name'];
+            $category->save();
+        });
+
+        return redirect()->back()
+            ->with('alert-msg', "Category added successfully.")
             ->with('alert-type', 'success');
     }
 
