@@ -112,7 +112,7 @@ class DashboardController extends Controller
         return view('dashboard.admins', compact('admins'));
     }
 
-    public function showOrders(Request $request)
+    public function showOrders(Request $request): View
     {
         $filterByOrderID = $request->order_id ?? '';
         $filterByCustID = $request->customer_id ?? '';
@@ -139,7 +139,7 @@ class DashboardController extends Controller
         return view('dashboard.orders', compact('orders', 'filterByStatus', 'filterByCustID', 'filterByOrderID'));
     }
 
-    public function updateOrder(Request $request, Order $order)
+    public function updateOrder(Request $request, Order $order): RedirectResponse
     {
         $order->status = $request->status;
         $order->save();
@@ -149,7 +149,7 @@ class DashboardController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function showDetails(Order $order)
+    public function showDetails(Order $order): View
     {
         $user = User::where('id', $order->customer_id)->first();
         $orderItems = OrderItem::where('order_id', $order->id)->get();
@@ -172,7 +172,7 @@ class DashboardController extends Controller
         return view('dashboard.orderDetails', compact('order', 'user', 'tshirts', 'colors', 'orderItems'));
     }
 
-    public function deleteCustomer(User $customer)
+    public function deleteCustomer(User $customer): RedirectResponse
     {
         if ($customer->user_type != 'C') {
             return redirect()->back()
@@ -188,7 +188,7 @@ class DashboardController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function customerUpdate(Request $request, User $customer)
+    public function customerUpdate(Request $request, User $customer): RedirectResponse
     {
         $customer->blocked = $request->blocked ? 1 : 0;
         $customer->save();
@@ -198,7 +198,7 @@ class DashboardController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function deleteEmployee(User $employee)
+    public function deleteEmployee(User $employee): RedirectResponse
     {
         if ($employee->user_type != 'E') {
             return redirect()->back()
@@ -214,7 +214,7 @@ class DashboardController extends Controller
         }
     }
 
-    public function employeeUpdate(Request $request, User $employee)
+    public function employeeUpdate(Request $request, User $employee): RedirectResponse
     {
         $employee->blocked = $request->blocked ? 1 : 0;
         $employee->save();
@@ -224,12 +224,12 @@ class DashboardController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function addEmployee()
+    public function addEmployee(): View
     {
         return view('dashboard.addEmployee');
     }
 
-    public function deleteAdmin(User $admin)
+    public function deleteAdmin(User $admin): RedirectResponse
     {
         if ($admin->user_type != 'A') {
             return redirect()->back()
@@ -244,7 +244,7 @@ class DashboardController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function adminUpdate(Request $request, User $admin)
+    public function adminUpdate(Request $request, User $admin): RedirectResponse
     {
         $admin->blocked = $request->blocked ? 1 : 0;
         $admin->save();
@@ -254,12 +254,12 @@ class DashboardController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function edit(User $user)
+    public function edit(User $user): View
     {
         return view('dashboard.edit', compact('user'));
     }
 
-    public function deletePhoto(User $user)
+    public function deletePhoto(User $user): RedirectResponse
     {
 
         if ($user->photo_url) {
@@ -268,7 +268,9 @@ class DashboardController extends Controller
             $user->save();
         }
 
-        return view('dashboard.edit', compact('user'));
+        return redirect()->back()
+            ->with('alert-msg', "Photo deleted successfully.")
+            ->with('alert-type', 'success');
     }
 
     public function updateData(UpdateAdminEmployee $request, User $user): RedirectResponse
@@ -286,9 +288,8 @@ class DashboardController extends Controller
 
         $user->update($data);
 
-        $htmlMessage = "$user->name was successfully updated!";
-        return redirect()->route('dashboard', $user)
-            ->with('alert-msg', $htmlMessage)
+        return redirect()->back()
+            ->with('alert-msg', "User $user->name updated successfully.")
             ->with('alert-type', 'success');
     }
 
