@@ -12,6 +12,7 @@ use App\Models\Color;
 use App\Models\Price;
 use App\Models\Customer;
 use App\Models\OrderItem;
+use Illuminate\View\View;
 
 use App\Http\Requests\UpdateUserRequest;
 use Carbon\Carbon;
@@ -22,9 +23,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
 
+
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $totalProducts = TshirtImage::count();
         $ordersPlaced = Order::count();
@@ -89,21 +91,21 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function customers()
+    public function customers(): View
     {
         $customers = User::where('user_type', 'C')->get();
 
         return view('dashboard.customers', compact('customers'));
     }
 
-    public function employees()
+    public function employees(): View
     {
         $employees = User::where('user_type', 'E')->get();
 
         return view('dashboard.employees', compact('employees'));
     }
 
-    public function admins()
+    public function admins(): View
     {
         $admins = User::where('user_type', 'A')->get();
 
@@ -169,7 +171,6 @@ class DashboardController extends Controller
 
         return view('dashboard.orderDetails', compact('order', 'user', 'tshirts', 'colors', 'orderItems'));
     }
-
 
     public function deleteCustomer(User $customer)
     {
@@ -360,21 +361,28 @@ class DashboardController extends Controller
         }
     }
 
-    public function editColor(Color $color)
+    public function editColor(Color $color): View
     {
-        $color = Color::where('code', $color->code)->firstOrFail();
         return view('dashboard.editColor', compact('color'));
     }
 
-    public function updateColor(ColorRequest $request, Color $color)
+    public function updateColor(ColorRequest $request, Color $color): RedirectResponse
     {
-        $color = Color::where('code', $color->code)->firstOrFail();
-        $color->name = $request->input('name');
-        $color->code = $request->input('code');
-        $color->save();
+        $formData = $request->validated();
 
-        return redirect()->back()
-            ->with('alert-msg', "Color updated successfully.")
+        $color = DB::transaction(function () use ($formData, $color) {
+            $color->name = $formData['name'];
+            $color->code = $formData['code'];
+
+            $color->save();
+
+            return $color;
+        });
+
+        $htmlMessage = "Color $color->name was successfully updated!";
+
+        return redirect()->route('dashboard.showColors')
+            ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
     }
 

@@ -12,34 +12,33 @@
                     enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <div class="col-lg-8">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Category Name</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control @error('code') is-invalid @enderror"
-                                    name="code" id="inputCode" value="{{ old('code', $color->code) }}">
-                                @error('code')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
 
-                                <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" id="inputNome" value="{{ old('nome', $color->name) }}">
-                                @error('name')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                    <div class="form-group w-25">
+                        <label for="code">{{ __('Code') }}</label>
+                        <input type="text" class="form-control @error('code') is-invalid @enderror" name="code"
+                            id="inputCode" value="{{ old('code', $color->code) }}">
+                        @error('code')
+                            <div class="invalid-feedback">
+                                {{ $message }}
                             </div>
-                        </div>
+                        @enderror
                     </div>
-                    <div class="d-flex justify-content-end">
-                        <div class="mr-1">
-                            <button type="submit" class="btn btn-primary" name="ok">Save</button>
-                        </div>
+
+                    <div class="form-group w-25">
+                        <label for="name">{{ __('Name') }}</label>
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+                            id="inputNome" value="{{ old('nome', $color->name) }}">
+                        @error('name')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
+
+                    <div class="form-group mb-0">
+                        <button type="submit" class="btn btn-primary" name="ok">{{ __('Update') }}</button>
+                        <a href="{{ route('dashboard.showColors') }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
                     </div>
                 </form>
             </div>
