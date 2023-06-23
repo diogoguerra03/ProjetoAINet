@@ -276,7 +276,7 @@ class DashboardController extends Controller
     //Colors
     public function showColors()
     {
-        $colors = Color::all();
+        $colors = Color::all('code', 'name');
         return view('dashboard.colors', compact('colors'));
     }
 
@@ -296,7 +296,7 @@ class DashboardController extends Controller
     {
         $date = Carbon::now();
         $name = $color->name;
-        $color = DB::table('colors')->where('code', $color->code)->update(['deleted_at' => $date]);
+        $color = DB::select( DB::raw("select * from `colors` where `code` = $color->code set 'deleted_at' = $date") );
 
         return redirect()->back()
             ->with('alert-msg', "Color $name deleted successfully.")
@@ -305,11 +305,13 @@ class DashboardController extends Controller
 
     public function editColor(Color $color)
     {
+        $color = Color::where('code', $color->code)->firstOrFail();
         return view('dashboard.editColor', compact('color'));
     }
 
     public function updateColor(Request $request, Color $color)
     {
+        $color = Color::where('code', $color->code)->firstOrFail();
         $color->name = $request->input('name');
         $color->code = $request->input('code');
         $color->save();
