@@ -87,6 +87,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard/{user}/edit', [DashboardController::class, 'edit'])->name('dashboard.edit');
         Route::delete('/dashboard/{user}/deletephoto', [DashboardController::class, 'deletePhoto'])->name('dashboard.deletephoto');
         Route::put('/dashboard/{user}/updateData', [DashboardController::class, 'updateData'])->name('dashboard.updateData');
+        Route::get('/dashboard/chart-data', [DashboardController::class, 'chartData']);
+        Route::get('/dashboard/pie-chart-data', [DashboardController::class, 'pieChartData']);
 
         // change prices
         Route::get('/dashboard/prices', [DashboardController::class, 'showPrices'])->name('dashboard.showPrices');

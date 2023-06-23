@@ -128,92 +128,91 @@ if (window.location.pathname === "/dashboard") {
     document.addEventListener("DOMContentLoaded", function () {
         // Bargraph
         var ctxB = document.getElementById("barChart").getContext("2d");
-        var myBarChart = new Chart(ctxB, {
-            type: "bar",
-            data: {
-                labels: [
-                    "January",
-                    "February",
-                    "March",
-                    "April",
-                    "May",
-                    "June",
-                    "July",
-                    "August",
-                    "September",
-                    "October",
-                    "November",
-                    "December",
-                ],
-                datasets: [
-                    {
-                        label: "Number of orders",
-                        data: [12, 19, 3, 5, 2, 3, 32, 12, 19, 3, 5, 2],
-                        backgroundColor: ["rgb(42,107,229,0.5)"],
-                        borderColor: ["rgb(42,107,229)"],
-                        borderWidth: 1,
+
+        // Make an AJAX request to fetch the chart data
+        fetch("/dashboard/chart-data")
+            .then((response) => response.json())
+            .then((data) => {
+                var myBarChart = new Chart(ctxB, {
+                    type: "bar",
+                    data: {
+                        labels: data.months,
+                        datasets: [
+                            {
+                                label: "Number of orders",
+                                data: data.orders,
+                                backgroundColor: ["rgb(42,107,229,0.5)"],
+                                borderColor: ["rgb(42,107,229)"],
+                                borderWidth: 1,
+                            },
+                        ],
                     },
-                ],
-            },
-            options: {
-                plugins: {
-                    title: {
-                        display: true,
-                        text: "Orders per month",
-                    },
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 1,
+                    options: {
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: "Orders per month",
+                            },
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1,
+                                },
+                            },
                         },
                     },
-                },
-            },
-        });
+                });
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
 
         // Piechart
         var ctxP = document.getElementById("pieChart").getContext("2d");
-        var myPieChart = new Chart(ctxP, {
-            type: "pie",
-            data: {
-                labels: [
-                    "Eletrônicos",
-                    "Roupas",
-                    "Livros",
-                    "Brinquedos",
-                    "Outros",
-                ],
-                datasets: [
-                    {
-                        data: [300, 50, 100, 40, 120],
-                        backgroundColor: [
-                            "rgb(42,107,229,0.5)",
-                            "rgba(145,60,76,0.5)",
-                            "rgba(42,229,67,0.5)",
-                            "rgba(229,204,42,0.5)",
-                            "rgba(229,42,42,0.5)",
-                        ],
-                        hoverBackgroundColor: [
-                            "rgb(42,107,229,0.9)",
-                            "rgba(145,60,76,0.9)",
-                            "rgba(42,229,67,0.9)",
-                            "rgba(229,204,42,0.9)",
-                            "rgba(229,42,42,0.9)",
+
+        // Make another AJAX request to fetch the pie chart data
+        fetch("/dashboard/pie-chart-data")
+            .then((response) => response.json())
+            .then((data) => {
+                var myPieChart = new Chart(ctxP, {
+                    type: "pie",
+                    data: {
+                        labels: data.categories,
+                        datasets: [
+                            {
+                                data: data.quantities,
+                                backgroundColor: [
+                                    "rgb(42,107,229,0.5)",
+                                    "rgba(145,60,76,0.5)",
+                                    "rgba(42,229,67,0.5)",
+                                    "rgba(229,204,42,0.5)",
+                                    "rgba(229,42,42,0.5)",
+                                ],
+                                hoverBackgroundColor: [
+                                    "rgb(42,107,229,0.9)",
+                                    "rgba(145,60,76,0.9)",
+                                    "rgba(42,229,67,0.9)",
+                                    "rgba(229,204,42,0.9)",
+                                    "rgba(229,42,42,0.9)",
+                                ],
+                            },
                         ],
                     },
-                ],
-            },
-            options: {
-                plugins: {
-                    title: {
-                        display: true,
-                        text: "Categories sold",
+                    options: {
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: "Categories sold",
+                            },
+                        },
+                        responsive: true,
                     },
-                },
-                responsive: true,
-            },
-        });
+                });
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
     });
 }
