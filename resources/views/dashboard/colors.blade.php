@@ -37,7 +37,7 @@
                     </div>
                 <td>
                     <div class="d-inline-flex align-content-center">
-                        <button type="submit" class="btn btn-warning mb-2 ml-4 mr-3">
+                        <button type="submit" class="btn btn-warning mb-2 ml-0 mr-3">
                             <a href="{{ route('dashboard.editColor', $color->code) }}" class="text-decoration-none text-white">
                                 <i class="bi bi-pencil"></i>
                             </a>
