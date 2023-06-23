@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -48,13 +49,21 @@ class CategoryController extends Controller
         return view('dashboard.editCategory', compact('category'));
     }
 
-    public function updateCategory(CategoryController $request, Category $category): RedirectResponse
+    public function updateCategory(CategoryRequest $request, Category $category): RedirectResponse
     {
-        $category->name = $request->input('name');
-        $category = DB::table('categories')->where('id', $category->id)->update(['name' => $category->name]);
+        $formData = $request->validated();
 
-        return redirect()->route('dashboard.showCategories', $category)
-            ->with('alert-msg', "Category successfully.")
+        $category = DB::transaction(function () use ($formData, $category) {
+            $category->name = $formData['name'];
+
+            $category->save();
+            return $category;
+        });
+
+        $htmlMessage = "Product $category->name was successfully updated!";
+
+        return redirect()->route('dashboard.showCategories')
+            ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
     }
 }

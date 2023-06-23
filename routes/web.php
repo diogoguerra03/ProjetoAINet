@@ -81,15 +81,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard/customers', [DashboardController::class, 'customers'])->name('dashboard.customers');
         Route::get('/dashboard/employees', [DashboardController::class, 'employees'])->name('dashboard.employees');
         Route::get('/dashboard/admins', [DashboardController::class, 'admins'])->name('dashboard.admins');
-
-        Route::delete('/dashboard/customer/delete/{customer}', [DashboardController::class, 'deleteCustomer'])->name('dashboard.customers.delete');
-        Route::put('/dashboard/customer/update/{customer}', [DashboardController::class, 'customerUpdate'])->name('dashboard.customers.update');
-        Route::delete('/dashboard/employee/delete/{employee}', [DashboardController::class, 'deleteEmployee'])->name('dashboard.employees.delete');
-        Route::put('/dashboard/employee/update/{employee}', [DashboardController::class, 'employeeUpdate'])->name('dashboard.employees.update');
-        Route::get('/dashboard/employee/add', [DashboardController::class, 'addEmployee'])->name('dashboard.addEmployee');
-        Route::delete('/dashboard/admin/delete/{admin}', [DashboardController::class, 'deleteAdmin'])->name('dashboard.admins.delete');
-        Route::put('/dashboard/admin/update/{admin}', [DashboardController::class, 'adminUpdate'])->name('dashboard.admins.update');
-
         Route::get('/dashboard/{user}/edit', [DashboardController::class, 'edit'])->name('dashboard.edit');
         Route::delete('/dashboard/{user}/deletephoto', [DashboardController::class, 'deletePhoto'])->name('dashboard.deletephoto');
         Route::put('/dashboard/{user}/updateData', [DashboardController::class, 'updateData'])->name('dashboard.updateData');
