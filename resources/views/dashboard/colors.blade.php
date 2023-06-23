@@ -38,12 +38,11 @@
                         </div>
                     <td>
                         <div class="d-inline-flex align-content-center">
-                            <button type="submit" class="btn btn-warning mb-2 ml-0 mr-3">
-                                <a href="{{ route('dashboard.editColor', $color->code) }}"
-                                    class="text-decoration-none text-white">
+                            <a href="{{ route('dashboard.editColor', $color->code) }}" class="text-decoration-none ">
+                            <button type="submit" class="btn btn-warning mb-2 ml-0 mr-3 text-white">
                                     <i class="bi bi-pencil"></i>
-                                </a>
                             </button>
+                            </a>
                             <form action="{{ route('dashboard.deleteColor', $color->code) }}" method="POST"
                                 id="deleteForm_{{ $color->code }}">
                                 @csrf
