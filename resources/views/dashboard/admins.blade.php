@@ -46,10 +46,11 @@
                         <div class="d-inline-flex align-content-center">
                             <button type="submit" class="btn btn-warning mb-2 ml-4 mr-3">
                                 <a href="{{ route('dashboard.edit', $user) }}" class="text-decoration-none text-white">
-                                <i class="bi bi-pencil"></i>
+                                    <i class="bi bi-pencil"></i>
                                 </a>
                             </button>
-                            <form action="{{ route('dashboard.admins.delete', $user->id) }}" method="POST">
+                            <form action="{{ route('dashboard.admins.delete', $user->id) }}" method="POST"
+                                id="deleteForm_{{ $user->id }}">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger mb-2">

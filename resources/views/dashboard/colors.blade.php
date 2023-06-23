@@ -19,40 +19,43 @@
     </button>
     <table class="table table-striped">
         <thead class="thead-dark">
-        <tr>
-            <th scope="col">Code</th>
-            <th scope="col">Name</th>
-            <th scope="col">Color</th>
-            <th scope="col"></th>
-        </tr>
+            <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Name</th>
+                <th scope="col">Color</th>
+                <th scope="col"></th>
+            </tr>
         </thead>
         <tbody>
-        @foreach ($colors as $color)
-            <tr>
-                <th scope="row">{{ $color->code }}</th>
-                <td>{{ $color->name }}</td>
-                <td>
-                    <div class="d-inline-flex align-items-center">
-                        <button type="button" class="btn rounded-circle p-3 btn-outline-dark" style="background-color: #{{ $color->code }}"></button>
-                    </div>
-                <td>
-                    <div class="d-inline-flex align-content-center">
-                        <button type="submit" class="btn btn-warning mb-2 ml-0 mr-3">
-                            <a href="{{ route('dashboard.editColor', $color->code) }}" class="text-decoration-none text-white">
-                                <i class="bi bi-pencil"></i>
-                            </a>
-                        </button>
-                        <form action="{{ route('dashboard.deleteColor', $color->code) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger mb-2">
-                                <i class="bi bi-trash "></i>
+            @foreach ($colors as $color)
+                <tr>
+                    <th scope="row">{{ $color->code }}</th>
+                    <td>{{ $color->name }}</td>
+                    <td>
+                        <div class="d-inline-flex align-items-center">
+                            <button type="button" class="btn rounded-circle p-3 btn-outline-dark"
+                                style="background-color: #{{ $color->code }}"></button>
+                        </div>
+                    <td>
+                        <div class="d-inline-flex align-content-center">
+                            <button type="submit" class="btn btn-warning mb-2 ml-0 mr-3">
+                                <a href="{{ route('dashboard.editColor', $color->code) }}"
+                                    class="text-decoration-none text-white">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
                             </button>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-        @endforeach
+                            <form action="{{ route('dashboard.deleteColor', $color->code) }}" method="POST"
+                                id="deleteForm_{{ $color->code }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger mb-2">
+                                    <i class="bi bi-trash "></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 @endsection

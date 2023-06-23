@@ -13,7 +13,8 @@ class Color extends Model
     use HasFactory, SoftDeletes;
     public $timestamps = false;
     protected $dates = ['deleted_at'];
-
+    protected $keyType = 'string';
+    protected $primaryKey = 'code';
     protected $fillable = ['name'];
 
     public function orderItems(): HasMany
@@ -21,5 +22,5 @@ class Color extends Model
         return $this->hasMany(TshirtImage::class, 'color_code', 'code');
     }
 
-    
+
 }

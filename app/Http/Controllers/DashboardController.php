@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateUserRequest;
-use App\Models\Category;
-use App\Models\User;
-use App\Models\Color;
 use App\Models\Order;
+use App\Models\TshirtImage;
+use App\Models\User;
+use App\Models\Category;
+use App\Models\Color;
 use App\Models\Price;
 use App\Models\Customer;
 use App\Models\OrderItem;
-use App\Models\TshirtImage;
+
+use App\Http\Requests\UpdateUserRequest;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -29,6 +30,60 @@ class DashboardController extends Controller
         $numberCustomers = User::where('user_type', 'C')->count();
 
         return view('dashboard.index', compact('totalProducts', 'ordersPlaced', 'numberCustomers', 'moneyEarned'));
+    }
+
+    public function chartData()
+    {
+        $months = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ];
+
+        $orders = []; // Array para armazenar o número de pedidos por mês
+
+        // Recupere o número de pedidos para cada mês
+        foreach ($months as $month) {
+            $orders[] = Order::whereMonth('created_at', '=', date('m', strtotime($month)))
+                ->whereYear('created_at', '=', date('Y'))
+                ->count();
+        }
+
+        return response()->json([
+            'months' => $months,
+            'orders' => $orders,
+        ]);
+    }
+
+    public function pieChartData()
+    {
+        $categories = Category::whereNull('deleted_at')->get(['id', 'name']);
+        $quantities = []; // Array para armazenar as quantidades vendidas de cada categoria
+
+        // Recupere a quantidade vendida para cada categoria
+        foreach ($categories as $category) {
+            $quantity = OrderItem::join('orders', 'order_items.order_id', '=', 'orders.id')
+                ->join('tshirt_images', 'order_items.tshirt_image_id', '=', 'tshirt_images.id')
+                ->where('tshirt_images.category_id', $category->id)
+                ->where('orders.status', 'closed')
+                ->sum('order_items.qty');
+
+            $quantities[] = $quantity;
+        }
+
+        return response()->json([
+            'categories' => $categories->pluck('name'),
+            'quantities' => $quantities,
+        ]);
     }
 
     public function customers()
@@ -101,7 +156,7 @@ class DashboardController extends Controller
         foreach ($orderItems as $orderItem) {
             $tshirt = TshirtImage::find($orderItem->tshirt_image_id);
             $tshirts[$orderItem->id] = [
-                'name'      => $tshirt ? $tshirt->name : '',
+                'name' => $tshirt ? $tshirt->name : '',
                 'image_url' => $tshirt ? $tshirt->image_url : '',
             ];
 
@@ -179,7 +234,6 @@ class DashboardController extends Controller
         } else {
             $admin->delete();
 
-
         }
         return redirect()->back()
             ->with('alert-msg', "Admin no. $admin->id deleted successfully.")
@@ -235,11 +289,6 @@ class DashboardController extends Controller
     }
 
 
-
-
-
-
-
     //Prices
     public function showPrices()
     {
@@ -292,15 +341,20 @@ class DashboardController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function deleteColor(Color $color)
+    public function deleteColor(string $code)
     {
-        $date = Carbon::now();
-        $name = $color->name;
-        $color = DB::select( DB::raw("select * from `colors` where `code` = $color->code set 'deleted_at' = $date") );
+        $color = Color::find($code);
+        if ($color) {
+            $color->delete();
 
-        return redirect()->back()
-            ->with('alert-msg', "Color $name deleted successfully.")
-            ->with('alert-type', 'success');
+            return redirect()->back()
+                ->with('alert-msg', "Color deleted successfully.")
+                ->with('alert-type', 'success');
+        } else {
+            return redirect()->back()
+                ->with('alert-msg', "Color not found.")
+                ->with('alert-type', 'error');
+        }
     }
 
     public function editColor(Color $color)
@@ -341,12 +395,10 @@ class DashboardController extends Controller
 
     public function deleteCategory(Category $category)
     {
-        $date = Carbon::now();
-        $name = $category->name;
-        $category = DB::table('categories')->where('id', $category->id)->update(['deleted_at' => $date]);
+        $category->delete();
 
         return redirect()->back()
-            ->with('alert-msg', "Category $name deleted successfully.")
+            ->with('alert-msg', "Category $category->name deleted successfully.")
             ->with('alert-type', 'success');
     }
 
@@ -366,4 +418,3 @@ class DashboardController extends Controller
     }
 
 }
-

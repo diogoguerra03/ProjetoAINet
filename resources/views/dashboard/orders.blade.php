@@ -72,8 +72,8 @@
                         <button type="submit" class="btn btn-primary mb-3 px-4 me-2 flex-grow-1 mx-auto"
                             name="filtrar">Filter</button>
                         <button class="btn btn-secondary mb-3 px-4 me-2 flex-grow-1 mx-auto">
-                        <a href="{{ route('dashboard.orders') }}" class="text-white"
-                            style="text-decoration: none">Clear</a>
+                            <a href="{{ route('dashboard.orders') }}" class="text-white"
+                                style="text-decoration: none">Clear</a>
                         </button>
                     </div>
                 </div>
@@ -288,4 +288,7 @@
             @endforeach
         </tbody>
     </table>
+    <div class="justify-content-center mt-5 ">
+        {{ $orders->withQueryString()->links() }}
+    </div>
 @endsection

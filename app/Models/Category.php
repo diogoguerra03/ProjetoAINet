@@ -10,7 +10,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Category extends Model
 {
     use HasFactory, SoftDeletes;
-    
+
+    protected $table = 'categories';
+    public $timestamps = false;
     protected $dates = ['deleted_at'];
     protected $fillable = ['name'];
 
