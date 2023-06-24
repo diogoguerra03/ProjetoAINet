@@ -104,7 +104,8 @@ Route::middleware('auth')->group(function () {
         Route::delete('/dashboard/colors/delete/{color}', [ColorController::class, 'deleteColor'])->name('dashboard.deleteColor');
         Route::get('/dashboard/colors/edit/{color}', [ColorController::class, 'editColor'])->name('dashboard.editColor');
         Route::put('/dashboard/colors/update/{color}', [ColorController::class, 'updateColor'])->name('dashboard.updateColor');
-
+        Route::get('/dashboard/colors/add', [ColorController::class, 'addColor'])->name('dashboard.addColor');
+        Route::put('/dashboard/colors/store', [ColorController::class, 'storeColor'])->name('dashboard.storeColor');
 
         //change categories
         Route::get('/dashboard/categories', [CategoryController::class, 'showCategories'])->name('dashboard.showCategories');

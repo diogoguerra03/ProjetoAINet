@@ -24,18 +24,6 @@ class ColorController extends Controller
         return view('dashboard.colors', compact('colors'));
     }
 
-    public function addColor(ColorRequest $request): RedirectResponse
-    {
-        $color = new Color();
-        $color->name = $request->input('name');
-        $color->code = $request->input('code');
-        $color->save();
-
-        return redirect()->back()
-            ->with('alert-msg', "Color added successfully.")
-            ->with('alert-type', 'success');
-    }
-
     public function deleteColor(string $code): RedirectResponse
     {
         $color = Color::find($code);
@@ -71,6 +59,28 @@ class ColorController extends Controller
         });
 
         $htmlMessage = "Color $color->name was successfully updated!";
+
+        return redirect()->route('dashboard.showColors')
+            ->with('alert-msg', $htmlMessage)
+            ->with('alert-type', 'success');
+    }
+
+    public function addColor(): View
+    {
+        return view('dashboard.addColor');
+    }
+
+    public function storeColor(ColorRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
+        $color = DB::transaction(function () use ($data, $request) {
+            $color = new Color();
+            $color->code = $data['code'];
+            $color->name = $data['name'];
+            $color->save();
+        });
+
+        $htmlMessage = "Color was successfully created!";
 
         return redirect()->route('dashboard.showColors')
             ->with('alert-msg', $htmlMessage)

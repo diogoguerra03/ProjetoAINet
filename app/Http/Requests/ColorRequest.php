@@ -23,7 +23,7 @@ class ColorRequest extends FormRequest
     {
         return [
             // code required
-            'code' => 'required|string|max:6',
+            'code' => 'required|string|max:6|unique:colors,code|min:6',
             // name required
             'name' => 'required|string|max:30',
 
