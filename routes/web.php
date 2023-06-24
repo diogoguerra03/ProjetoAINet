@@ -80,9 +80,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard/admins', [DashboardController::class, 'admins'])->name('dashboard.admins');
         Route::get('/dashboard/{user}/edit', [DashboardController::class, 'edit'])->name('dashboard.edit');
         Route::get('/dashboard/employees/add', [DashboardController::class, 'addEmployee'])->name('dashboard.addEmployee');
-        Route::put('/dashboard/employees/store', [DashboardController::class, 'storeEmployee'])->name('dashboard.storeEmployee');
+        Route::post('/dashboard/employees/store', [DashboardController::class, 'storeEmployee'])->name('dashboard.storeEmployee');
         Route::get('/dashboard/admins/add', [DashboardController::class, 'addAdmin'])->name('dashboard.addAdmin');
-        Route::put('/dashboard/admins/store', [DashboardController::class, 'storeAdmin'])->name('dashboard.storeAdmin');
+        Route::post('/dashboard/admins/store', [DashboardController::class, 'storeAdmin'])->name('dashboard.storeAdmin');
         Route::delete('/dashboard/{user}/deletephoto', [DashboardController::class, 'deletePhoto'])->name('dashboard.deletephoto');
         Route::put('/dashboard/{user}/updateData', [DashboardController::class, 'updateData'])->name('dashboard.updateData');
         Route::get('/dashboard/chart-data', [DashboardController::class, 'chartData']);
@@ -96,22 +96,20 @@ Route::middleware('auth')->group(function () {
         Route::post('/dashboard/prices/update', [PriceController::class, 'updatePrices'])->name('dashboard.updatePrices');
 
         //change color
-        Route::get('/dashboard/colors', [ColorController::class, 'showColors'])->name('dashboard.showColors');
-        Route::post('/dashboard/colors/update', [ColorController::class, 'addColors'])->name('dashboard.addColors');
-        Route::delete('/dashboard/colors/delete/{color}', [ColorController::class, 'deleteColor'])->name('dashboard.deleteColor');
-        Route::get('/dashboard/colors/edit/{color}', [ColorController::class, 'editColor'])->name('dashboard.editColor');
-        Route::put('/dashboard/colors/update/{color}', [ColorController::class, 'updateColor'])->name('dashboard.updateColor');
-        Route::get('/dashboard/colors/add', [ColorController::class, 'addColor'])->name('dashboard.addColor');
-        Route::put('/dashboard/colors/store', [ColorController::class, 'storeColor'])->name('dashboard.storeColor');
+        Route::get('/dashboard/colors', [ColorController::class, 'index'])->name('dashboard.showColors');
+        Route::delete('/dashboard/colors/delete/{color}', [ColorController::class, 'delete'])->name('dashboard.deleteColor');
+        Route::get('/dashboard/colors/edit/{color}', [ColorController::class, 'edit'])->name('dashboard.editColor');
+        Route::put('/dashboard/colors/update/{color}', [ColorController::class, 'update'])->name('dashboard.updateColor');
+        Route::get('/dashboard/colors/add', [ColorController::class, 'create'])->name('dashboard.addColor');
+        Route::post('/dashboard/colors/store', [ColorController::class, 'store'])->name('dashboard.storeColor');
 
         //change categories
-        Route::get('/dashboard/categories', [CategoryController::class, 'showCategories'])->name('dashboard.showCategories');
-        Route::post('/dashboard/categories/update', [CategoryController::class, 'addCategories'])->name('dashboard.addCategories');
-        Route::delete('/dashboard/categories/delete/{category}', [CategoryController::class, 'deleteCategory'])->name('dashboard.deleteCategory');
-        Route::get('/dashboard/categories/edit/{category}', [CategoryController::class, 'editCategory'])->name('dashboard.editCategory');
-        Route::put('/dashboard/categories/update/{category}', [CategoryController::class, 'updateCategory'])->name('dashboard.updateCategory');
-        Route::get('/dashboard/categories/add', [CategoryController::class, 'addCategory'])->name('dashboard.addCategory');
-        Route::put('/dashboard/categories/store', [CategoryController::class, 'storeCategory'])->name('dashboard.storeCategory');
+        Route::get('/dashboard/categories', [CategoryController::class, 'index'])->name('dashboard.showCategories');
+        Route::delete('/dashboard/categories/delete/{category}', [CategoryController::class, 'delete'])->name('dashboard.deleteCategory');
+        Route::get('/dashboard/categories/edit/{category}', [CategoryController::class, 'edit'])->name('dashboard.editCategory');
+        Route::put('/dashboard/categories/update/{category}', [CategoryController::class, 'update'])->name('dashboard.updateCategory');
+        Route::get('/dashboard/categories/add', [CategoryController::class, 'create'])->name('dashboard.addCategory');
+        Route::post('/dashboard/categories/store', [CategoryController::class, 'store'])->name('dashboard.storeCategory');
 
         // catalog
         Route::get('catalog/{slug}/edit', [TshirtImageController::class, 'edit'])->name('catalog.edit');

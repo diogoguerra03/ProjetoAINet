@@ -186,51 +186,49 @@
             @else
                 @foreach ($ordersPendingOrPaid as $order)
                     <tr>
-                        @if ($order->status != 'canceled' && $order->status != 'closed')
-                            <th scope="row">{{ $order->id }}</th>
-                            <th scope="row">{{ $order->customer_id }}</th>
-                            <td>{{ $order->date }}</td>
-                            <td>
-                                <div class="row">
-                                    <div class="col">
-                                        <form action="{{ route('dashboard.orders.details', $order) }}">
+                        <th scope="row">{{ $order->id }}</th>
+                        <th scope="row">{{ $order->customer_id }}</th>
+                        <td>{{ $order->date }}</td>
+                        <td>
+                            <div class="row">
+                                <div class="col">
+                                    <form action="{{ route('dashboard.orders.details', $order) }}">
+                                        @csrf
+                                        @method('GET')
+                                        <button type="submit" class="btn btn-primary mb-2">
+                                            Check details
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{ $order->total_price }}€</td>
+                        <td>{{ strtoupper($order->status) }}</td>
+                        <td>
+                            <div class="row">
+                                <div class="col">
+                                    @if ($order->status == 'pending')
+                                        <form action="{{ route('dashboard.orders.update', $order) }}" method="POST">
                                             @csrf
-                                            @method('GET')
-                                            <button type="submit" class="btn btn-primary mb-2">
-                                                Check details
+                                            @method('PUT')
+                                            <input type="hidden" name="status" value="paid">
+                                            <button type="submit" class="btn btn-success mb-2">
+                                                Order paid
                                             </button>
                                         </form>
-                                    </div>
+                                    @elseif($order->status == 'paid')
+                                        <form action="{{ route('dashboard.orders.update', $order) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="status" value="closed">
+                                            <button type="submit" class="btn btn-warning mb-2">
+                                                Order closed
+                                            </button>
+                                        </form>
+                                    @endif
                                 </div>
-                            </td>
-                            <td>{{ $order->total_price }}€</td>
-                            <td>{{ strtoupper($order->status) }}</td>
-                            <td>
-                                <div class="row">
-                                    <div class="col">
-                                        @if ($order->status == 'pending')
-                                            <form action="{{ route('dashboard.orders.update', $order) }}" method="POST">
-                                                @csrf
-                                                @method('PUT')
-                                                <input type="hidden" name="status" value="paid">
-                                                <button type="submit" class="btn btn-success mb-2">
-                                                    Order paid
-                                                </button>
-                                            </form>
-                                        @elseif($order->status == 'paid')
-                                            <form action="{{ route('dashboard.orders.update', $order) }}" method="POST">
-                                                @csrf
-                                                @method('PUT')
-                                                <input type="hidden" name="status" value="closed">
-                                                <button type="submit" class="btn btn-warning mb-2">
-                                                    Order closed
-                                                </button>
-                                            </form>
-                                        @endif
-                                    </div>
-                                </div>
-                            </td>
-                        @endif
+                            </div>
+                        </td>
                     </tr>
                 @endforeach
             @endif

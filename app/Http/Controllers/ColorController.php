@@ -19,13 +19,13 @@ class ColorController extends Controller
     }
 
     //Colors
-    public function showColors(): View
+    public function index(): View
     {
         $colors = Color::all('code', 'name');
         return view('dashboard.colors', compact('colors'));
     }
 
-    public function deleteColor(Color $color): RedirectResponse
+    public function delete(Color $color): RedirectResponse
     {
         if (count($color->orderItems) > 0) {
             $color->delete();
@@ -44,12 +44,12 @@ class ColorController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function editColor(Color $color): View
+    public function edit(Color $color): View
     {
         return view('dashboard.editColor', compact('color'));
     }
 
-    public function updateColor(ColorRequest $request, Color $color): RedirectResponse
+    public function update(ColorRequest $request, Color $color): RedirectResponse
     {
         $formData = $request->validated();
 
@@ -76,12 +76,12 @@ class ColorController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function addColor(): View
+    public function create(): View
     {
         return view('dashboard.addColor');
     }
 
-    public function storeColor(ColorRequest $request): RedirectResponse
+    public function store(ColorRequest $request): RedirectResponse
     {
         $data = $request->validated();
         $color = DB::transaction(function () use ($data, $request) {

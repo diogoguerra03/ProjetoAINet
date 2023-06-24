@@ -29,7 +29,7 @@ class ColorPolicy
      */
     public function create(User $user): bool
     {
-        return $user->user_style === 'A';
+        return $user->user_type === 'A';
     }
 
     /**
@@ -37,7 +37,7 @@ class ColorPolicy
      */
     public function update(User $user, Color $color): bool
     {
-        return $user->user_style === 'A';
+        return $user->user_type === 'A';
     }
 
     /**
@@ -45,7 +45,7 @@ class ColorPolicy
      */
     public function delete(User $user, Color $color): bool
     {
-        return $user->user_style === 'A';
+        return $user->user_type === 'A';
     }
 
 }

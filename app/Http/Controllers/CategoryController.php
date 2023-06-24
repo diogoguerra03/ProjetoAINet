@@ -18,19 +18,19 @@ class CategoryController extends Controller
     }
 
     //categories
-    public function showCategories(): View
+    public function index(): View
     {
         $categories = Category::all();
         return view('dashboard.categories', compact('categories'));
     }
 
 
-    public function addCategory(): View
+    public function create(): View
     {
         return view('dashboard.addCategory');
     }
 
-    public function storeCategory(CategoryRequest $request): RedirectResponse
+    public function store(CategoryRequest $request): RedirectResponse
     {
         $data = $request->validated();
         $category = DB::transaction(function () use ($data, $request) {
@@ -46,7 +46,7 @@ class CategoryController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function deleteCategory(Category $category): RedirectResponse
+    public function delete(Category $category): RedirectResponse
     {
         if (count($category->tshirtImages) != 0) {
             $category->delete();
@@ -59,12 +59,12 @@ class CategoryController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function editCategory(Category $category): View
+    public function edit(Category $category): View
     {
         return view('dashboard.editCategory', compact('category'));
     }
 
-    public function updateCategory(CategoryRequest $request, Category $category): RedirectResponse
+    public function update(CategoryRequest $request, Category $category): RedirectResponse
     {
         if (count($category->tshirtImages) != 0) {
             return redirect()->route('dashboard.showCategories')

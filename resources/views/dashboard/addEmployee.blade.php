@@ -16,12 +16,12 @@
             <div class="col-md-12 mt-5">
                 <form method="POST" action="{{ route('dashboard.storeEmployee') }}" enctype="multipart/form-data">
                     @csrf
-                    @method('PUT')
+                    @method('POST')
                     @include('dashboard.shared.fields')
                     <div class="d-flex justify-content-end">
                         <div class="mr-1">
                             <button type="submit" class="btn btn-primary" name="save">Save</button>
-                                <a href="{{ route('dashboard.employees') }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
+                            <a href="{{ route('dashboard.employees') }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
                         </div>
                     </div>
                 </form>

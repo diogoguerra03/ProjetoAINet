@@ -10,7 +10,7 @@
             <div class="col-md-12 mt-5">
                 <form method="POST" action="{{ route('dashboard.storeColor') }}" enctype="multipart/form-data">
                     @csrf
-                    @method('PUT')
+                    @method('POST')
 
                     <div class="form-group w-25">
                         <label for="code">{{ __('Code') }}</label>
