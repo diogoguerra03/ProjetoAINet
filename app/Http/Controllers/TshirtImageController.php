@@ -164,7 +164,6 @@ class TshirtImageController extends Controller
     public function editMyTshirt(User $user, string $slug): View
     {
         $currentUser = auth()->user();
-        dd($user->customer);
 
         if ($currentUser->id !== $user->id) {
             $user = $currentUser;
