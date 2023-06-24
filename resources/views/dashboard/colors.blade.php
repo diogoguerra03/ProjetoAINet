@@ -12,12 +12,12 @@
     @endif
     <h1 class="text-center mb-3 mt-0">Color</h1>
     <a href="{{ route('dashboard.addColor') }}" class="text-decoration-none text-dark">
-    <button type="button" class="btn btn-outline-dark mb-2">
-        <div class="d-inline-flex align-items-center">
-            <i class="bi bi-plus-circle mr-2 d-inline-flex align-items-center"></i>
-            Add Color
-        </div>
-    </button>
+        <button type="button" class="btn btn-outline-dark mb-2">
+            <div class="d-inline-flex align-items-center">
+                <i class="bi bi-plus-circle mr-2 d-inline-flex align-items-center"></i>
+                Add Color
+            </div>
+        </button>
     </a>
     <table class="table table-striped">
         <thead class="thead-dark">
@@ -41,11 +41,11 @@
                     <td>
                         <div class="d-inline-flex align-content-center">
                             <a href="{{ route('dashboard.editColor', $color->code) }}" class="text-decoration-none ">
-                            <button type="submit" class="btn btn-warning mb-2 ml-0 mr-3 text-white">
+                                <button type="submit" class="btn btn-warning mb-2 ml-0 mr-3 text-white">
                                     <i class="bi bi-pencil"></i>
-                            </button>
+                                </button>
                             </a>
-                            <form action="{{ route('dashboard.deleteColor', $color->code) }}" method="POST"
+                            <form action="{{ route('dashboard.deleteColor', $color) }}" method="POST"
                                 id="deleteForm_{{ $color->code }}">
                                 @csrf
                                 @method('DELETE')

@@ -19,7 +19,7 @@ class Color extends Model
 
     public function orderItems(): HasMany
     {
-        return $this->hasMany(TshirtImage::class, 'color_code', 'code');
+        return $this->hasMany(OrderItem::class, 'color_code', 'code');
     }
 
 

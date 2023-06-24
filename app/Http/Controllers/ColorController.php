@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Color;
-use Illuminate\Http\Request;
-use App\Http\Requests\ColorRequest;
 use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ColorRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 
 class ColorController extends Controller
 {
@@ -24,20 +25,23 @@ class ColorController extends Controller
         return view('dashboard.colors', compact('colors'));
     }
 
-    public function deleteColor(string $code): RedirectResponse
+    public function deleteColor(Color $color): RedirectResponse
     {
-        $color = Color::find($code);
-        if ($color) {
+        if (count($color->orderItems) > 0) {
             $color->delete();
+        } else if ($color->orderItems()->count() == 0) {
+            Storage::delete('public/tshirt_base/' . $color->code . '.jpg');
+            $color->forceDelete();
 
-            return redirect()->back()
-                ->with('alert-msg', "Color deleted successfully.")
-                ->with('alert-type', 'success');
         } else {
             return redirect()->back()
                 ->with('alert-msg', "Color not found.")
                 ->with('alert-type', 'error');
         }
+
+        return redirect()->back()
+            ->with('alert-msg', "Color deleted successfully.")
+            ->with('alert-type', 'success');
     }
 
     public function editColor(Color $color): View
@@ -49,9 +53,16 @@ class ColorController extends Controller
     {
         $formData = $request->validated();
 
+        if ($color->orderItems()->count() != 0)
+            return redirect()->route('dashboard.showColors')
+                ->with('alert-msg', "Color can't be updated.")
+                ->with('alert-type', 'error');
+
         $color = DB::transaction(function () use ($formData, $color) {
             $color->name = $formData['name'];
             $color->code = $formData['code'];
+            Storage::delete('public/tshirt_base/' . $color->code . '.jpg');
+            Storage::putFileAs('public/tshirt_base', $formData['image'], $color->code . '.jpg');
 
             $color->save();
 
@@ -77,6 +88,7 @@ class ColorController extends Controller
             $color = new Color();
             $color->code = $data['code'];
             $color->name = $data['name'];
+            Storage::putFileAs('public/tshirt_base', $request->file('image'), $color->code . '.jpg');
             $color->save();
         });
 

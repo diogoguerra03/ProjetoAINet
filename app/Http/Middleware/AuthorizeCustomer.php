@@ -17,7 +17,7 @@ class AuthorizeCustomer
     {
         $user = $request->user();
 
-        if (!$user || $user->user_type !== 'C') {
+        if (!$user->customer) {
             return $request->expectsJson()
                 ? abort(403, 'You are not an Customer.')
                 : redirect()->to('/')

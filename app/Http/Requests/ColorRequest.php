@@ -26,6 +26,7 @@ class ColorRequest extends FormRequest
             'code' => 'required|string|max:6|unique:colors,code|min:6',
             // name required
             'name' => 'required|string|max:30',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
         ];
     }
