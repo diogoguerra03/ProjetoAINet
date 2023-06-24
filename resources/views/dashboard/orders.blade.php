@@ -71,12 +71,11 @@
                         </select>
                     </div>
                     <div class="d-flex">
-                        <button type="submit" class="btn btn-primary mb-3 px-4 me-2 flex-grow-1 mx-auto"
-                            name="filtrar">Filter</button>
-                        <button class="btn btn-secondary mb-3 px-4 me-2 flex-grow-1 mx-auto">
-                            <a href="{{ route('dashboard.orders') }}" class="text-white"
-                                style="text-decoration: none">Clear</a>
-                        </button>
+                        <button type="submit" class="btn btn-primary mb-3 px-4 me-2 flex-grow-1 mx-auto" name="filtrar">Filter</button>
+                        <a href="{{ route('dashboard.orders') }}" class="text-white btn btn-secondary mb-3 px-4 me-2 flex-grow-1 mx-auto"
+                           style="text-decoration: none; display: flex; justify-content: center; align-items: center;">
+                            <div>Clear</div>
+                        </a>
                     </div>
                 </div>
             </div>

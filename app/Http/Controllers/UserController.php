@@ -96,4 +96,5 @@ class UserController extends Controller
         return redirect()->route('profile', $user)->with('success', $htmlMessage);
     }
 
+
 }

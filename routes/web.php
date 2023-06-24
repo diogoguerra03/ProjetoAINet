@@ -119,7 +119,6 @@ Route::middleware('auth')->group(function () {
         // catalog
         Route::get('catalog/{slug}/edit', [TshirtImageController::class, 'edit'])->name('catalog.edit');
         Route::delete('catalog/{catalog}/delete', [TshirtImageController::class, 'destroy'])->name('catalog.destroy');
-        Route::get('/dashboard/orders/filter', [DashboardController::class, 'filterOrders'])->name('dashboard.filterOrders');
 
     });
 

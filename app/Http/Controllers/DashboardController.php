@@ -101,12 +101,47 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function customers(): View
+    public function customers(Request $request): View
     {
-        $customers = User::where('user_type', 'C')->get();
+        $filterByID = $request->inputID ?? '';
+        $filterByName = $request->inputName ?? '';
+        $order = $request->order ?? '';
 
-        return view('dashboard.customers', compact('customers'));
+        $customersQuery = User::query();
+
+        if ($filterByID !== '') {
+            $customersQuery = $customersQuery->where('id', $filterByID);
+        }
+
+        if ($filterByName !== '') {
+            $usersQuery = $customersQuery->where('name', 'LIKE', '%' . $filterByName . '%');
+        }
+
+        if ($order !==''){
+            switch ($order) {
+                case 'ascID':
+                    $customersQuery = $customersQuery->orderBy('id', 'asc');
+                    break;
+                case 'descID':
+                    $customersQuery = $customersQuery->orderBy('id', 'desc');
+                    break;
+                case 'ascDate':
+                    $customersQuery = $customersQuery->orderBy('created_at', 'asc');
+                    break;
+                case 'descDate':
+                    $customersQuery = $customersQuery->orderBy('created_at', 'desc');
+                    break;
+                default:
+                    $customersQuery = $customersQuery->orderBy('id', 'asc');
+                    break;
+            }
+        }
+
+        $customers = $customersQuery->paginate(50);
+
+        return view('dashboard.customers', compact('customers', 'filterByID', 'filterByName', 'order'));
     }
+
 
     public function employees(): View
     {
