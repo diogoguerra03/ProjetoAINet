@@ -4,31 +4,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('button[data-status]').click(function() {
-                var status = $(this).data('status');
-                $('#statusInput').val(status);
-            });
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const orderButtons = document.querySelectorAll('button[data-bs-target="#myModal"]');
-            const popupTitle = document.getElementById('popupTitle');
-
-            orderButtons.forEach(function(orderButton) {
-                orderButton.addEventListener('click', function() {
-                    const orderID = this.dataset.orderId;
-                    popupTitle.innerText = 'Order ID: ' + orderID;
-                    document.getElementById('statusInput').value = orderID;
-                });
-            });
-        });
-    </script>
-
-
     @if (session('alert-msg'))
         <div class="alert alert-{{ session('alert-type') }} alert-dismissible">
             {{ session('alert-msg') }}
@@ -130,52 +105,23 @@
                                     <form action="{{ route('dashboard.orders.update', $order) }}" method="POST">
                                         @csrf
                                         @method('PUT')
-                                        <button type="button" class="btn btn-warning mb-2" data-bs-toggle="modal"
-                                            data-bs-target="#myModal" data-order-id="{{ $order->id }}">
-                                            Edit order status
+                                        <button type="submit" name="status" class="btn btn-primary mb-2" value="pending"
+                                            {{ $order->status === 'pending' ? 'disabled' : '' }}>
+                                            Pending
                                         </button>
-                                        <div class="modal fade" id="myModal" tabindex="-1"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="popupTitle"> </h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p>Edit order status to: </p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <form action="{{ route('dashboard.orders.update', $order) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('PUT')
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close</button>
-                                                            <input type="hidden" name="status" id="statusInput"
-                                                                value="">
-                                                            <button type="submit" class="btn btn-primary mb-2"
-                                                                data-status="pending">
-                                                                Pending
-                                                            </button>
-                                                            <button type="submit" class="btn btn-success mb-2"
-                                                                data-status="paid">
-                                                                Paid
-                                                            </button>
-                                                            <button type="submit" class="btn btn-warning mb-2"
-                                                                data-status="closed">
-                                                                Closed
-                                                            </button>
-                                                            <button type="submit" class="btn btn-danger mb-2"
-                                                                data-status="canceled">
-                                                                Canceled
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <button type="submit" name="status" class="btn btn-success mb-2" value="paid"
+                                            {{ $order->status === 'paid' ? 'disabled' : '' }}>
+                                            Paid
+                                        </button>
+                                        <button type="submit" name="status" class="btn btn-warning mb-2" value="closed"
+                                            {{ $order->status === 'closed' ? 'disabled' : '' }}>
+                                            Closed
+                                        </button>
+                                        <button type="submit" name="status" class="btn btn-danger mb-2" value="canceled"
+                                            {{ $order->status === 'canceled' ? 'disabled' : '' }}>
+                                            Canceled
+                                        </button>
+
                                     </form>
                                 </div>
                             </div>
@@ -242,5 +188,4 @@
         <div class="justify-content-center mt-5 ">
             {{ $ordersPendingOrPaid->withQueryString()->links() }}
     @endif
-
 @endsection
