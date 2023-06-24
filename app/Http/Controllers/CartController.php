@@ -50,15 +50,27 @@ class CartController extends Controller
 
         // criar o array do item com todas as informações
         $item = [
-            'product_id'   => $productId,
+            'product_id' => $productId,
             'product_name' => $productName,
             'tshirt_image' => $productUrl,
-            'quantity'     => $quantity,
-            'color'        => $colorName,
-            'color_code'   => $colorCode,
-            'size'         => $size,
-            'price'        => $price,
+            'quantity' => $quantity,
+            'color' => $colorName,
+            'color_code' => $colorCode,
+            'size' => $size,
+            'price' => $price,
         ];
+
+        // se existir uma t-shirt igual no carrinho com a mesma cor e tamanho, aumentar a quantidade
+        $cart = Session::get('cart', []);
+        foreach ($cart as $index => $cartItem) {
+            if ($cartItem['product_id'] == $productId && $cartItem['color'] == $colorName && $cartItem['size'] == $size) {
+                $cart[$index]['quantity'] += $quantity;
+                Session::put('cart', $cart);
+                return redirect()->back()
+                    ->with('alert-msg', "$quantity x \"$productName\" ($size - $colorName) added to cart.")
+                    ->with('alert-type', 'success');
+            }
+        }
 
         // Adicionar o item ao carrinho na sessão
         $cart = Session::get('cart', []);
