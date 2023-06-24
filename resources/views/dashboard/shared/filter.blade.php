@@ -33,12 +33,12 @@
         <div class="flex-grow-1 pe-2">
             <div class="d-flex justify-content-between">
                 <div class="col-md-3 mb-3">
-                    <label for="inputID" class="form-label">Order ID</label>
+                    <label for="inputID" class="form-label">Filter by ID</label>
                     <input type="text" class="form-control" name="inputID" id="inputID"
                            value="{{ old('inputID', $filterByID) }}" placeholder="Enter the ID">
                 </div>
                 <div class="col-md-3 mb-3">
-                    <label for="inputName" class="form-label">Customer ID</label>
+                    <label for="inputName" class="form-label">Filter by Name</label>
                     <input type="text" class="form-control" name="inputName" id="inputName"
                            value="{{ old('inputName', $filterByName) }}" placeholder="Enter the name">
                 </div>
