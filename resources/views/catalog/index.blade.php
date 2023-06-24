@@ -70,6 +70,14 @@
             </div>
         </form>
 
+        @can('create', $user)
+            <div class="mb-4">
+                <div class=" text-center">
+                    <a href="{{ route('catalog.tshirt.create') }}" class="btn btn-primary">Create New Tshirt</a>
+                </div>
+            </div>
+        @endcan
+
         @if (isset($user) && $user->user_type === 'A')
             @include('tshirts.shared.table', ['allowEdit' => true])
         @else

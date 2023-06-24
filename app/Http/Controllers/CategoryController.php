@@ -48,7 +48,11 @@ class CategoryController extends Controller
 
     public function deleteCategory(Category $category): RedirectResponse
     {
-        $category->delete();
+        if (count($category->tshirtImages) != 0) {
+            $category->delete();
+        } else {
+            $category->forceDelete();
+        }
 
         return redirect()->back()
             ->with('alert-msg', "Category $category->name deleted successfully.")
@@ -62,8 +66,13 @@ class CategoryController extends Controller
 
     public function updateCategory(CategoryRequest $request, Category $category): RedirectResponse
     {
-        $formData = $request->validated();
+        if (count($category->tshirtImages) != 0) {
+            return redirect()->route('dashboard.showCategories')
+                ->with('alert-msg', "Category $category->name cannot be updated because it is in use.")
+                ->with('alert-type', 'error');
+        }
 
+        $formData = $request->validated();
         $category = DB::transaction(function () use ($formData, $category) {
             $category->name = $formData['name'];
 

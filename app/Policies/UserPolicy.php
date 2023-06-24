@@ -39,7 +39,7 @@ class userPolicy
      */
     public function update(User $user, User $model): bool
     {
-        return $user->user_type === 'C' || $user->user_type === 'A';
+        return $user->customer || $user->user_type === 'A';
     }
 
     /**
@@ -52,6 +52,9 @@ class userPolicy
 
     public function createMyTshirt(User $user): bool
     {
-        return $user->user_type === 'C';
+        if ($user->customer) {
+            return true;
+        }
+        return false;
     }
 }

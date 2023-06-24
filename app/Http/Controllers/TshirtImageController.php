@@ -257,6 +257,39 @@ class TshirtImageController extends Controller
 
     }
 
+    public function create(): View
+    {
+        $categories = Category::all()->whereNull('deleted_at')->sortBy('name');
+
+        return view('catalog.create', compact('categories'));
+    }
+
+    public function store(TshirtImageRequest $request, TshirtImage $catalog): RedirectResponse
+    {
+        $formData = $request->validated();
+        $catalog = DB::transaction(function () use ($formData, $request) {
+            $catalog = new TshirtImage();
+            $catalog->name = $formData['name'];
+            $catalog->description = $formData['description'];
+            $catalog->category_id = $formData['category_id'];
+
+            if ($request->hasFile('image_url')) {
+                $path = $request->file('image_url')->store('public/tshirt_images');
+                $filename = basename($path);
+                $catalog->image_url = $filename;
+            }
+
+            $catalog->save();
+
+            return $catalog;
+        });
+
+        $htmlMessage = "Product $catalog->name was successfully stored!";
+        return redirect()->route('catalog.index')
+            ->with('alert-msg', $htmlMessage)
+            ->with('alert-type', 'success');
+    }
+
     public function edit(TshirtImage $catalog): View
     {
         $tshirtImage = $catalog;

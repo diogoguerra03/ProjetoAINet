@@ -4,6 +4,12 @@
 
 <div class="row mt-5">
     @forelse($tshirts as $index => $tshirtImage)
+        @if (isset($user) &&
+                $user->user_type !== 'C' &&
+                $tshirtImage->customer_id !== null &&
+                $tshirtImage->customer_id !== $user->id)
+            @continue
+        @endif
         <div class="col-md-4 mb-4">
             <div class="card h-100">
                 <a href="{{ route('catalog.show', $tshirtImage->slug) }}">

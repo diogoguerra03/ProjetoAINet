@@ -119,6 +119,9 @@ Route::middleware('auth')->group(function () {
         // catalog
         Route::get('catalog/{slug}/edit', [TshirtImageController::class, 'edit'])->name('catalog.edit');
         Route::delete('catalog/{catalog}/delete', [TshirtImageController::class, 'destroy'])->name('catalog.destroy');
+        Route::get('catalog/create', [TshirtImageController::class, 'create'])->name('catalog.tshirt.create');
+        Route::post('catalog/store', [TshirtImageController::class, 'store'])->name('catalog.tshirt.store');
+
 
     });
 
