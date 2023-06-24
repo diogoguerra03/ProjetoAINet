@@ -11,6 +11,12 @@
         </div>
     @endif
     <h1 class="text-center mb-3 mt-0">Administrators</h1>
+
+
+    <hr>
+    @include('dashboard.shared.filter')
+    <hr>
+
     <a href="{{ route('dashboard.addAdmin') }}" class="text-decoration-none">
     <button type="button" class="btn btn-outline-dark mb-2">
         <div class="d-inline-flex align-items-center">
@@ -68,4 +74,7 @@
             @endforeach
         </tbody>
     </table>
+    <div class="justify-content-center mt-5 ">
+        {{ $admins->withQueryString()->links() }}
+    </div>
 @endsection

@@ -107,14 +107,14 @@ class DashboardController extends Controller
         $filterByName = $request->inputName ?? '';
         $order = $request->order ?? '';
 
-        $customersQuery = User::query();
+        $customersQuery = User::query()->where('user_type', 'C');
 
         if ($filterByID !== '') {
             $customersQuery = $customersQuery->where('id', $filterByID);
         }
 
         if ($filterByName !== '') {
-            $usersQuery = $customersQuery->where('name', 'LIKE', '%' . $filterByName . '%');
+            $customersQuery = $customersQuery->where('name', 'LIKE', '%' . $filterByName . '%');
         }
 
         if ($order !==''){
@@ -139,22 +139,93 @@ class DashboardController extends Controller
 
         $customers = $customersQuery->paginate(50);
 
+
         return view('dashboard.customers', compact('customers', 'filterByID', 'filterByName', 'order'));
     }
 
 
-    public function employees(): View
+    public function employees(Request $request): View
     {
-        $employees = User::where('user_type', 'E')->get();
+        $filterByID = $request->inputID ?? '';
+        $filterByName = $request->inputName ?? '';
+        $order = $request->order ?? '';
 
-        return view('dashboard.employees', compact('employees'));
+        $employeesQuery = User::query()->where('user_type', 'E');
+
+        if ($filterByID !== '') {
+            $employeesQuery = $employeesQuery->where('id', $filterByID);
+        }
+
+        if ($filterByName !== '') {
+            $employeesQuery = $employeesQuery->where('name', 'LIKE', '%' . $filterByName . '%');
+        }
+
+        if ($order !==''){
+            switch ($order) {
+                case 'ascID':
+                    $employeesQuery = $employeesQuery->orderBy('id', 'asc');
+                    break;
+                case 'descID':
+                    $employeesQuery = $employeesQuery->orderBy('id', 'desc');
+                    break;
+                case 'ascDate':
+                    $employeesQuery = $employeesQuery->orderBy('created_at', 'asc');
+                    break;
+                case 'descDate':
+                    $employeesQuery = $employeesQuery->orderBy('created_at', 'desc');
+                    break;
+                default:
+                    $employeesQuery = $employeesQuery->orderBy('id', 'asc');
+                    break;
+            }
+        }
+
+        $employees = $employeesQuery->paginate(50);
+
+
+        return view('dashboard.employees', compact('employees', 'filterByID', 'filterByName', 'order'));
     }
 
-    public function admins(): View
+    public function admins(Request $request): View
     {
-        $admins = User::where('user_type', 'A')->get();
+        $filterByID = $request->inputID ?? '';
+        $filterByName = $request->inputName ?? '';
+        $order = $request->order ?? '';
 
-        return view('dashboard.admins', compact('admins'));
+        $adminsQuery = User::query()->where('user_type', 'A');
+
+        if ($filterByID !== '') {
+            $adminsQuery = $adminsQuery->where('id', $filterByID);
+        }
+
+        if ($filterByName !== '') {
+            $adminsQuery = $adminsQuery->where('name', 'LIKE', '%' . $filterByName . '%');
+        }
+
+        if ($order !==''){
+            switch ($order) {
+                case 'ascID':
+                    $adminsQuery = $adminsQuery->orderBy('id', 'asc');
+                    break;
+                case 'descID':
+                    $adminsQuery = $adminsQuery->orderBy('id', 'desc');
+                    break;
+                case 'ascDate':
+                    $adminsQuery = $adminsQuery->orderBy('created_at', 'asc');
+                    break;
+                case 'descDate':
+                    $adminsQuery = $adminsQuery->orderBy('created_at', 'desc');
+                    break;
+                default:
+                    $adminsQuery = $adminsQuery->orderBy('id', 'asc');
+                    break;
+            }
+        }
+
+        $admins = $adminsQuery->paginate(50);
+
+
+        return view('dashboard.admins', compact('admins', 'filterByID', 'filterByName', 'order'));
     }
 
     public function showOrders(Request $request): View

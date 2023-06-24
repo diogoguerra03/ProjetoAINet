@@ -4,6 +4,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     @if (session('alert-msg'))
         <div class="alert alert-{{ session('alert-type') }} alert-dismissible">
             {{ session('alert-msg') }}
@@ -11,6 +12,11 @@
         </div>
     @endif
     <h1 class="text-center mb-3 mt-0">Employees</h1>
+
+    <hr>
+    @include('dashboard.shared.filter')
+    <hr>
+
     <a href="{{ route('dashboard.addEmployee') }}" class="text-decoration-none">
     <button type="button" class="btn btn-outline-dark mb-2">
         <div class="d-inline-flex align-items-center text-black">
@@ -65,4 +71,7 @@
             @endforeach
         </tbody>
     </table>
+    <div class="justify-content-center mt-5 ">
+        {{ $employees->withQueryString()->links() }}
+    </div>
 @endsection
