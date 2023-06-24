@@ -24,14 +24,25 @@ class CategoryController extends Controller
         return view('dashboard.categories', compact('categories'));
     }
 
-    public function addCategory(CategoryController $request): RedirectResponse
-    {
-        $category = new Category();
-        $category->name = $request->input('name');
-        $category->save();
 
-        return redirect()->back()
-            ->with('alert-msg', "Category added successfully.")
+    public function addCategory(): View
+    {
+        return view('dashboard.addCategory');
+    }
+
+    public function storeCategory(CategoryRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
+        $category = DB::transaction(function () use ($data, $request) {
+            $category = new Category();
+            $category->name = $data['name'];
+            $category->save();
+        });
+
+        $htmlMessage = "Category was successfully created!";
+
+        return redirect()->route('dashboard.showCategories')
+            ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
     }
 
@@ -60,10 +71,12 @@ class CategoryController extends Controller
             return $category;
         });
 
-        $htmlMessage = "Product $category->name was successfully updated!";
+        $htmlMessage = "Category $category->name was successfully updated!";
 
         return redirect()->route('dashboard.showCategories')
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
     }
+
+
 }

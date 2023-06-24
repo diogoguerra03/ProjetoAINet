@@ -112,8 +112,8 @@ Route::middleware('auth')->group(function () {
         Route::delete('/dashboard/categories/delete/{category}', [CategoryController::class, 'deleteCategory'])->name('dashboard.deleteCategory');
         Route::get('/dashboard/categories/edit/{category}', [CategoryController::class, 'editCategory'])->name('dashboard.editCategory');
         Route::put('/dashboard/categories/update/{category}', [CategoryController::class, 'updateCategory'])->name('dashboard.updateCategory');
-        Route::get('/dashboard/categories/add', [DashboardController::class, 'addCategory'])->name('dashboard.addCategory');
-        Route::put('/dashboard/categories/store', [DashboardController::class, 'storeCategory'])->name('dashboard.storeCategory');
+        Route::get('/dashboard/categories/add', [CategoryController::class, 'addCategory'])->name('dashboard.addCategory');
+        Route::put('/dashboard/categories/store', [CategoryController::class, 'storeCategory'])->name('dashboard.storeCategory');
 
         // catalog
         Route::get('catalog/{slug}/edit', [TshirtImageController::class, 'edit'])->name('catalog.edit');

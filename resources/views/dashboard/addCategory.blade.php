@@ -31,6 +31,7 @@
                     <div class="d-flex justify-content-end">
                         <div class="mr-1">
                             <button type="submit" class="btn btn-primary" name="ok">Save</button>
+                            <a href="{{ route('dashboard.showCategories') }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
                         </div>
                     </div>
                 </form>
