@@ -141,8 +141,8 @@ class TshirtImageController extends Controller
             $catalog = new TshirtImage();
             $catalog->name = $formData['name'];
             $catalog->description = $formData['description'];
-            $catalog->category_id = $formData['category_id'];
-            $catalog->customer_id = $formData['customer_id'];
+            // $catalog->category_id = $formData['category_id'];
+            $catalog->customer_id = auth()->user()->id;
 
             if ($request->hasFile('image_url')) {
                 $path = Storage::putFile('tshirt_images_private', $request->file('image_url'));
@@ -164,6 +164,7 @@ class TshirtImageController extends Controller
     public function editMyTshirt(User $user, string $slug): View
     {
         $currentUser = auth()->user();
+        dd($user->customer);
 
         if ($currentUser->id !== $user->id) {
             $user = $currentUser;
@@ -332,7 +333,6 @@ class TshirtImageController extends Controller
 
     public function destroy(TshirtImage $catalog): RedirectResponse
     {
-        // $this->authorize('delete', TshirtImage::class);
         if ($catalog->orderItems()->exists()) {
             $catalog->delete();
         } else {

@@ -11,41 +11,7 @@
                     @csrf
                     @method('POST')
 
-                    <div class="form-group">
-                        <label for="name">{{ __('Name') }}</label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                            name="name" required>
-                        @error('name')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="description">{{ __('Description') }}</label>
-                        <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
-                            rows="3" required></textarea>
-                        @error('description')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-
-
-                    <input type="hidden" name="category_id" value="">
-                    <input type="hidden" name="customer_id" value="{{ $user->id }}">
-                    <div class="form-group">
-                        <label for="image">{{ __('Image') }}</label>
-                        <input type="file" class="form-control @error('image_url') is-invalid @enderror" id="image_url"
-                            name="image_url" accept="image/*" required>
-                        @error('image_url')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
+                    @include('tshirts.shared.create_fields', ['admin' => false])
 
                     <div class="form-group mb-0">
                         <button type="submit" class="btn btn-primary" name="ok">{{ __('Update') }}</button>
