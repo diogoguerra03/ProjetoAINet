@@ -117,7 +117,7 @@ class DashboardController extends Controller
             $customersQuery = $customersQuery->where('name', 'LIKE', '%' . $filterByName . '%');
         }
 
-        if ($order !==''){
+        if ($order !== '') {
             switch ($order) {
                 case 'ascID':
                     $customersQuery = $customersQuery->orderBy('id', 'asc');
@@ -160,7 +160,7 @@ class DashboardController extends Controller
             $employeesQuery = $employeesQuery->where('name', 'LIKE', '%' . $filterByName . '%');
         }
 
-        if ($order !==''){
+        if ($order !== '') {
             switch ($order) {
                 case 'ascID':
                     $employeesQuery = $employeesQuery->orderBy('id', 'asc');
@@ -202,7 +202,7 @@ class DashboardController extends Controller
             $adminsQuery = $adminsQuery->where('name', 'LIKE', '%' . $filterByName . '%');
         }
 
-        if ($order !==''){
+        if ($order !== '') {
             switch ($order) {
                 case 'ascID':
                     $adminsQuery = $adminsQuery->orderBy('id', 'asc');
@@ -228,65 +228,6 @@ class DashboardController extends Controller
         return view('dashboard.admins', compact('admins', 'filterByID', 'filterByName', 'order'));
     }
 
-    public function showOrders(Request $request): View
-    {
-        $filterByOrderID = $request->order_id ?? '';
-        $filterByCustID = $request->customer_id ?? '';
-        $filterByStatus = $request->status ?? '';
-
-
-        $ordersQuery = Order::query()->orderByDesc('created_at');
-
-
-        if ($filterByStatus !== '') {
-            $ordersQuery = $ordersQuery->where('status', $filterByStatus);
-        }
-
-        if ($filterByCustID !== '') {
-            $ordersQuery = $ordersQuery->where('customer_id', $filterByCustID);
-        }
-
-        if ($filterByOrderID !== '') {
-            $ordersQuery = $ordersQuery->where('id', $filterByOrderID);
-        }
-
-        $orders = $ordersQuery->paginate(50);
-
-        return view('dashboard.orders', compact('orders', 'filterByStatus', 'filterByCustID', 'filterByOrderID'));
-    }
-
-    public function updateOrder(Request $request, Order $order): RedirectResponse
-    {
-        $order->status = $request->status;
-        $order->save();
-
-        return redirect()->back()
-            ->with('alert-msg', "Order no. $order->id updated to \"$order->status\" successfully.")
-            ->with('alert-type', 'success');
-    }
-
-    public function showDetails(Order $order): View
-    {
-        $user = User::where('id', $order->customer_id)->first();
-        $orderItems = OrderItem::where('order_id', $order->id)->get();
-        $customer = Customer::where('id', $order->customer_id)->first();
-
-        $tshirts = [];
-        $colors = [];
-
-        foreach ($orderItems as $orderItem) {
-            $tshirt = TshirtImage::find($orderItem->tshirt_image_id);
-            $tshirts[$orderItem->id] = [
-                'name' => $tshirt ? $tshirt->name : '',
-                'image_url' => $tshirt ? $tshirt->image_url : '',
-            ];
-
-            $color = Color::where('code', $orderItem->color_code)->pluck('name')->first();
-            $colors[$orderItem->id] = $color ? $color : '';
-        }
-
-        return view('dashboard.orderDetails', compact('order', 'user', 'tshirts', 'colors', 'orderItems'));
-    }
 
     public function deleteUser(User $user): RedirectResponse
     {

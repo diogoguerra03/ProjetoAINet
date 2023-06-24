@@ -37,7 +37,6 @@ Auth::routes([
     'verify' => true,
 ]);
 
-Route::resource('orders', OrderController::class);
 
 Route::resource('customers', CustomerController::class);
 
@@ -46,6 +45,7 @@ Route::get('catalog/{slug}', [TshirtImageController::class, 'show'])->name('cata
 Route::get('catalog/{slug}/image', [TshirtImageController::class, 'getfile'])->name('photo');
 
 Route::middleware('auth')->group(function () {
+    Route::resource('orders', OrderController::class);
 
     Route::middleware('verified')->group(function () {
         // Perfil
@@ -65,10 +65,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/profile/{user}/createTshirt', [TshirtImageController::class, 'createMyTshirt'])->name('tshirt.create');
         Route::post('/profile/{user}/createTshirt', [TshirtImageController::class, 'storeMyTshirt'])->name('tshirt.store');
         Route::delete('profile/{user}/{slug}/delete', [TshirtImageController::class, 'destroyMyTshirt'])->name('tshirt.destroy');
-        Route::get('/password/change', [ChangePasswordController::class, 'show'])
-            ->name('password.change.show');
-        Route::post('/password/change', [ChangePasswordController::class, 'store'])
-            ->name('password.change.store');
+
 
         // Encomenda
         Route::post('/cart/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
@@ -126,10 +123,15 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('employee')->group(function () {
-        Route::get('/dashboard/orders', [DashboardController::class, 'showOrders'])->name('dashboard.orders');
-        Route::put('/dashboard/orders/{order}/update', [DashboardController::class, 'updateOrder'])->name('dashboard.orders.update');
-        Route::get('/dashboard/orders/{order}/details', [DashboardController::class, 'showDetails'])->name('dashboard.orders.details');
+        Route::get('/dashboard/orders', [OrderController::class, 'index'])->name('dashboard.orders');
+        Route::put('/dashboard/orders/{order}/update', [OrderController::class, 'update'])->name('dashboard.orders.update');
+        Route::get('/dashboard/orders/{order}/details', [OrderController::class, 'showDetails'])->name('dashboard.orders.details');
     });
+
+    Route::get('/password/change', [ChangePasswordController::class, 'show'])
+        ->name('password.change.show');
+    Route::post('/password/change', [ChangePasswordController::class, 'store'])
+        ->name('password.change.store');
 });
 
 
